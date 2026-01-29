@@ -1,0 +1,1808 @@
+
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:22px;text-align:left;color:#555;'>
+                                    <div class='content'>
+                                    <div class='title'>
+                                        Bonjour <span class='important'>KOUAKOU KOUAME YVES</span> !
+                                    </div>  <br>
+                                               <label style='color:green'> La demande de Rendez-vous <b>RDV-HFLVTQ - n° 33544</b>  a ete transmise</label>,</br> <br>                                
+                                        Resume de la demande  :<br>
+                                        <ul>
+                                            <li>Date RDV : <b>05/01/2026</b></li>
+                                            <li>Motif : <b>Renonciation</b></li>
+                                            <li>Code RDV : <b>RDV-HFLVTQ</b></li>
+                                            <li>Id du contrat : <b>12345</b></li>
+                                            <li>Ville RDV : <b>ABIDJAN</b></li>
+                                            
+                                        </ul>
+                                        <br>
+                                        <div class='card-body p-2' style='background-color:bisque ; font-weight:bold;'>
+                                        <h2 class='text-center p-4' style='color:#033f1f ; font-weight:bold;'> Contact du gestionnaire </h2> <hr>
+                                        <ul>
+                                            <li>Gestionnaire : <b>AMANI BAH ROMARIC 2</b></li>
+                                            <li>Telephone : <b>0759178034</b></li>
+                                        </ul>
+                                        </div>                          
+                                </div>
+                                  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+
+ | Message de notification a bien été envoyé à gggg@ttt.com ( 
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:22px;text-align:left;color:#555;'>
+                                    <div class='content'>
+                                    <div class='title'>
+                                        Bonjour <span class='important'>KOUAKOU KOUAME YVES</span> !
+                                    </div>  <br>
+                                               <label style='color:green'> La demande de Rendez-vous <b>RDV-HFLVTQ - n° 33544</b>  a ete transmise</label>,</br> <br>                                
+                                        Resume de la demande  :<br>
+                                        <ul>
+                                            <li>Date RDV : <b>05/01/2026</b></li>
+                                            <li>Motif : <b>Renonciation</b></li>
+                                            <li>Code RDV : <b>RDV-HFLVTQ</b></li>
+                                            <li>Id du contrat : <b>12345</b></li>
+                                            <li>Ville RDV : <b>ABIDJAN</b></li>
+                                            
+                                        </ul>
+                                        <br>
+                                        <div class='card-body p-2' style='background-color:bisque ; font-weight:bold;'>
+                                        <h2 class='text-center p-4' style='color:#033f1f ; font-weight:bold;'> Contact du gestionnaire </h2> <hr>
+                                        <ul>
+                                            <li>Gestionnaire : <b>AMANI BAH ROMARIC 2</b></li>
+                                            <li>Telephone : <b>0759178034</b></li>
+                                        </ul>
+                                        </div>                          
+                                </div>
+                                  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+ ) 
+
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:22px;text-align:left;color:#555;'>
+                                    <div class='content'>
+                                    <div class='title'>
+                                        Bonjour <span class='important'>KOUAKOU KOUAME YVES</span> !
+                                    </div>  <br>
+                                               <label style='color:green'> La demande de Rendez-vous <b>RDV-HFLVTQ - n° 33544</b>  a ete transmise</label>,</br> <br>                                
+                                        Resume de la demande  :<br>
+                                        <ul>
+                                            <li>Date RDV : <b>05/01/2026</b></li>
+                                            <li>Motif : <b>Renonciation</b></li>
+                                            <li>Code RDV : <b>RDV-HFLVTQ</b></li>
+                                            <li>Id du contrat : <b>12345</b></li>
+                                            <li>Ville RDV : <b>ABIDJAN</b></li>
+                                            
+                                        </ul>
+                                        <br>
+                                        <div class='card-body p-2' style='background-color:bisque ; font-weight:bold;'>
+                                        <h2 class='text-center p-4' style='color:#033f1f ; font-weight:bold;'> Contact du gestionnaire </h2> <hr>
+                                        <ul>
+                                            <li>Gestionnaire : <b>AMANI BAH ROMARIC 2</b></li>
+                                            <li>Telephone : <b>0759178034</b></li>
+                                        </ul>
+                                        </div>                          
+                                </div>
+                                  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+
+ | Message de notification a bien été envoyé à gggg@ttt.com ( 
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:22px;text-align:left;color:#555;'>
+                                    <div class='content'>
+                                    <div class='title'>
+                                        Bonjour <span class='important'>KOUAKOU KOUAME YVES</span> !
+                                    </div>  <br>
+                                               <label style='color:green'> La demande de Rendez-vous <b>RDV-HFLVTQ - n° 33544</b>  a ete transmise</label>,</br> <br>                                
+                                        Resume de la demande  :<br>
+                                        <ul>
+                                            <li>Date RDV : <b>05/01/2026</b></li>
+                                            <li>Motif : <b>Renonciation</b></li>
+                                            <li>Code RDV : <b>RDV-HFLVTQ</b></li>
+                                            <li>Id du contrat : <b>12345</b></li>
+                                            <li>Ville RDV : <b>ABIDJAN</b></li>
+                                            
+                                        </ul>
+                                        <br>
+                                        <div class='card-body p-2' style='background-color:bisque ; font-weight:bold;'>
+                                        <h2 class='text-center p-4' style='color:#033f1f ; font-weight:bold;'> Contact du gestionnaire </h2> <hr>
+                                        <ul>
+                                            <li>Gestionnaire : <b>AMANI BAH ROMARIC 2</b></li>
+                                            <li>Telephone : <b>0759178034</b></li>
+                                        </ul>
+                                        </div>                          
+                                </div>
+                                  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+ ) 
+
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                
+<div style='font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#555;'>
+
+    <p>
+        Bonjour <b>KOUAKOU KOUAME YVES</b>,
+    </p>
+
+    <p style='color:green;font-weight:bold;'>
+        Votre demande de rendez-vous <b>RDV-HFLVTQ – n° 33544</b> a bien été transmise.
+    </p>
+
+    <p><b>Détails du rendez-vous :</b></p>
+
+    <ul>
+        <li>Date : <b>05/01/2026</b></li>
+        <li>Motif : <b>Renonciation</b></li>
+        <li>Contrat : <b>12345</b></li>
+        <li>Ville : <b>ABIDJAN</b></li>
+    </ul>
+
+    <div style='background-color:bisque;padding:10px;margin-top:15px;'>
+        <b>Gestionnaire :</b> AMANI BAH ROMARIC 2<br>
+        <b>Téléphone :</b> 0759178034
+    </div>
+
+    <p style='margin-top:15px;'>
+        Cordialement,<br>
+        L’équipe de gestion
+    </p>
+
+</div>
+  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+
+ | Message de notification a bien été envoyé à gggg@ttt.com ( 
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                
+<div style='font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#555;'>
+
+    <p>
+        Bonjour <b>KOUAKOU KOUAME YVES</b>,
+    </p>
+
+    <p style='color:green;font-weight:bold;'>
+        Votre demande de rendez-vous <b>RDV-HFLVTQ – n° 33544</b> a bien été transmise.
+    </p>
+
+    <p><b>Détails du rendez-vous :</b></p>
+
+    <ul>
+        <li>Date : <b>05/01/2026</b></li>
+        <li>Motif : <b>Renonciation</b></li>
+        <li>Contrat : <b>12345</b></li>
+        <li>Ville : <b>ABIDJAN</b></li>
+    </ul>
+
+    <div style='background-color:bisque;padding:10px;margin-top:15px;'>
+        <b>Gestionnaire :</b> AMANI BAH ROMARIC 2<br>
+        <b>Téléphone :</b> 0759178034
+    </div>
+
+    <p style='margin-top:15px;'>
+        Cordialement,<br>
+        L’équipe de gestion
+    </p>
+
+</div>
+  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+ ) 
+
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                
+<div style='font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#555;'>
+
+    <p>
+        Bonjour <b>KOUAKOU KOUAME YVES</b>,
+    </p>
+
+    <p style='color:green;font-weight:bold;'>
+        Votre demande de rendez-vous <b>RDV-HFLVTQ – n° 33544</b> a bien été transmise.
+    </p>
+
+    <p><b>Détails du rendez-vous :</b></p>
+
+    <ul>
+        <li>Date : <b>05/01/2026</b></li>
+        <li>Motif : <b>Renonciation</b></li>
+        <li>Contrat : <b>12345</b></li>
+        <li>Ville : <b>ABIDJAN</b></li>
+    </ul>
+
+    <div style='background-color:bisque;padding:10px;margin-top:15px;'>
+        <b>Gestionnaire :</b> AMANI BAH ROMARIC 2<br>
+        <b>Téléphone :</b> 0759178034
+    </div>
+
+    <p style='margin-top:15px;'>
+        Cordialement,<br>
+        L’équipe de gestion
+    </p>
+
+</div>
+  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+
+ | Message de notification a bien été envoyé à gggg@ttt.com ( 
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                
+<div style='font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#555;'>
+
+    <p>
+        Bonjour <b>KOUAKOU KOUAME YVES</b>,
+    </p>
+
+    <p style='color:green;font-weight:bold;'>
+        Votre demande de rendez-vous <b>RDV-HFLVTQ – n° 33544</b> a bien été transmise.
+    </p>
+
+    <p><b>Détails du rendez-vous :</b></p>
+
+    <ul>
+        <li>Date : <b>05/01/2026</b></li>
+        <li>Motif : <b>Renonciation</b></li>
+        <li>Contrat : <b>12345</b></li>
+        <li>Ville : <b>ABIDJAN</b></li>
+    </ul>
+
+    <div style='background-color:bisque;padding:10px;margin-top:15px;'>
+        <b>Gestionnaire :</b> AMANI BAH ROMARIC 2<br>
+        <b>Téléphone :</b> 0759178034
+    </div>
+
+    <p style='margin-top:15px;'>
+        Cordialement,<br>
+        L’équipe de gestion
+    </p>
+
+</div>
+  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+ ) 
+
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                
+                    <div style='font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#555;'>
+                        <p>
+                            Bonjour <b>KOUAKOU KOUAME YVES</b>,
+                        </p>
+                        <p style='color:green;font-weight:bold;'>
+                            Votre demande de rendez-vous <b>RDV-HFLVTQ – n° 33544</b> a bien été transmise.
+                        </p>
+                        <p><b>Détails du rendez-vous :</b></p>
+                        <ul>
+                            <li>Date : <b>05/01/2026</b></li>
+                            <li>Motif : <b>Renonciation</b></li>
+                            <li>Contrat : <b>12345</b></li>
+                            <li>Ville : <b>ABIDJAN</b></li>
+                        </ul>
+                        <div style='background-color:bisque;padding:10px;margin-top:15px;'>
+                            <b>Gestionnaire :</b> AMANI BAH ROMARIC 2<br>
+                            <b>Téléphone :</b> 0759178034
+                        </div>
+                        <p style='margin-top:15px;'>
+                            Cordialement,<br>
+                            L’équipe de gestion
+                        </p>
+
+                    </div>  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+
+ | Message de notification a bien été envoyé à gggg@ttt.com ( 
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                
+                    <div style='font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#555;'>
+                        <p>
+                            Bonjour <b>KOUAKOU KOUAME YVES</b>,
+                        </p>
+                        <p style='color:green;font-weight:bold;'>
+                            Votre demande de rendez-vous <b>RDV-HFLVTQ – n° 33544</b> a bien été transmise.
+                        </p>
+                        <p><b>Détails du rendez-vous :</b></p>
+                        <ul>
+                            <li>Date : <b>05/01/2026</b></li>
+                            <li>Motif : <b>Renonciation</b></li>
+                            <li>Contrat : <b>12345</b></li>
+                            <li>Ville : <b>ABIDJAN</b></li>
+                        </ul>
+                        <div style='background-color:bisque;padding:10px;margin-top:15px;'>
+                            <b>Gestionnaire :</b> AMANI BAH ROMARIC 2<br>
+                            <b>Téléphone :</b> 0759178034
+                        </div>
+                        <p style='margin-top:15px;'>
+                            Cordialement,<br>
+                            L’équipe de gestion
+                        </p>
+
+                    </div>  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+ ) 
+
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div style='font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#555;'>
+                        <p>
+                            Bonjour <b>KOUAKOU KOUAME YVES</b>,
+                        </p>
+                        <p style='color:green;font-weight:bold;'>
+                            Votre demande de rendez-vous <b>RDV-HFLVTQ – n° 33544</b> a bien été transmise.
+                        </p>
+                        <p><b>Détails du rendez-vous :</b></p>
+                        <ul>
+                            <li>Date : <b>05/01/2026</b></li>
+                            <li>Motif : <b>Renonciation</b></li>
+                            <li>Contrat : <b>12345</b></li>
+                            <li>Ville : <b>ABIDJAN</b></li>
+                        </ul>
+                        <div style='background-color:bisque;padding:10px;margin-top:15px;'>
+                            <b>Gestionnaire :</b> AMANI BAH ROMARIC 2<br>
+                            <b>Téléphone :</b> 0759178034
+                        </div>
+                    </div>  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+
+ | Message de notification a bien été envoyé à gggg@ttt.com ( 
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #555;
+            }
+            .title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .important {
+                font-weight: bold;
+                color: #2C7B77;
+            }
+            .link {
+                color: #2F67F6;
+                text-decoration: none;
+            }
+            .button {
+                background-color: #033f1f;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>                   
+
+        <div style='background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;'>
+
+            <div class='row'>
+                <div class='card-box mb-30'>
+                    <div class='row center-block'>
+                        <div class='col-lg-3'></div>
+
+                        <div class='col-lg-6'>
+                            <center>
+                                <img src='www.yakoafricassur.com/gestion-demande-compte/vendors/images/entete-yako-africa.png' width='100%' alt='' srcset=''>
+                            </center>
+                        </div>
+                        <div class='col-lg-3'></div>
+                    </div>
+                </div>
+            </div>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation'  style='background:#fff;background-color:#fff;width:100%;'>
+                <tbody>
+                    <tr>
+                        <td  style='border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                            <div class='mj-column-per-100 outlook-group-fix' style='font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;'>
+
+                            <table border='0' cellpadding='0' cellspacing='0' role='presentation'  style='vertical-align:bottom;' width='100%'>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                        <table align='center' border='0' cellpadding='0' cellspacing='0'
+                                            role='presentation'
+                                            style='border-collapse:collapse;border-spacing:0px; background-color:#033f1f;'>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'
+                                        style='font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;'>
+                                        <div
+                                            style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;'>
+                                            Chèr(e) &nbsp; KOUAKOU KOUAME YVES  !!
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div style='font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#555;'>
+                        <p>
+                            Bonjour <b>KOUAKOU KOUAME YVES</b>,
+                        </p>
+                        <p style='color:green;font-weight:bold;'>
+                            Votre demande de rendez-vous <b>RDV-HFLVTQ – n° 33544</b> a bien été transmise.
+                        </p>
+                        <p><b>Détails du rendez-vous :</b></p>
+                        <ul>
+                            <li>Date : <b>05/01/2026</b></li>
+                            <li>Motif : <b>Renonciation</b></li>
+                            <li>Contrat : <b>12345</b></li>
+                            <li>Ville : <b>ABIDJAN</b></li>
+                        </ul>
+                        <div style='background-color:bisque;padding:10px;margin-top:15px;'>
+                            <b>Gestionnaire :</b> AMANI BAH ROMARIC 2<br>
+                            <b>Téléphone :</b> 0759178034
+                        </div>
+                    </div>  
+        
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+
+                                <div
+                                    style='font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;'>
+                                    Best regards,<br><br> YAKOAFRICASSUR<br>DSI conception<br>
+                                    <a href='https://www.yakoafricassur.com'
+                                        style='color:#2F67F6'>yakoafricassur.com</a>
+                                </div>
+                                 <div class='content'>
+            Cordialement,<br>
+            L'équipe de YAKOAFRICASSUR<br>
+            <a href='https://www.yakoafricassur.com' class='link'>www.yakoafricassur.com</a>
+        </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+    </body>
+    </html>
+ ) 
