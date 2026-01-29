@@ -4,7 +4,7 @@ class Config
 {
 
     const Societe = "YAKO AFRICA";
-    const plateformeName = "PRESTATION-ADMIN";
+    const plateformeName = "RDV-ADMIN";
     const URL_YAKO = "https://www.yakoafricassur.com";
 
     const Version = "1.0.0";

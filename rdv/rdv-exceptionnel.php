@@ -154,7 +154,7 @@ $tablo_doc_attendu = array();
                                         <p>Rendez-vous Exeptionnel du : <span id="dateheure" class="font-weight-bold"> <?= date('d/m/Y H:i:s') ?> </span></p>
                                     </div>
                                     <div class="col-md-6 text-right">
-                                        <p>Prit par : <span class="font-weight-bold"><?= $_SESSION['utilisateur'] ?></span></p>
+                                        <p>Pris par : <span class="font-weight-bold"><?= $_SESSION['utilisateur'] ?></span></p>
                                     </div>
                                 </div>
                             </div>

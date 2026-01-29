@@ -104,7 +104,7 @@ $cible = $tablo[4];
                         <li>
                             <div class="dropdown-divider"></div>
                         </li>
-                        <li class="dropdown">
+                        <!-- <li class="dropdown">
                             <a href="tableau-suivi-rdv" class="dropdown-toggle no-arrow" style="font-size:14px">
                                 <span class="micon fa fa-area-chart"></span><span class="mtext">Tableau de suivi</span>
                             </a>
@@ -117,7 +117,7 @@ $cible = $tablo[4];
                                 <span class="micon dw dw-user"></span>
                                 <span class="mtext">Utilisateurs</span>
                             </a>
-                        </li>
+                        </li> -->
 
 
                     <?php elseif ($profil === 'gestionnaire' || ($profil === 'agent' || $profil === 'interim')): ?>
