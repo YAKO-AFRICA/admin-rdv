@@ -310,7 +310,7 @@ $effectue = 0;
 			const headers = excelData[0];
 			const rows = [];
 
-			for (let i = 1; i < excelData.length; i++) {
+			for (let i = 0; i < excelData.length; i++) {
 				const row = {};
 				// headers.forEach((header, index) => {
 				// 	row[i] = excelData[i][index] ?? '';
