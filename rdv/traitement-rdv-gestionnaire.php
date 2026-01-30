@@ -698,10 +698,11 @@ if (isset($_COOKIE["idrdv"])) {
             var motif = document.getElementById("motif").value;
             var traiterpar = document.getElementById("traiterpar").value;
             var observation = document.getElementById("observations").value;
+            var motantOperationTotal = document.getElementById("motantOperationTotal").value;
 
             let valideur = <?= $_SESSION['id'] ?>
 
-            console.log(idrdv, motif, valideur, traiterpar, observation);
+            console.log(idrdv, motif, valideur, traiterpar, observation, motantOperationTotal);
             $.ajax({
                 url: "../config/routes.php",
                 data: {
@@ -709,6 +710,7 @@ if (isset($_COOKIE["idrdv"])) {
                     motif: motif,
                     traiterpar: valideur,
                     observation: observation,
+                    motantOperation: motantOperationTotal,
                     etat: "confirmerPermissionDepotRDV"
                 },
                 dataType: "json",
@@ -1157,6 +1159,8 @@ if (isset($_COOKIE["idrdv"])) {
                             Veuillez renseigner le motif après reception <span style="color:red;">*</span> :
                         </label>
                         <textarea class="form-control" id="obervation" name="obervation"></textarea>
+                        
+                        <input type="number" class="form-control" id="motantOperationTotal" name="motantOperationTotal" value="<?php echo intval($montantTotal); ?>">
                     </div>
                     <span id="libMotif"></span> </div>`;
 
