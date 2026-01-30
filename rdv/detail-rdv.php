@@ -250,15 +250,15 @@ if (isset($_COOKIE["idrdv"])) {
                                 <p><span class="text-color">Sms envoyé ? :</span> <span style="text-transform:uppercase; font-weight:bold;" class="<?php echo $color_etatSms; ?>"><?php echo $lib_etatSms ?></span></p>
                                 <p>
                                     <span class="text-color">Issue apres Rdv :</span>
-                                    <?php if ($rdv->estPermit == 1 && $rdv->etatTraitement == 1): ?>
+                                    <?php if ($rdv->estPermit == 1 && $rdv->etatTraitement == 2): ?>
                                         <span class="text-infos"><span class="btn btn-success btn-sm">Accordé pour <?= $rdv->motifrdv  ?> </span></span>
-                                    <?php elseif ($rdv->estPermit == 1 && $rdv->etatTraitement != 5): ?>
+                                    <?php elseif ($rdv->estPermit == 1 && $rdv->etatTraitement != 2): ?>
                                         <span class="text-infos"><span class="btn btn-danger ">Non Accordé pour <?= $rdv->motifrdv  ?></span></span>
-                                    <?php elseif ($rdv->etatTraitement == 5): ?>
+                                        
+                                    <?php endif; ?>
+                
+                                    <?php if ($rdv->etatTraitement == 5): ?>
                                         <button class="btn btn-warning btn-sm modifier" id="modifier-<?= $rdv->idrdv ?> " style="background-color:#F9B233; color:white"><i class="fa fa-edit"></i> Modifier rdv</button>
-
-                                    <?php else: ?>
-                                        <span class="text-infos"><span class="btn btn-danger ">Non Accordé pour <?= $rdv->motifrdv  ?></span></span>
 
                                     <?php endif; ?>
                                 </p>
