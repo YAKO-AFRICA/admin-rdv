@@ -4,7 +4,7 @@ session_start();
 
 
 if (!isset($_SESSION['id'])) {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }
 
@@ -190,7 +190,7 @@ if (isset($_COOKIE["idrdv"])) {
 
                     </div>
                 </div>
-                <?php if ($rdv->etat == "2" || $rdv->etat == "3"): ?>
+                <!-- <?php if ($rdv->etat == "2" || $rdv->etat == "3"): ?>
                     <div class="card-box mb-30">
                         <div class="pd-20">
                             <h4 class="text-blue h4" style="color:#033f1f!important;">Détail Transmission du Rendez-vous effectif</h4>
@@ -227,7 +227,7 @@ if (isset($_COOKIE["idrdv"])) {
                             </div>
                         </div>
                     </div>
-                <?php endif; ?>
+                <?php endif; ?> -->
 
                 <?php
                 // print_r($rdv);

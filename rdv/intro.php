@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['id'])) {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Active la langue française
