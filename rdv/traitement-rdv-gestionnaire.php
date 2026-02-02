@@ -876,12 +876,12 @@ if (isset($_COOKIE["idrdv"])) {
                 let htmlAvance = `
                     <!-- Le reste de ton contenu ici -->
                     <h4 class="text-center p-2" style="color:#033f1f;  font-weight:bold; "> Operation ${tabloOperation.operation} </h4>
-                    <p>Le montant maximum ${tabloOperation.operation} est de : <span class="text-danger font-weight-bold"><?php echo number_format($valeurRachat, 0, ',', ' '); ?> FCFA </span> </p>
+                    <p>Le montant maximum ${tabloOperation.operation} est de : <span class="text-danger font-weight-bold"><?php echo number_format($valeurMaxRachat, 0, ',', ' '); ?> FCFA </span> </p>
                             <div style="border-top: 4px solid #033f1f;width : 100%;text-align: center;"></div>
                             <div class="row">
                                 <div class="form-group col-md-12 col-sm-12">
                                     <label for="tel" class="col-form-label">Motant souhaité de ${tabloOperation.operation} :</label>
-                                    <input type="number" class="form-control" id="montantsouhaitePartiel" name="montantsouhaitePartiel" placeholder="Montant souhaité de ${tabloOperation.operation}" value="<?php echo intval($valeurRachat); ?>" max="<?php echo intval($valeurRachat); ?>">
+                                    <input type="number" class="form-control" id="montantsouhaitePartiel" name="montantsouhaitePartiel" placeholder="Montant souhaité de ${tabloOperation.operation}" value="<?php echo intval($valeurMaxRachat); ?>" max="<?php echo intval($valeurMaxRachat); ?>">
                                 </div>
                             </div>
                     `
