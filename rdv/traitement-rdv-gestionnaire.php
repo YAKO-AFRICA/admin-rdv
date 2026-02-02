@@ -55,6 +55,7 @@ if (isset($_COOKIE["idrdv"])) {
     $MontantTransformation = 0;
     $valeurRachat = 0;
     $valeurMaxAvance = 0;
+    $valeurMaxRachat = 0;
 
     if (!empty($infosBordereaux[0])) {
 
@@ -64,6 +65,7 @@ if (isset($_COOKIE["idrdv"])) {
         $MontantTransformation = (int) ($infosBordereaux[0]->MontantTransformation ?? 0);
         $valeurRachat = (int) ($infosBordereaux[0]->valeurRachat ?? 0);
         $valeurMaxAvance = (int) ($infosBordereaux[0]->valeurMaxAvance ?? 0);
+        $valeurMaxRachat = (int) ($infosBordereaux[0]->valeurMaxRachat ?? 0);
     }
     $afficheuse = TRUE;
 } else {
