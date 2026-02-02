@@ -250,9 +250,9 @@ if (isset($_COOKIE["idrdv"])) {
                                 <p><span class="text-color">Sms envoyé ? :</span> <span style="text-transform:uppercase; font-weight:bold;" class="<?php echo $color_etatSms; ?>"><?php echo $lib_etatSms ?></span></p>
                                 <p>
                                     <span class="text-color">Issue apres Rdv :</span>
-                                    <?php if ($rdv->estPermit == 1 && $rdv->etatTraitement == 2): ?>
+                                    <?php if ($rdv->estPermit == 1 && $rdv->etatTraitement == 1): ?>
                                         <span class="text-infos"><span class="btn btn-success btn-sm">Accordé pour <?= $rdv->motifrdv  ?> </span></span>
-                                    <?php elseif ($rdv->estPermit == 1 && $rdv->etatTraitement != 2): ?>
+                                    <?php elseif ($rdv->estPermit == 1 && $rdv->etatTraitement != 1): ?>
                                         <span class="text-infos"><span class="btn btn-danger ">Non Accordé pour <?= $rdv->motifrdv  ?></span></span>
                                         
                                     <?php endif; ?>

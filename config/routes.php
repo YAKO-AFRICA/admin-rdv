@@ -659,7 +659,7 @@ if ($request->action != null) {
                 $rdv = $retour[0];
 
                 $idmotif = "";
-                $etatTraitement = "2";
+                $etatTraitement = "1";
                 $libelleTraitement = "Le client a la permission de faire une demande de " . $rdv->motifrdv;
 
                 $result_typeprestation = $fonction->getRetourneTypePrestation(" AND LOWER(libelle) like '%" . strtolower($rdv->motifrdv) . "%' ");
