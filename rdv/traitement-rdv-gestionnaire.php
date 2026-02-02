@@ -255,6 +255,9 @@ if (isset($_COOKIE["idrdv"])) {
                                                 <p class="mb-0">
                                                     Cumul rachats partiels : <span class="text-info font-weight-bold"><?= empty($bordereau->cumulRachatsPartiels) ? "" : number_format($bordereau->cumulRachatsPartiels, 0, ',', ' ') ?> FCFA</span>
                                                 </p>
+                                                <p class="mb-0">
+                                                    Valeur max rachats partiels : <span class="text-info font-weight-bold"><?= empty($bordereau->valeurMaxRachat) ? "" : number_format($bordereau->valeurMaxRachat, 0, ',', ' ') ?> FCFA</span>
+                                                </p>
                                             </div>
 
                                             <div class="form-group col-md-5">
