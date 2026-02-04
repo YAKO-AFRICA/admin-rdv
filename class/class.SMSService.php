@@ -82,25 +82,25 @@ class SMSService
             ]
         ];
 
-        // $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL, $url);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        // curl_setopt($ch, CURLOPT_POST, 1);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
 
-        // $response = curl_exec($ch);
-        // curl_close($ch);
+        $response = curl_exec($ch);
+        curl_close($ch);
 
-        // @file_put_contents(Config::LogDirectory . 'sms-notif-ynov.log', date('Y-m-d H:i:s') . '|' . $phoneNumber . '|' . $from . '| ' . $message . '| result = ' . json_encode($response) . ': ' . PHP_EOL, FILE_APPEND);
+        @file_put_contents(Config::LogDirectory . 'sms-notif-ynov.log', date('Y-m-d H:i:s') . '|' . $phoneNumber . '|' . $from . '| ' . $message . '| result = ' . json_encode($response) . ': ' . PHP_EOL, FILE_APPEND);
 
-        // if ($response === false) {
-        //     return ['error' => 'Erreur lors de l\'envoi du SMS via Infobip : ' . curl_error($ch)];
-        // }
+        if ($response === false) {
+            return ['error' => 'Erreur lors de l\'envoi du SMS via Infobip : ' . curl_error($ch)];
+        }
 
 
 
-        // return json_decode($response, true);
+        return json_decode($response, true);
     }
 
     // Fonction pour envoyer un OTP via l'API Orange
