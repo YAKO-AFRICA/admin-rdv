@@ -25,9 +25,11 @@ $cible = $tablo[4];
 <!-- MENU LATERAL -->
 
 <div class="left-side-bar">
-    <div class="brand-logo">
+    <div class="brand-logo p">
         <a href="<?= Config::URL_YAKO ?>">
-            <img src="../vendors/images/logo.png" alt="" class="dark-logo">
+            <!-- <img src="../vendors/images/logo.png" alt="" class="dark-logo"> -->
+             <img src="../vendors/images/logo.png" alt="elelelel" class="dark-logo">
+            <img src="../vendors/images/logo.png" alt="vvvdv" class="light-logo">
         </a>
     </div>
 
