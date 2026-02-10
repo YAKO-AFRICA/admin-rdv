@@ -441,6 +441,7 @@ if (isset($_COOKIE["idrdv"])) {
     <script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
     <!-- Datatable Setting js -->
     <script src="../vendors/scripts/datatable-setting.js"></script>
+    <script src="../vendors/scripts/rdv-expire-cron.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 

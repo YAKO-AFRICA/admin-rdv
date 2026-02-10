@@ -329,6 +329,7 @@ if (isset($_COOKIE["idrdv"])) {
     <script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
     <!-- Datatable Setting js -->
     <script src="../vendors/scripts/datatable-setting.js"></script>
+    <script src="../vendors/scripts/rdv-expire-cron.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <script>
@@ -568,7 +569,7 @@ if (isset($_COOKIE["idrdv"])) {
 
             const notif = `
                 <div id="afficheuseCompteurUsers"></div>
-                <h4 class="text-center p-2" style="color:#033f1f; font-weight:bold;">Affecter le RDV n° <?php echo $rdv->idrdv; ?> à un gestionnaire pour la Transformation</h4>
+                <h4 class="text-center p-2" style="color:#033f1f; font-weight:bold;">Affecter le RDV n° <?php echo $rdv->idrdv; ?> à un gestionnaire</h4>
                 <div style="border-top: 4px solid #033f1f;width: 100%;text-align: center;"></div>
                 <div class="row">
                     <div class="form-group col-md-2 col-sm-12">
@@ -1132,7 +1133,7 @@ if (isset($_COOKIE["idrdv"])) {
 
             let bouton_rejet = `
                 <button type="submit" name="confirmerRejet" id="confirmerRejet" class="btn btn-warning" style="background:#F9B233;font-weight:bold; color:white">
-                    Rejeter la prestation
+                    Rejeter
                 </button>`;
 
             $("#afficheuse").html(notif);

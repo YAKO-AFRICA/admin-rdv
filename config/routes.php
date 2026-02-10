@@ -440,21 +440,19 @@ if ($request->action != null) {
         case "confirmerReceptionRDV":
 
             $idrdv = GetParameter::FromArray($_REQUEST, 'idrdv');
-            $gestionnaire = GetParameter::FromArray($_REQUEST, 'traiterpar');
+            $idcontrat = GetParameter::FromArray($_REQUEST, 'idcontrat');
+            $idgestionnaire = GetParameter::FromArray($_REQUEST, 'traiterpar');
             $observation = GetParameter::FromArray($_REQUEST, 'observation');
+            $idVilleEff = GetParameter::FromArray($_REQUEST, 'idvilleEff');
+            $dateRDVEff = GetParameter::FromArray($_REQUEST, 'daterdvEff');
 
-            if ($idrdv != null && $gestionnaire != null) {
+
+            if ($idrdv != null && $idgestionnaire != null && $dateRDVEff != null && $idVilleEff != null) {
+                $datetraitement = date('d/m/Y à H:i:s');
+                $reponse = $observation;
                 $etat = "2";
-                $traiterpar = $gestionnaire;
-
-                $sqlUpdateRDV = "UPDATE tblrdv SET etat= ?,  gestionnaire=?, transmisPar = ?, transmisLe =now(), updatedAt =now()  WHERE idrdv = ?";
-                $queryOptions = array(
-                    $etat,
-                    $traiterpar,
-                    $traiterpar,
-                    $idrdv
-                );
-                $result = $fonction->_Database->Update($sqlUpdateRDV, $queryOptions);
+                $traiterpar = $idgestionnaire;
+                $result = $fonction->_TransmettreRDVGestionnaire($etat, $reponse, $dateRDVEff, $datetraitement, $idgestionnaire, $idrdv, $idVilleEff, $traiterpar);
                 if ($result) {
                     $sqlSelect = " SELECT tblrdv.*, CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire, users.email AS emailgestionnaire, users.codeagent AS codeagentgestionnaire,
 				    TRIM(tblvillebureau.libelleVilleBureau) AS villes FROM tblrdv LEFT JOIN users ON tblrdv.gestionnaire = users.id
@@ -462,8 +460,8 @@ if ($request->action != null) {
                     $retour = $fonction->_getSelectDatabases($sqlSelect);
                     if ($retour != null) {
                         $rdv = $retour[0];
-
-                        // print_r($rdv);
+                        $villesGestionnaire = $rdv->villes;
+                        $telephone = $rdv->tel;
 
                         $emailgestionnaire = $rdv->emailgestionnaire;
                         if (isset($rdv->daterdveff) && !empty($rdv->daterdveff)) {
@@ -473,23 +471,22 @@ if ($request->action != null) {
                             envoyerSMS_RDV($telephone, $message, $idrdv);
                         }
 
-                        $villesGestionnaire = $rdv->villes;
-                        $telephone = $rdv->tel;
-
-
                         if (isset($emailgestionnaire) && !empty($emailgestionnaire)) {
 
                             //envoi mail au gestionnaire 
                             $lienEnvoiMail = "$url/envoiMail-rdv.php?";
                             $url_notification = $lienEnvoiMail . "action=transmettreRDV&data=[idrdv:" . trim($idrdv) . "]";
-                            //$retour = file_get_contents($url_notification);
                         }
 
-                        //notificationRDV_gestionnaireByNissa($rdv->daterdveff, $traiterpar, $rdv->tel, $idrdv, $url);
-
                         echo json_encode($idrdv);
+                    } else {
+                        echo json_encode("-1");
                     }
+                } else {
+                    echo json_encode("-1");
                 }
+            } else {
+                echo json_encode("-1");
             }
 
             break;
@@ -736,6 +733,26 @@ if ($request->action != null) {
                 }
                 echo json_encode($idrdv);
             } else echo json_encode("-1");
+            break;
+        case "ListCompteurGestionnaireByNISSA":
+
+            $idVilleEff = GetParameter::FromArray($_REQUEST, 'idVilleEff');
+            $daterdveff = GetParameter::FromArray($_REQUEST, 'daterdveff');
+            $idgestionnaire = GetParameter::FromArray($_REQUEST, 'idusers');
+
+            $totalrdv = 0;
+            $sqlQuery = "SELECT 
+                            u.id,  u.email,  u.codeagent,  TRIM(CONCAT(u.nom, ' ', u.prenom)) AS gestionnairenom,
+                            v.libelleVilleBureau AS villeEffect,    COUNT(r.idrdv) AS totalrdv FROM users u
+                        INNER JOIN tblvillebureau v ON v.idVilleBureau = u.ville LEFT JOIN tblrdv r 
+                            ON r.gestionnaire = u.id     AND DATE(r.daterdveff) = '$daterdveff'      AND r.villeEffective = '$idVilleEff'
+                        WHERE     u.etat = '1'   AND v.idVilleBureau = '$idVilleEff' GROUP BY u.id, u.email, u.codeagent, u.nom, u.prenom, v.libelleVilleBureau ORDER BY u.id ASC ";
+            $resultat = $fonction->_getSelectDatabases($sqlQuery);
+            if ($resultat != NULL) {
+                echo json_encode($resultat);
+            } else {
+                echo json_encode("-1");
+            }
             break;
 
         case "extraireBordereau":

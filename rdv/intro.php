@@ -65,73 +65,85 @@ $tabSemaine = $fonction->retourneSemaineCourante();
                     </div>
                 </div>
             </div>
+
+            <hr>
+            <div class="border border-2 bg-light rounded p-4 mb-4">
+                <h2>Statistique Globale de l'année <?php echo date('Y'); ?></h2><br> <br>
+                <?php
+                    $retourStatut = $fonction->afficheuseGlobalStatistiqueRDV();
+                    echo $retourStatut;
+                ?>
+            </div>
             
-            <div class="card-body pb-20 radius-12 w-100 p-4">
+            <!-- <div class="card-body pb-20 radius-12 w-100 p-4">
                 <div class="mt-2">
                     <button class="btn btn-sm" style="background:#033f1f; color:white; text-decoration:none;" id="telechargerExcel">
                         Telecharger le rapport Excel
                     </button>
                 </div>
-            </div>
-            <div class="bg-white pd-20 card-box mb-30">
-                <div id="afficheuseEtat">
-                </div>
-            </div>
-            <hr>
-            <div class="bg-white pd-20 card-box mb-30">
-                <h4 class="mb-20 p-2" style="background-color:#033f1f;color:white;font-weight:bold;">Statistique par Delai de Rendez-vous </h4>
-                <div class="row mb-4">
-                    <div class="col-lg-5 col-md-6 col-sm-12 mb-3">
-                        <div id="afficheuseDelai"></div>
-                    </div>
-                    <div class="col-lg-7 col-md-6 col-sm-12 mb-3">
-                        <div id="chart7"></div>
+            </div> -->
+            <div class="border border-2 rounded bg-light p-4 mb-4">
+                <h2>Statistique Globale</h2><br> <br>
+                <div class="bg-white pd-20 card-box mb-30">
+                    <div id="afficheuseEtat">
                     </div>
                 </div>
-            </div>
+                <hr>
+                <div class="bg-white pd-20 card-box mb-30">
+                    <h4 class="mb-20 p-2" style="background-color:#033f1f;color:white;font-weight:bold;">Statistique par Delai de Rendez-vous </h4>
+                    <div class="row mb-4">
+                        <div class="col-lg-5 col-md-6 col-sm-12 mb-3">
+                            <div id="afficheuseDelai"></div>
+                        </div>
+                        <div class="col-lg-7 col-md-6 col-sm-12 mb-3">
+                            <div id="chart7"></div>
+                        </div>
+                    </div>
+                </div>
 
-            <hr>
-            <div class="bg-white pd-20 card-box mb-30">
-                <h4 class="mb-20 p-2" style="background-color:#033f1f;color:white;font-weight:bold;">Statistique Rendez-vous par Motif</h4>
-                <div class="row mb-4">
-                    <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                        <div id="afficheuseMotif">
+                <hr>
+                <div class="bg-white pd-20 card-box mb-30">
+                    <h4 class="mb-20 p-2" style="background-color:#033f1f;color:white;font-weight:bold;">Statistique Rendez-vous par Motif</h4>
+                    <div class="row mb-4">
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <div id="afficheuseMotif">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-8 col-md-6 col-sm-12 mb-3">
-                        <div class="bg-white pd-20 card-box mb-30">
-                            <div id="chartMotif"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="bg-white pd-20 card-box mb-30">
-                <h4 class="mb-20 p-2" style="background-color:#033f1f;color:white;font-weight:bold;">Statistique Rendez-vous par Ville</h4>
-                <div class="row mb-4">
-                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                        <div class="bg-white pd-20 card-box mb-30">
-                            <div id="chartVilles"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                        <div id="afficheuseVilles">
+                        <div class="col-lg-8 col-md-6 col-sm-12 mb-3">
+                            <div class="bg-white pd-20 card-box mb-30">
+                                <div id="chartMotif"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <hr>
+                <div class="bg-white pd-20 card-box mb-30">
+                    <h4 class="mb-20 p-2" style="background-color:#033f1f;color:white;font-weight:bold;">Statistique Rendez-vous par Ville</h4>
+                    <div class="row mb-4">
+                        <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                            <div class="bg-white pd-20 card-box mb-30">
+                                <div id="chartVilles"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                            <div id="afficheuseVilles">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <hr>
-            <div class="bg-white pd-20 card-box mb-30">
-                <h4 class="mb-20 p-2" style="background-color:#033f1f;color:white;font-weight:bold;">Statistique Rendez-vous par Gestionnaire</h4>
-                <div class="row mb-4">
-                    <div class="col-lg-7 col-md-6 col-sm-12 mb-3">
-                        <div class="bg-white pd-20 card-box mb-30">
-                            <div id="chartRDVGestionnaire"></div>
+                <hr>
+                <div class="bg-white pd-20 card-box mb-30">
+                    <h4 class="mb-20 p-2" style="background-color:#033f1f;color:white;font-weight:bold;">Statistique Rendez-vous par Gestionnaire</h4>
+                    <div class="row mb-4">
+                        <div class="col-lg-7 col-md-6 col-sm-12 mb-3">
+                            <div class="bg-white pd-20 card-box mb-30">
+                                <div id="chartRDVGestionnaire"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-5 col-md-6 col-sm-12 mb-3">
-                        <div id="afficheuseRDVGestionnaire">
+                        <div class="col-lg-5 col-md-6 col-sm-12 mb-3">
+                            <div id="afficheuseRDVGestionnaire">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,6 +179,7 @@ $tabSemaine = $fonction->retourneSemaineCourante();
     <script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
 
     <script src="../vendors/scripts/datatable-setting.js"></script>
+    <script src="../vendors/scripts/rdv-expire-cron.js"></script>
     <!-- Datatable Setting js -->
     <script src="../vendors/scripts/datatable-setting.js"></script>
     <script src="../src/plugins/apexcharts/apexcharts.min.js"></script>

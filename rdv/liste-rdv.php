@@ -31,8 +31,61 @@ if (isset($etat) && $etat !== null && in_array($etat, array_keys(Config::tablo_s
 }
 
 $liste_rdvs = $fonction->getSelectRDVAfficher($etat);
-if ($liste_rdvs != null) $effectue = count($liste_rdvs);
-else $effectue = 0;
+// if ($liste_rdvs != null) $effectue = count($liste_rdvs);
+// else $effectue = 0;
+
+	if ($liste_rdvs != null) {
+
+		$liste_rdvs = array_filter($liste_rdvs, function ($rdv) use ($fonction) {
+
+			if ($rdv->etat == "" || $rdv->etat == null || $rdv->etat == " ") {
+				return false;
+			}
+
+			// // On ne filtre que les RDV etat = 2 ou 1
+			if ($rdv->etat != "2" && $rdv->etat != "1") {
+				return true;
+			}
+			
+
+			// Si pas de date effective → on garde
+			// $daterdveff = $rdv->daterdveff ?? $daterdv ?? $rdv->traiterLe ?? null;
+			// if ($daterdveff == null) {
+			// 	return true;
+			// }
+			$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
+
+			// Calcul du délai
+			$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->traiterLe ?? null);
+
+			// if ($rdv->etat == "1") {
+				
+			// 	// On EXCLUT seulement si expiré depuis PLUS de 10 jours et si etat = 1
+			// 	if ($delai['etat'] === 'expire' && $delai['jours'] > 10) {
+			// 		return false;
+			// 	}
+			// }elseif ($rdv->etat == "2") {
+
+			// 	// On EXCLUT seulement si expiré
+			// 	if ($delai['etat'] === 'expire') {
+			// 		return false;
+			// 	}
+			// }
+				if ($delai['etat'] === 'expire') {
+					return false;
+				}
+
+			return true;
+		});
+
+		// Réindexation du tableau
+		$liste_rdvs = array_values($liste_rdvs);
+
+		$effectue = count($liste_rdvs);
+
+	} else {
+		$effectue = 0;
+	}
 
 ?>
 
@@ -70,10 +123,10 @@ else $effectue = 0;
 					</div>
 				</div>
 				<hr>
-				<?php
+				<!-- <?php
 				$retourStatut = $fonction->afficheuseGlobalStatistiqueRDV();
 				echo $retourStatut;
-				?>
+				?> -->
 
 				<div class="card-box mb-30">
 					<div class="pd-20">
@@ -98,7 +151,9 @@ else $effectue = 0;
 									<th>Id contrat</th>
 									<th>Motif</th>
 									<th>Date RDV</th>
+									<th hidden>Date effetive RDV</th>
 									<th>Lieu RDV</th>
+									<th hidden>LieuEff RDV</th>
 
 									<?php if (!empty($etat) && in_array($etat, ["2", "3"])): ?>
 										<th>Détail</th>
@@ -115,22 +170,32 @@ else $effectue = 0;
 
 							<tbody>
 								<?php if (!empty($liste_rdvs)) : ?>
+									
+									
 									<?php foreach ($liste_rdvs as $i => $rdv) :
-
+										// print_r($rdv);
+										// exit;
 										$retourEtat = Config::tablo_statut_rdv[$rdv->etat] ?? [
 											'libelle' => 'Inconnu',
 											'color_statut' => 'badge badge-secondary'
 										];
 
-										$dateRdvRaw = $rdv->daterdveff ?? null;
+										$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
+
+										// $dateRdvRaw = $rdv->daterdveff ?? null;
+										$dateRdvRaw = $rdv->daterdveff ?? $daterdv ?? null;
 										$dateRdvObj = $dateRdvRaw ? new DateTime($dateRdvRaw) : null;
 										$dateToday = new DateTime();
 
 										$dateRdvAffiche = $dateRdvObj ? $dateRdvObj->format('d/m/Y') : '';
 
-										$delai = $fonction->getDelaiRDV($dateRdvRaw, $rdv->traiterLe ?? null);
+
+
+										$delai = $fonction->getDelaiRDV($dateRdvRaw ?? $daterdv, $rdv->traiterLe ?? null);
 										$libDelai = $delai['libelle'] ?? '';
+										$couleur = $delai['couleur'] ?? 'transparent';
 										$badgeDelai = $delai['badge'] ?? 'badge badge-secondary';
+
 									?>
 										<tr id="ligne-<?= $i ?>">
 											<td><?= $i + 1 ?></td>
@@ -151,10 +216,12 @@ else $effectue = 0;
 											<td id="daterdv-<?= $i ?>" style="font-weight:bold;">
 												<?= $dateRdvAffiche ?>
 											</td>
+											<td id="daterdvEff-<?= $i ?>" style="font-weight:bold;" hidden><?= $daterdv ?></td>
 
 											<td style="color:#F9B233; font-weight:bold;">
-												<?= htmlspecialchars(!empty($rdv->villes) ? strtoupper($rdv->villes) : 'Non mentionné') ?>
+												<?= htmlspecialchars(!empty($rdv->villes) ? strtoupper($rdv->villes) : '') ?>
 											</td>
+											<td id="idvilleEff-<?= $i ?>" style="color:#F9B233; font-weight:bold;" hidden><?= htmlspecialchars(!empty($rdv->idTblBureau) ? $rdv->idTblBureau : '') ?></td>
 
 											<td class="text-wrap">
 												<?php if ($rdv->etat === "1"): ?>
@@ -172,11 +239,12 @@ else $effectue = 0;
 														<strong><?= !empty($rdv->transmisLe) ? date('d/m/Y', strtotime($rdv->transmisLe)) : '' ?></strong>
 													</p>
 
-													<?php if ($dateRdvObj && $dateRdvObj < $dateToday): ?>
-														<p class="mb-0 text-danger" style="font-size:0.7em;">
-															Date RDV expirée
+													<!-- <?php if ($dateRdvObj && $dateRdvObj < $dateToday): ?> -->
+														<p class="mb-0 " style="font-size:0.7em; color: <?= $couleur ?>;">
+															<!-- Date RDV expirée -->
+															 <?= $libDelai ?>
 														</p>
-													<?php endif; ?>
+													<!-- <?php endif; ?> -->
 
 												<?php elseif ($rdv->etat === "3"): ?>
 													<p class="mb-0" style="font-size:0.7em;">
@@ -214,7 +282,13 @@ else $effectue = 0;
 														<button class="btn btn-success btn-sm traiter"
 															id="traiter-<?= $i ?>"
 															style="background-color:#033f1f; color:white">
-															<i class="fa fa-mouse-pointer"></i> Affecter
+															<i class="fa fa-mouse-pointer"></i> 
+															<?php if ($rdv->etat == "1"): ?>
+																Affecter
+															<?php else: ?>
+																Retransmettre
+															<?php endif; ?>
+															
 														</button>
 														<button class="btn btn-success btn-sm reception" id="reception-<?= $i ?>">
 															<i class="fa fa-check"></i> Traiter
@@ -286,8 +360,10 @@ else $effectue = 0;
 					<span style='color:seagreen'>le rdv vous sera affecter automatiquement et le client sera notifier du traitement de la demande de rdv</span>
 					</hr>
 					<input type="text" id="idrdv" name="idrdv" hidden>
+					<input type="date" id="daterdvEff" name="daterdvEff" hidden>
+					<input type="text" id="idvilleEff" name="idvilleEff" hidden>
 					<input type="text" id="observations" name="observations" hidden>
-
+					
 					<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
 						<div class="col-6">
 							<button type="button" id="annulerRejet" name="annulerRejet"
@@ -343,6 +419,7 @@ else $effectue = 0;
 	<script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
 	<!-- Datatable Setting js -->
 	<script src="../vendors/scripts/datatable-setting.js"></script>
+	<script src="../vendors/scripts/rdv-expire-cron.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
@@ -380,6 +457,11 @@ else $effectue = 0;
 				const idrdv = $("#id-" + index).html();
 				const idcontrat = $("#idcontrat-" + index).html();
 				const daterdv = $("#daterdv-" + index).html();
+				const daterdvEff = $("#daterdvEff-" + index).html();
+				const idvilleEff = $("#idvilleEff-" + index).html();
+
+				$("#daterdvEff").val(daterdvEff);
+				$("#idvilleEff").val(idvilleEff);
 				// document.cookie = "idrdv=" + idrdv;
 				// document.cookie = "idcontrat=" + idcontrat;
 				// document.cookie = "action=traiter";
@@ -397,30 +479,33 @@ else $effectue = 0;
 
 				const idrdv = $("#idrdv").val();
 				const valideur = "<?= $_SESSION['id'] ?>";
+				const daterdvEff = $("#daterdvEff").val();
+				const idvilleEff = $("#idvilleEff").val();
 
-				alert("affecter rdv " + idrdv + " à " + valideur);
+				// alert("affecter rdv " + idrdv + " à " + valideur);
 				$.ajax({
 					url: "../config/routes.php",
 					method: "POST",
 					dataType: "json",
 					data: {
 						idrdv: idrdv,
+						idcontrat: "<?= $rdv->police ?>",
 						traiterpar: valideur,
+						daterdvEff: daterdvEff,
+						idvilleEff: idvilleEff,
 						observation: "Aucune observation",
 						etat: "confirmerReceptionRDV"
 					},
+					
 					success: function(response) {
 						if (response != "-1") {
 							document.cookie = "idrdv=" + idrdv;
 							location.href = "traitement-rdv-gestionnaire";
+						}else{
+							const msg = `<div class="alert alert-danger" role="alert"><h2>Erreur lors de l'affectation du RDV <span class="text-danger">${idrdv}</span>.</h2></div>`;
+							$("#msgEchec").html(msg);
+							$('#notificationValidation').modal("show");
 						}
-						// const msg = response !== '-1' && response !== '0' ?
-						// `<div class="alert alert-success" role="alert"><h2>Le RDV <span class="text-success">${idrdv}</span> a bien été confirmer !</h2></div>`:
-						// `<div class="alert alert-danger" role="alert"><h2>Erreur lors de la confirmation du RDV <span class="text-danger">${idrdv}</span>.</h2></div>`;
-						// $("#msgEchec").html(msg);
-						// $('#notificationValidation').modal("show");
-
-
 					},
 					error: function(response, status, etat) {
 						console.log(response, status, etat);

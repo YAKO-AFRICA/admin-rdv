@@ -85,6 +85,11 @@ $cible = $tablo[4];
                                 <span class="micon fa fa-trash"></span><span class="mtext">rdv<br>Rejeté</span>
                             </a>
                         </li>
+                        <li class="dropdown">
+                            <a href="liste-rdv-exprir?i=1&j=2" class="dropdown-toggle no-arrow" style="font-size:14px">
+                                <span class="micon fa fa-close"></span><span class="mtext">rdv<br>Expiré</span>
+                            </a>
+                        </li>
                         <li>
                             <div class="dropdown-divider"></div>
                         </li>
@@ -131,6 +136,11 @@ $cible = $tablo[4];
                         <li class="dropdown">
                             <a href="rdv-gestionnaire?i=2" class="dropdown-toggle no-arrow" style="font-size:14px">
                                 <span class="micon dw dw-edit"></span><span class="mtext"> Mes rdvs<br>transmis</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="rdv-gestionnaire-expir?i=2" class="dropdown-toggle no-arrow" style="font-size:14px">
+                                <span class="micon fa fa-close"></span><span class="mtext"> Mes rdvs<br>expirés</span>
                             </a>
                         </li>
                         <li class="dropdown">

@@ -70,8 +70,11 @@ class Fonction
 			return [
 				'etat'    => 'indisponible',
 				'couleur' => 'gray', // gris
+				'badge' => 'badge badge-secondary',
 				'libelle' => 'Date non disponible',
-				'jours'   => null
+				'jours'   => null,
+				'code' => 500
+
 			];
 		}
 
@@ -95,7 +98,8 @@ class Fonction
 				'couleur' => 'red', // rouge
 				'badge' => 'badge badge-danger',
 				'libelle' => "Délai expiré depuis $jours jour(s)",
-				'jours'   => $jours
+				'jours'   => $jours,
+				'code' => 400
 			];
 		}
 
@@ -106,7 +110,8 @@ class Fonction
 				'couleur' => '#f39c12', // vert
 				'badge' => 'badge badge-warning',
 				'libelle' => "Aujourd’hui",
-				'jours'   => 0
+				'jours'   => 0,
+				'code' => 201,
 			];
 		}
 
@@ -116,7 +121,9 @@ class Fonction
 			'couleur' => '#033f1f', // orange
 			'badge' => 'badge badge-success', // orange
 			'libelle' => "$jours jour(s) restant(s)",
-			'jours'   => $jours
+			'jours'   => $jours,
+			'code' => 200
+
 		];
 	}
 
@@ -1876,7 +1883,7 @@ class Fonction
 				<div class="col-xl-3 mb-30">
 					<a href="' . $lienUrl . '">
 						<div class="card-box height-100-p widget-style1"
-							style="background-color:whitesmoke; font-weight:bold; color:#033f1f ">
+							style="background-color:white; font-weight:bold; color:#033f1f ">
 							<div class="d-flex flex-wrap align-items-center">
 								<div class="progress-data">
 
@@ -1967,14 +1974,15 @@ class Fonction
 		}
 	}
 
-	public function getSelectRDVAfficher($etape = NULL)
+	public function getSelectRDVAfficher($etape = NULL, $etape2 = NULL)
 	{
 
 		if ($etape == NULL) $etape = "";
-		else $etape = " AND tblrdv.etat ='$etape' ";
+		else $etape = " AND tblrdv.etat ='$etape'  OR tblrdv.etat = '$etape2' ";
 
 		$plus = Config::clauseSelectAnneeEncours;
 		$orderBy = Config::orderBySelectAnneeEncours;
+
 
 		// $sqlSelect = " SELECT 	tblrdv.*, CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire, TRIM(tblvillebureau.libelleVilleBureau) AS villes
 		// 	FROM tblrdv LEFT JOIN users ON tblrdv.gestionnaire = users.id 	LEFT JOIN tblvillebureau ON tblrdv.idTblBureau = tblvillebureau.idVilleBureau

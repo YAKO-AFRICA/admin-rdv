@@ -35,8 +35,42 @@ if (isset($etat) && $etat !== null && in_array($etat, array_keys(Config::tablo_s
 }
 
 $liste_rdvs = $fonction->getSelectRDVAfficherGestionnaire(trim($_SESSION['id']), $etat);
-if ($liste_rdvs != null) $effectue = count($liste_rdvs);
-else $effectue = 0;
+// if ($liste_rdvs != null) $effectue = count($liste_rdvs);
+// else $effectue = 0;
+
+if ($liste_rdvs != null) {
+
+    $liste_rdvs = array_filter($liste_rdvs, function ($rdv) use ($fonction) {
+
+        // On ne filtre que les RDV etat = 2
+        if ($rdv->etat != "2") {
+            return true;
+        }
+
+        // Si pas de date effective → on garde
+        if (empty($rdv->daterdveff)) {
+            return true;
+        }
+
+        // Calcul du délai
+        $delai = $fonction->getDelaiRDV($rdv->daterdveff);
+
+        // On EXCLUT seulement si expiré
+        if ($delai['etat'] === 'expire') {
+            return false;
+        }
+
+        return true;
+    });
+
+    // Réindexation du tableau
+    $liste_rdvs = array_values($liste_rdvs);
+
+    $effectue = count($liste_rdvs);
+
+} else {
+    $effectue = 0;
+}
 
 ?>
 
@@ -425,6 +459,7 @@ else $effectue = 0;
 	<script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
 	<!-- Datatable Setting js -->
 	<script src="../vendors/scripts/datatable-setting.js"></script>
+	<script src="../vendors/scripts/rdv-expire-cron.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 

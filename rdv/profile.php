@@ -193,6 +193,7 @@ if ($retourUsers != NULL) {
 	<script src="../vendors/scripts/process.js"></script>
 	<script src="../vendors/scripts/layout-settings.js"></script>
 	<script src="../src/plugins/cropperjs/dist/cropper.js"></script>
+	<script src="../vendors/scripts/rdv-expire-cron.js"></script>
 	<script>
 		$("#closeEchec").click(function(evt) {
 			$('#notificationValidation').modal('hide')
