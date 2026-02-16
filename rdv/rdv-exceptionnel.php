@@ -401,7 +401,7 @@ $tablo_doc_attendu = array();
             var daterdveff = document.getElementById("daterdveff").value;
             var villesRDV = document.getElementById("villesRDV").value;
             var ListeGest = document.getElementById("ListeGest").value;
-            var lieuResidence = document.getElementById("lieuResidence").value;
+            var lieuResidenceObjet = document.getElementById("lieuResidence").value;
 
             if (telephone == "" || telephone.length < '10') {
                 alert("Veuillez renseigner le telephone du demandeur svp !!");
@@ -421,7 +421,7 @@ $tablo_doc_attendu = array();
                 return false;
             }
 
-            if (lieuResidence == "") {
+            if (lieuResidenceObjet == "") {
                 alert("Veuillez renseigner le lieu de residence du demandeur  svp !!");
                 document.getElementById("lieuResidence").focus();
                 return false;
@@ -461,6 +461,9 @@ $tablo_doc_attendu = array();
             alert("Enregistrement en cours ...");
 
             const [idgestionnaire, nomgestionnaire, idvilleGestionnaire, villesGestionnaire] = ListeGest.split("|");
+
+            // const lieuResidenceObjet = $('#lieuResidence').val();
+            const [idLieuResidence, lieuResidence] = lieuResidenceObjet.split(";");
 
             $.ajax({
                 url: "../config/routes.php",
@@ -520,7 +523,8 @@ $tablo_doc_attendu = array();
         $("#retourNotification").click(function() {
 
             $('#notificationValidation').modal('hide')
-            location.href = "detail-rdv";
+            location.href = "liste-rdv?i=2";
+            // location.href = "detail-rdv";
 
         })
 

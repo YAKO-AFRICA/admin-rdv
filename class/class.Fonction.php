@@ -636,18 +636,24 @@ class Fonction
 		}
 
 		if ($affecteLe != NULL and $affecteAu != NULL) {
-			$DateDebut4 = @date('d/m/Y', strtotime($affecteLe));
-			$DateFin4 = @date('d/m/Y', strtotime($affecteAu));
-			$par4 = "AND date(" . Config::TABLE_RDV . ".transmisLe) BETWEEN ('$DateDebut4' AND '$DateFin4')";
-			$libelle4 = "transmis Le : " . $DateDebut4 . '-' . $DateFin4 . '</br>';
+			$DateDebut4 = @date('Y-m-d', strtotime($affecteLe));
+			$DateFin4 = @date('Y-m-d', strtotime($affecteAu));
+			$DateDebut = @date('d/m/Y', strtotime($affecteLe));
+			$DateFin = @date('d/m/Y', strtotime($affecteAu));
+			// $par4 = "AND date(" . Config::TABLE_RDV . ".transmisLe) BETWEEN ('STR_TO_DATE('$DateDebut4', '%d/%m/%Y') AND DATE_ADD(STR_TO_DATE('$DateFin4', '%d/%m/%Y'), INTERVAL 1 DAY))";
+			$par4 = "AND date(" . Config::TABLE_RDV . ".transmisLe) BETWEEN '$DateDebut4' AND '$DateFin4'";
+			$libelle4 = "transmis Le : " . $DateDebut . '-' . $DateFin . '</br>';
 		} elseif ($affecteLe != NULL and $affecteAu == NULL) {
-			$DateDebut4 = @date('d/m/Y', strtotime($affecteLe));
+			$DateDebut = @date('d/m/Y', strtotime($affecteLe));
+			$DateDebut4 = @date('Y-m-d', strtotime($affecteLe));
 			$par4 = "AND  (  date(" . Config::TABLE_RDV . ".transmisLe) LIKE '%$DateDebut4' )";
+			// $par4 = "AND  (  date(" . Config::TABLE_RDV . ".transmisLe) LIKE '%$DateDebut4' )";
 			$libelle4 = "transmis Le : " . $DateDebut . '</br>';
 		} else if ($affecteLe == NULL and $affecteAu != NULL) {
-			$DateFin4 = @date('d/m/Y', strtotime($affecteAu));
+			$DateFin4 = @date('Y-m-d', strtotime($affecteAu));
+			$DateFin = @date('d/m/Y', strtotime($affecteAu));
 			$par4 = "AND  (  date(" . Config::TABLE_RDV . ".transmisLe) LIKE '%$DateFin4' )";
-			$libelle4 = "transmis Le : " . $DateFin4 . '</br>';
+			$libelle4 = "transmis Le : " . $DateFin . '</br>';
 		}
 
 		if ($traiterLe != NULL and $traiterAu != NULL) {
@@ -1756,7 +1762,7 @@ class Fonction
 	}
 
 
-	function _insertInfosBordereauRDV($id_villes, $villes, $id_gestionnaire, $gestionnaire, $periode_1, $periode_2, $reference, $etat = '1', $observation = null, $id_users = null, $auteur = null)
+	function _insertInfosBordereauRDV($id_villes, $villes, $id_gestionnaire, $gestionnaire, $periode_1, $periode_2, $reference, $etat, $observation = null, $id_users = null, $auteur = null)
 	{
 		if ($id_users == null) $id_users = $_SESSION["id"];
 		if ($auteur == null) $auteur = $_SESSION["utilisateur"];
@@ -1780,6 +1786,34 @@ class Fonction
 			date('Y-m-d H:i:s')
 		);
 		$tab = $this->_Database->Update($sqlQuery, $parametreInsert);
+		$this->Logger->Handler(__function__, 'mise à jour de la table tbl_bordereau_rdv de l\'idrdv ' . json_encode($reference) . '  pour ' .  ': ' . json_encode($tab));
+		return $tab;
+	}
+	function _updateInfosBordereauRDV($id_villes, $villes, $id_gestionnaire, $gestionnaire, $periode_1, $periode_2, $reference, $etat, $observation = null, $id_users = null, $auteur = null)
+	{
+		if ($id_users == null) $id_users = $_SESSION["id"];
+		if ($auteur == null) $auteur = $_SESSION["utilisateur"];
+		if ($periode_1 == "") $periode_1 = null;
+		if ($periode_2 == "") $periode_2 = null;
+
+		$sqlUpdate = "UPDATE tbl_bordereau_rdv SET id_villes=?, villes=?, id_gestionnaire=?, gestionnaire=?, periode_1=?,  periode_2=? , observation =?, etat =?, id_users =?, auteur =?, created_at=? WHERE reference = ?";
+		$queryOptions = array(
+			
+			$id_villes,
+			addslashes(trim($villes)),
+			$id_gestionnaire,
+			addslashes(trim($gestionnaire)),
+			$periode_1,
+			$periode_2,
+			$observation,
+			$etat,
+			$id_users,
+			$auteur,
+			date('Y-m-d H:i:s'),
+			$reference
+		);
+
+		$tab = $this->_Database->Update($sqlUpdate, $queryOptions);
 		$this->Logger->Handler(__function__, 'mise à jour de la table tbl_bordereau_rdv de l\'idrdv ' . json_encode($reference) . '  pour ' .  ': ' . json_encode($tab));
 		return $tab;
 	}
@@ -2659,7 +2693,7 @@ class Fonction
 		list($idmotifrdv, $motifrdv) = explode(";", $typePrestation, 2);
 		list($idTblBureau, $villeEffective) = explode(";", $villesRDV, 2);
 		list($idGestionnaire, $gestionnaire, $idvilleGestionnaire, $villesGestionnaire) = explode("|", $ListeGest, 4);
-		$sqlQuery = " INSERT INTO `tblrdv` (`codedmd`,`nomclient`,`datenaissance`,`police`, `tel`, `email`, `titre`, `motifrdv`, `daterdveff`,`daterdv`, `idTblBureau`,`villeEffective`, `gestionnaire`, `etat`, `lieuresidence`, `dateajou`, `createdAt`, `creeLe`) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+		$sqlQuery = " INSERT INTO `tblrdv` (`codedmd`,`nomclient`,`datenaissance`,`police`, `tel`, `email`, `titre`, `motifrdv`, `daterdveff`,`daterdv`, `idTblBureau`,`villeEffective`, `gestionnaire`, `etat`, `lieuresidence`, `dateajou`, `createdAt`, `creeLe`, `transmisLe`, `transmisPar`,`orderInsert`) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW(), ?, ?)";
 		$parametreInsert = array(
 			$codeRdv,
 			addslashes($nomclient),
@@ -2674,9 +2708,11 @@ class Fonction
 			$idTblBureau,
 			$idvilleGestionnaire,
 			$idGestionnaire,
-			$etat,
+			'2',
 			$lieuResidence,
-			date('Y-m-d à H:i:s')
+			date('Y-m-d à H:i:s'),
+			intval($_SESSION["id"]),
+			'1'
 		);
 
 		$tab = $this->_Database->Update($sqlQuery, $parametreInsert);

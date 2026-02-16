@@ -74,7 +74,18 @@ $effectue = 0;
 
 						<div class="row">
 							<div class="col-md-6">
-								<h6>Date de RDV <span class="text-danger">*</span></h6>
+								<h6>Affecté du <span class="text-danger">*</span></h6>
+								<input type="date" id="affecteLe" class="form-control">
+							</div>
+							<div class="col-md-6">
+								<h6>Au</h6>
+								<input type="date" id="affecteAu" class="form-control">
+							</div>
+						</div>
+
+						<div class="row d-none">
+							<div class="col-md-6">
+								<h6>Date RDV du <span class="text-danger">*</span></h6>
 								<input type="date" id="rdvLe" class="form-control">
 							</div>
 							<div class="col-md-6">
@@ -127,10 +138,6 @@ $effectue = 0;
 				<!-- TABLEAU -->
 				<div class="card-box mb-4" id="zoneAffichage" style="display:none;">
 					<div class="card-box mb-30">
-						<!-- <div class="pd-20">
-							<button type="button" class="btn btn-info  bx bx-cloud-upload px-5" id="exportButton"
-								name="exportButton">Exporter vers excel</button>
-						</div> -->
 
 						<div class="pd-20 mb-3">
 							<div class="row flex-row">
@@ -148,6 +155,7 @@ $effectue = 0;
 							<table class="table table-bordered table-striped nowrap" id="liste-extraction-bordereau-affichage">
 								<thead>
 									<tr>
+										<th><input type="checkbox" class="select-all checkbox" id="checked-all"></th>
 										<th>N°</th>
 										<th>Id RDV</th>
 										<th>Id contrat</th>
@@ -167,36 +175,54 @@ $effectue = 0;
 				</div>
 
 				<div class="pb-20" style="display:none" id="zoneAffichageExtraction" hidden>
-					<table class="data-table table stripe hover nowrap" id="liste-extraction-bordereau-rdv" style="width:100%; font-size:10px;">
+					<table class="table stripe hover" id="liste-extraction-bordereau-rdv" style="width:100%; font-size:10px;">
 						<thead>
 							<tr class="text-wrap">
+								<th class="d-none"><input type="checkbox" class="select-all checkbox" id="checked-hidden-all"></th>
 								<th>N°</th>
 								<th>Date prise RDV</th>
 								<th>code RDV</th>
 								<th>Id RDV</th>
 								<th>Id contrat</th>
-								<!-- <td>Code produit</td>
-										<td>Produit</td>
-										<td>Date Effet</td>
-										<td>Date Echeance</td> -->
 								<th>Demandeur</th>
 								<th>Date naissance</th>
 								<th>Telephone</th>
 								<th>Motif RDV</th>
-								<!-- <td>Prime</td>
-										<td>Capital</td> -->
 								<th>Date RDV Souhaité</th>
 								<th>Date RDV Effectif</th>
 								<th>Ville RDV</th>
 								<th>Gestionnaire</th>
 								<th>ref Gestionnaire</th>
 								<th>Code agent</th>
-								<th class="datatable-nosort">Etat</th>
+								<th>Etat</th>
 							</tr>
 						</thead>
 						<tbody id="body-extraction-bordereau-rdv" style="width: 100%;">
 						</tbody>
 					</table>
+						
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="notification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
+				<div class="modal-content ">
+					<div class="modal-body text-center">
+						<div class="form-group">
+							<h2><span id="a_afficher"></span></h2>
+						</div>
+						<div class="card-body radius-12 w-100">
+							<span id="a_afficher2"></span>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div id="closeNotif">
+							<button type="button" id="closeNotif" class="btn btn-secondary"
+								data-dismiss="modal">FERMER</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -250,10 +276,15 @@ $effectue = 0;
 		$("#filtreliste").on("click", function() {
 
 			var objetRDV = document.getElementById("villesRDV").value;
+			var affecteLe = document.getElementById("affecteLe").value;
+			var affecteAu = document.getElementById("affecteAu").value;
+	
 			var rdvLe = document.getElementById("rdvLe").value;
 			var rdvAu = document.getElementById("rdvAu").value;
 			var ListeGest = document.getElementById("ListeGest").value;
 			//var etaperdv = document.getElementById("etaperdv").value;
+
+			// console.log(objetRDV, affecteLe, affecteAu, rdvLe, rdvAu, ListeGest);
 
 			var periode = "";
 			var agent = "";
@@ -261,9 +292,14 @@ $effectue = 0;
 			var etatRDV = "";
 			var lib_fichier = "";
 
-			if (rdvLe == "") {
-				alert("Veuillez renseigner la periode de recherche dans le formulaire ci-dessous ");
-				document.getElementById("rdvLe").focus();
+			if (affecteLe == "") {
+				alert("Veuillez renseigner la periode de début !!");
+				document.getElementById("affecteLe").focus();
+				return false;
+			}
+			if (affecteAu == "") {
+				alert("Veuillez renseigner la periode de fin !!");
+				document.getElementById("affecteAu").focus();
 				return false;
 			}
 			// if (rdvLe == "" && rdvAu == "" && objetRDV == "" && ListeGest == "") {
@@ -273,6 +309,24 @@ $effectue = 0;
 			// }
 
 
+
+			if (affecteLe != "" && affecteAu != "") {
+				//formater en dd/mm/yyyy
+				var date1 = new Date(affecteLe);
+				var date2 = new Date(affecteAu);
+				periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear() + " au " + date2.getDate() + "/" + (date2.getMonth() + 1) + "/" + date2.getFullYear();
+				lib_fichier = date1.getDate() + "_" + (date1.getMonth() + 1) + "_" + date1.getFullYear() + " au " + date2.getDate() + "_" + (date2.getMonth() + 1) + "_" + date2.getFullYear();
+			} else if (affecteLe != "" && affecteAu == "") {
+				var date1 = new Date(affecteLe);
+				periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear();
+				lib_fichier = date1.getDate() + "_" + (date1.getMonth() + 1) + "_" + date1.getFullYear();
+			} else if (affecteLe == "" && affecteAu != "") {
+				var date1 = new Date(affecteAu);
+				periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear();
+				lib_fichier = date1.getDate() + "_" + (date1.getMonth() + 1) + "_" + date1.getFullYear();
+			}
+
+			// console.log(periode);
 
 			if (rdvLe != "" && rdvAu != "") {
 				//formater en dd/mm/yyyy
@@ -301,12 +355,6 @@ $effectue = 0;
 				agent = nomgestionnaire + " (" + idgestionnaire + ")";
 			}
 
-			// if (etaperdv != "") {
-			// 	//$code . ";" . $libelle
-			// 	const [code, libelle] = etaperdv.split(";");
-			// 	etatRDV = libelle;
-			// }
-
 			afficherLoader();
 
 			$.ajax({
@@ -315,6 +363,8 @@ $effectue = 0;
 					objetRDV: objetRDV,
 					rdvLe: rdvLe,
 					rdvAu: rdvAu,
+					affecteLe: affecteLe,
+					affecteAu: affecteAu,
 					ListeGest: ListeGest,
 					//etaperdv: etaperdv,
 					etat: "extraireBordereau"
@@ -391,21 +441,438 @@ $effectue = 0;
 		});
 
 
-		$("#exportButton").click(function() {
+		// ===============================
+		// FONCTION : Synchroniser headers
+		// ===============================
+		function syncHeaderCheckboxes() {
 
-			var nom_fichier = document.getElementById("nom_fichier").value;
+			let total = $("#liste-extraction-bordereau-affichage tbody input[type='checkbox']").length;
+			let checked = $("#liste-extraction-bordereau-affichage tbody input[type='checkbox']:checked").length;
 
-			//alert("nom_fichier.value : " + nom_fichier);
-			var table = document.getElementById("liste-extraction-bordereau-rdv");
-			// Convertir le tableau HTML en un "workbook" Excel
-			var wb = XLSX.utils.table_to_book(table, {
-				sheet: "Feuille1"
-			});
-			// Générer le fichier Excel et télécharger
-			//formater avec la date du jour
-			var filename = "extraction-bordereau-rdv-" + nom_fichier + ".xlsx";
-			XLSX.writeFile(wb, filename);
+			if (total > 0 && total === checked) {
+				$("#checked-all").prop("checked", true);
+				$("#checked-hidden-all").prop("checked", true);
+			} else {
+				$("#checked-all").prop("checked", false);
+				$("#checked-hidden-all").prop("checked", false);
+			}
+		}
+
+
+		// ======================================
+		// SELECT ALL visible → coche tout
+		// ======================================
+		$("#checked-all").on("change", function () {
+
+			let checked = this.checked;
+
+			// tableau visible
+			$("#liste-extraction-bordereau-affichage tbody input[type='checkbox']")
+				.prop("checked", checked);
+
+			// tableau caché
+			$("#liste-extraction-bordereau-rdv tbody input[type='checkbox']")
+				.prop("checked", checked);
+
+			// header caché
+			$("#checked-hidden-all").prop("checked", checked);
 		});
+
+
+		// ======================================
+		// SELECT ALL caché → coche tout
+		// ======================================
+		$("#checked-hidden-all").on("change", function () {
+
+			let checked = this.checked;
+
+			// tableau caché
+			$("#liste-extraction-bordereau-rdv tbody input[type='checkbox']")
+				.prop("checked", checked);
+
+			// tableau visible
+			$("#liste-extraction-bordereau-affichage tbody input[type='checkbox']")
+				.prop("checked", checked);
+
+			// header visible
+			$("#checked-all").prop("checked", checked);
+		});
+
+
+		// ==================================================
+		// Ligne visible → synchronise ligne cachée
+		// ==================================================
+		$(document).on("change", "#liste-extraction-bordereau-affichage tbody input[type='checkbox']", function () {
+
+			let index = $(this).closest("tr").index();
+			let checked = this.checked;
+
+			$("#liste-extraction-bordereau-rdv tbody tr")
+				.eq(index)
+				.find("input[type='checkbox']")
+				.prop("checked", checked);
+
+			syncHeaderCheckboxes();
+		});
+
+
+		// ==================================================
+		// Ligne cachée → synchronise ligne visible
+		// ==================================================
+		$(document).on("change", "#liste-extraction-bordereau-rdv tbody input[type='checkbox']", function () {
+
+			let index = $(this).closest("tr").index();
+			let checked = this.checked;
+
+			$("#liste-extraction-bordereau-affichage tbody tr")
+				.eq(index)
+				.find("input[type='checkbox']")
+				.prop("checked", checked);
+
+			syncHeaderCheckboxes();
+		});
+
+
+
+		// $("#exportButton").click(function () {
+
+		// 	let nom_fichier = document.getElementById("nom_fichier").value;
+
+		// 	let checked = document.querySelectorAll(
+		// 		"#liste-extraction-bordereau-rdv tbody input[type='checkbox']:checked"
+		// 	);
+
+		// 	if (checked.length === 0) {
+		// 		alert("Veuillez sélectionner au moins une ligne à exporter.");
+		// 		return;
+		// 	}
+
+		// 	if (!confirm("Êtes-vous sûr de vouloir exporter les " + checked.length + " lignes selectionnées ?")) {
+		// 		return;
+		// 	}
+
+		// 	var objetRDV = document.getElementById("villesRDV").value;
+		// 	var affecteLe = document.getElementById("affecteLe").value;
+		// 	var affecteAu = document.getElementById("affecteAu").value;
+	
+		// 	// var rdvLe = document.getElementById("rdvLe").value;
+		// 	// var rdvAu = document.getElementById("rdvAu").value;
+		// 	var ListeGest = document.getElementById("ListeGest").value;
+		// 	//var etaperdv = document.getElementById("etaperdv").value;
+
+		// 	// console.log(objetRDV, affecteLe, affecteAu, rdvLe, rdvAu, ListeGest);
+
+		// 	var periode = "";
+		// 	var agent = "";
+		// 	var villes = "";
+		// 	var etatRDV = "";
+		// 	var lib_fichier = "";
+
+		// 	if (affecteLe != "" && affecteAu != "") {
+		// 		//formater en dd/mm/yyyy
+		// 		var date1 = new Date(affecteLe);
+		// 		var date2 = new Date(affecteAu);
+		// 		periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear() + " au " + date2.getDate() + "/" + (date2.getMonth() + 1) + "/" + date2.getFullYear();
+		// 		lib_fichier = date1.getDate() + "_" + (date1.getMonth() + 1) + "_" + date1.getFullYear() + " au " + date2.getDate() + "_" + (date2.getMonth() + 1) + "_" + date2.getFullYear();
+		// 	} else if (affecteLe != "" && affecteAu == "") {
+		// 		var date1 = new Date(affecteLe);
+		// 		periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear();
+		// 		lib_fichier = date1.getDate() + "_" + (date1.getMonth() + 1) + "_" + date1.getFullYear();
+		// 	} else if (affecteLe == "" && affecteAu != "") {
+		// 		var date1 = new Date(affecteAu);
+		// 		periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear();
+		// 		lib_fichier = date1.getDate() + "_" + (date1.getMonth() + 1) + "_" + date1.getFullYear();
+		// 	}
+
+
+		// 	if (objetRDV != "") {
+		// 		const [idvillesRDV, villesRDV] = objetRDV.split(";");
+		// 		villes = villesRDV;
+		// 	}
+		// 	if (ListeGest != "") {
+		// 		const [idgestionnaire, nomgestionnaire, idvilleGestionnaire, villesGestionnaire] = ListeGest.split("|");
+		// 		agent = nomgestionnaire + " (" + idgestionnaire + ")";
+		// 	}
+
+		// 	afficherLoader();
+
+		// 	$.ajax({
+		// 		url: "../config/routes.php",
+		// 		data: {
+		// 			objetRDV: objetRDV,
+		// 			affecteLe: affecteLe,
+		// 			affecteAu: affecteAu,
+		// 			ListeGest: ListeGest,
+		// 			etat: "saveBordereauRDV"
+
+		// 		},
+		// 		dataType: "json",
+		// 		method: "post",
+		// 		success: function(response, status) {
+
+		// 			cacherLoader();
+
+		// 			if (response.error != false) {
+		// 				if (response.action == "insert" || response.action == "update") {
+							
+		// 					let tableExport = document.createElement("table");
+	
+		// 					// ===== HEADER =====
+		// 					let theadOriginal = document.querySelector("#liste-extraction-bordereau-rdv thead");
+		// 					let theadClone = theadOriginal.cloneNode(true);
+	
+		// 					// 🔥 Supprimer la colonne checkbox du header
+		// 					theadClone.querySelector("tr").removeChild(
+		// 						theadClone.querySelector("tr").firstElementChild
+		// 					);
+	
+		// 					tableExport.appendChild(theadClone);
+	
+		// 					// ===== BODY =====
+		// 					let tbody = document.createElement("tbody");
+	
+		// 					checked.forEach(cb => {
+	
+		// 						let row = cb.closest("tr").cloneNode(true);
+	
+		// 						// 🔥 Supprimer la colonne checkbox du body
+		// 						row.removeChild(row.firstElementChild);
+	
+		// 						tbody.appendChild(row);
+		// 					});
+	
+		// 					tableExport.appendChild(tbody);
+	
+		// 					// ===== EXPORT =====
+		// 					let wb = XLSX.utils.table_to_book(tableExport, { sheet: "Feuille1" });
+	
+		// 					let filename = "extraction-bordereau-rdv-" + nom_fichier + ".xlsx";
+	
+		// 					XLSX.writeFile(wb, filename);
+
+		// 					if (response.action == "insert") {
+								
+		// 						afficherMessage("Exportation du bordereau du " + periode + " affectuée avec succès ! Reference Bordereau : " + response.reference, "success");
+		
+		// 						a_afficher = `<div class="alert alert-success" role="alert">
+		// 										<h6> Exportation du bordereau du ` + periode + ` affectuée avec succès ! </h6>
+		// 										<h3> Reference Bordereau : ` + response.reference + ` </h3>
+		// 									</div>`
+		
+		// 						$("#a_afficher2").html(a_afficher)
+		// 						$('#notification').modal("show")
+		// 					}else if (response.action == "update") {
+		// 						afficherMessage(response.message, "success");
+		// 						$("#zoneResultats").hide();
+		// 						// $("#tableAffichageExtraction").hide();
+		// 						$("#zoneAffichage").hide();
+		// 					}
+	
+		// 				}else if (response.action == "exist") {
+		// 					afficherMessage(response.message, "warning");
+		// 					$("#zoneResultats").hide();
+		// 					// $("#tableAffichageExtraction").hide();
+		// 					$("#zoneAffichage").hide();
+		// 				}else {
+		// 					$("#zoneResultats").hide();
+		// 					// $("#tableAffichageExtraction").hide();
+		// 					$("#zoneAffichage").hide();
+		// 					afficherMessage("Desolé ! Une erreur est survenue lors de l'exportation du bordereau", "warning");
+		// 				}
+
+		// 				return
+		// 			} else {
+		// 				afficherMessage("Desolé ! Une erreur est survenue lors de l'exportation du bordereau", "warning");
+		// 				$("#zoneResultats").hide();
+		// 				// $("#tableAffichageExtraction").hide();
+		// 				$("#zoneAffichage").hide();
+		// 			}
+
+		// 		},
+		// 		error: function(response, status, etat) {
+		// 			console.log(response, status, etat);
+		// 		}
+		// 	});
+		// });
+
+		$("#exportButton").click(function () {
+
+			let nom_fichier = document.getElementById("nom_fichier").value;
+
+			let checked = document.querySelectorAll(
+				"#liste-extraction-bordereau-rdv tbody input[type='checkbox']:checked"
+			);
+
+			if (checked.length === 0) {
+				alert("Veuillez sélectionner au moins une ligne à exporter.");
+				return;
+			}
+
+			if (!confirm("Êtes-vous sûr de vouloir exporter les " + checked.length + " lignes selectionnées ?")) {
+				return;
+			}
+
+			var objetRDV = document.getElementById("villesRDV").value;
+			var affecteLe = document.getElementById("affecteLe").value;
+			var affecteAu = document.getElementById("affecteAu").value;
+			var ListeGest = document.getElementById("ListeGest").value;
+
+			var periode = "";
+			var lib_fichier = "";
+
+			// ===== PERIODE =====
+			if (affecteLe != "" && affecteAu != "") {
+				var date1 = new Date(affecteLe);
+				var date2 = new Date(affecteAu);
+
+				periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear() +
+					" au " +
+					date2.getDate() + "/" + (date2.getMonth() + 1) + "/" + date2.getFullYear();
+
+				lib_fichier = date1.getDate() + "_" + (date1.getMonth() + 1) + "_" + date1.getFullYear() +
+					"_au_" +
+					date2.getDate() + "_" + (date2.getMonth() + 1) + "_" + date2.getFullYear();
+
+			} else if (affecteLe != "") {
+				var date1 = new Date(affecteLe);
+				periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear();
+			} else if (affecteAu != "") {
+				var date1 = new Date(affecteAu);
+				periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear();
+			}
+
+			afficherLoader();
+
+			$.ajax({
+				url: "../config/routes.php",
+				data: {
+					objetRDV: objetRDV,
+					affecteLe: affecteLe,
+					affecteAu: affecteAu,
+					ListeGest: ListeGest,
+					etat: "saveBordereauRDV"
+				},
+				dataType: "json",
+				method: "post",
+
+				success: function (response) {
+
+					cacherLoader();
+
+					if (response.success === true) {
+						if (response.action == "insert" || response.action == "update") {
+
+							// ===== CREATION TABLE EXPORT =====
+
+							let tableExport = document.createElement("table");
+
+							// HEADER ORIGINAL
+							let theadOriginal = document.querySelector("#liste-extraction-bordereau-rdv thead");
+							let theadClone = theadOriginal.cloneNode(true);
+
+							// ❌ Supprimer colonne checkbox
+							theadClone.querySelector("tr").removeChild(
+								theadClone.querySelector("tr").firstElementChild
+							);
+
+							tableExport.appendChild(theadClone);
+
+							// BODY
+							let tbody = document.createElement("tbody");
+
+							checked.forEach(cb => {
+
+								let row = cb.closest("tr").cloneNode(true);
+
+								// ❌ Supprimer checkbox
+								row.removeChild(row.firstElementChild);
+
+								tbody.appendChild(row);
+							});
+
+							tableExport.appendChild(tbody);
+
+							// ===== TABLE FINALE AVEC ENTETE =====
+
+							let finalTable = document.createElement("table");
+
+							// 🔥 Ligne Référence Bordereau
+							let headerRow = document.createElement("tr");
+							let headerCell = document.createElement("td");
+
+							headerCell.colSpan = theadClone.querySelectorAll("th").length;
+							headerCell.style.fontWeight = "bold";
+							headerCell.style.fontSize = "16px";
+							headerCell.style.textAlign = "center";
+							headerCell.style.backgroundColor = "#033f1f";
+							headerCell.style.color = "white";
+							headerCell.style.padding = "10px";
+							headerCell.style.border = "1px solid #033f1f";
+
+							// let nom_fichier = response.reference + "_" + lib_fichier;
+
+							headerCell.innerText =
+								"Référence bordereau : " + response.reference +
+								" | Période : " + periode;
+
+							headerRow.appendChild(headerCell);
+							finalTable.appendChild(headerRow);
+
+							// Ligne vide
+							let emptyRow = document.createElement("tr");
+							emptyRow.appendChild(document.createElement("td"));
+							finalTable.appendChild(emptyRow);
+
+							// Ajouter tableau
+							finalTable.appendChild(tableExport);
+
+							// ===== EXPORT EXCEL =====
+
+							let wb = XLSX.utils.table_to_book(finalTable, { sheet: "Feuille1" });
+
+							let filename = "extraction-bordereau-rdv-" + nom_fichier + ".xlsx";
+
+							XLSX.writeFile(wb, filename);
+
+							afficherMessage(
+								"Exportation réussie !" + response.message + ". Référence : " + response.reference,
+								"success"
+							);
+							$("#zoneResultats").hide();
+							$("#zoneAffichage").hide();
+						}else if (response.action == "exist") {
+							afficherMessage(response.message, "warning");
+							$("#zoneResultats").hide();
+							// $("#tableAffichageExtraction").hide();
+							$("#zoneAffichage").hide();
+						}else {
+							$("#zoneResultats").hide();
+							// $("#tableAffichageExtraction").hide();
+							$("#zoneAffichage").hide();
+							afficherMessage("Desolé ! Une erreur est survenue lors de l'exportation du bordereau", "warning");
+						}
+
+
+					} else {
+						afficherMessage("Erreur lors de l'exportation", "warning");
+						$("#zoneResultats").hide();
+						$("#zoneAffichage").hide();
+					}
+				},
+
+				error: function (response) {
+					console.log(response);
+				}
+			});
+
+		});
+
+
+		$("#closeNotif").click(function() {
+			$('#notification').modal('hide')
+			window.history.back();
+		})
+
 
 
 
@@ -435,6 +902,7 @@ $effectue = 0;
 				dateRDV = convertirEnDateFR(e.daterdv);
 
 				html += `<tr id="ligne-${i}" style="color: #033f1f !important;" >
+							<td><input type="checkbox" name="idrdv[]" id="check-${i}" value="${e.idrdv}"></td>
 							<td>${i + 1}</td>
 							<td id="idrdv-${i}">${e.idrdv}</td>
 							<td id="idcontrat-${i}">${e.police}</td>
@@ -497,64 +965,44 @@ $effectue = 0;
 					3: ["Traité", "badge badge-warning"]
 				};
 
-				// retourApi = getAPIVerificationProfil(e.police);
-
-				// if (retourApi) {
-				// 	if (retourApi.error === true) {
-				// 		//alert("Contrat non trouvé !!");
-				// 	} else {
-
-
-				// 		let details = retourApi["details"]
-				// 		let contactsPersonne = retourApi["contactsPersonne"]
-
-				// 		let data = details[0];
-
-				// 		produit = data.produit;
-				// 		code_produit = data.codeProduit;
-				// 		prime = number_format(data.TotalPrime, 2, ',', ' ');
-				// 		capital = number_format(data.CapitalSouscrit, 2, ',', ' ');
-				// 		dateEffet = convertirEnDateFR(data.DateEffetReel);
-				// 		dateEcheance = convertirEnDateFR(data.FinAdhesion);
-				// 	}
-				// }
-
 				const [lib, col] = etats[e.etat] || ["Non défini", "dark"];
 
 				var dateeff = new Date(e.daterdveff);
+				// console.log('new dateeff :',dateeff);
+
 				daterdveff = dateeff.getDate() + "/" + (dateeff.getMonth() + 1) + "/" + dateeff.getFullYear();
-				daterdveff = convertirEnDateFR(e.daterdv);
+				daterdveff = convertirEnDateFR(e.daterdveff);
+				// console.log('daterdveff :',e.daterdveff, '--------> dateEff :', daterdveff);
 
 				var daterdv = new Date(e.daterdv);
+				// console.log('new daterdv :',daterdv);
 				dateRDV = daterdv.getDate() + "/" + (daterdv.getMonth() + 1) + "/" + daterdv.getFullYear();
 				dateRDV = convertirEnDateFR(e.daterdv);
 
+				// console.log('daterdv :',e.daterdv, '--------> dateRDV :', dateRDV);
+
 				html += `
 						<tr id="ligne-${i}" style="color: #033f1f !important;" >
+							<td class="d-none"><input type="checkbox" class="hidden-check" value="${e.idrdv}"></td>
 							<td>${i + 1}</td>
 							<td id="idrdv-${i}">${e.dateajou}</td>
 							<td id="idrdv-${i}">${e.codedmd}</td>
 							<td id="idrdv-${i}">${e.idrdv}</td>
 							<td id="idcontrat-${i}">${e.police}</td>
-							<!--<td>${code_produit}</td>
-							<td>${produit}</td>
-							<td>${dateEffet}</td>
-							<td>${dateEcheance}</td>-->
-                            <td class="text-wrap">${e.nomclient}</td>
-							<td class="text-wrap">${e.datenaissance}</td>
-							<td class="text-wrap">${e.tel}</td>
-							<td class="text-wrap">${e.motifrdv}</td>
-							<!--<td>${prime}</td>
-							<td>${capital}</td>-->
-							<td class="text-wrap">${dateRDV}</td>
-							<td class="text-wrap">${daterdveff}</td>
-							<td class="text-wrap">${e.villes}</td>
-							<td class="text-wrap">${e.nomgestionnaire}</td>
-							<td class="text-wrap">${e.gestionnaire}</td>
-							<td>${e.codeagentgestionnaire}</td>						
-							<td>${lib}</td>
+                            <td>${e.nomclient}</td>
+							<td>${e.datenaissance}</td>
+							<td>${e.tel}</td>
+							<td>${e.motifrdv}</td>
+							<td>${dateRDV}</td>
+							<td>${daterdveff}</td>
+							<td>${e.villes}</td>
+							<td>${e.nomgestionnaire}</td>
+							<td>${e.gestionnaire}</td>
+							<td>${e.codeagentgestionnaire}</td>
+							<td>${lib}</td>					
                         </tr> `;
 			});
+			
 
 			$("#body-extraction-bordereau-rdv").html(html);
 			$("#zoneAffichageExtraction").fadeIn();
@@ -618,23 +1066,54 @@ $effectue = 0;
 			$("#formFiltreRDV button[type='submit']").prop("disabled", false);
 		}
 
-		function convertirEnDateFR(dateStr) {
+		// function convertirEnDateFR(dateStr) {
 
-			if (!dateStr) return "";
+		// 	if (!dateStr) return "";
 
-			// ISO : yyyy-mm-dd
-			if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
-				const [yyyy, mm, dd] = dateStr.split("-");
-				return `${dd}/${mm}/${yyyy}`;
+		// 	// ISO : yyyy-mm-dd
+		// 	if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+		// 		const [yyyy, mm, dd] = dateStr.split("-");
+		// 		return `${dd}/${mm}/${yyyy}`;
+		// 	}
+
+		// 	// FR : dd/mm/yyyy (déjà correct)
+		// 	if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
+		// 		return dateStr;
+		// 	}
+
+		// 	// Autre format non géré
+		// 	console.warn("Format de date non reconnu :", dateStr);
+		// 	return "";
+		// }
+
+		function convertirEnDateFR(dateString) {
+
+			if (!dateString) return "";
+
+			// Si déjà un objet Date
+			if (dateString instanceof Date && !isNaN(dateString)) {
+				return dateString.toLocaleDateString("fr-FR");
 			}
 
-			// FR : dd/mm/yyyy (déjà correct)
-			if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
-				return dateStr;
+			// Format MySQL : YYYY-MM-DD HH:mm:ss
+			if (/^\d{4}-\d{2}-\d{2}/.test(dateString)) {
+				let d = new Date(dateString.replace(" ", "T"));
+				if (!isNaN(d)) return d.toLocaleDateString("fr-FR");
 			}
 
-			// Autre format non géré
-			console.warn("Format de date non reconnu :", dateStr);
+			// Format ISO : YYYY-MM-DD
+			if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+				let d = new Date(dateString);
+				if (!isNaN(d)) return d.toLocaleDateString("fr-FR");
+			}
+
+			// Format FR : DD-MM-YYYY
+			if (/^\d{2}-\d{2}-\d{4}$/.test(dateString)) {
+				let parts = dateString.split("-");
+				return parts[0] + "/" + parts[1] + "/" + parts[2];
+			}
+
+			console.warn("Format de date non reconnu :", dateString);
 			return "";
 		}
 

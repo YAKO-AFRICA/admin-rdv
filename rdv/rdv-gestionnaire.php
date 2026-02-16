@@ -38,6 +38,9 @@ $liste_rdvs = $fonction->getSelectRDVAfficherGestionnaire(trim($_SESSION['id']),
 // if ($liste_rdvs != null) $effectue = count($liste_rdvs);
 // else $effectue = 0;
 
+// print_r($liste_rdvs);
+// exit;
+
 if ($liste_rdvs != null) {
 
     $liste_rdvs = array_filter($liste_rdvs, function ($rdv) use ($fonction) {
@@ -53,7 +56,7 @@ if ($liste_rdvs != null) {
         }
 
         // Calcul du délai
-        $delai = $fonction->getDelaiRDV($rdv->daterdveff);
+        $delai = $fonction->getDelaiRDV($rdv->daterdveff, $rdv->transmisLe ?? null);
 
         // On EXCLUT seulement si expiré
         if ($delai['etat'] === 'expire') {
@@ -173,12 +176,20 @@ if ($liste_rdvs != null) {
 										$couleur_fond = null;
 										$badge_delai = null;
 
-										$delai = $fonction->getDelaiRDV($rdv->daterdveff);
+										$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
+										$dateRdvRaw = $rdv->daterdveff ?? $daterdv ?? null;
+										$dateRdvObj = $dateRdvRaw ? new DateTime($dateRdvRaw) : null;
+										$dateToday = new DateTime();
+
+										$dateRdvAffiche = $dateRdvObj ? $dateRdvObj->format('d/m/Y') : '';
+
+										$delai = $fonction->getDelaiRDV($dateRdvRaw, $rdv->transmisLe ?? null);
 										if ($rdv->etat == "2") {
 											$lib_delai = $delai['libelle'];
 											$couleur_fond = $delai['couleur'] ?? 'transparent';
 											$badge_delai = $delai['badge'] ?? 'badge badge-secondary';
 										}
+										$infosBordereaux = $fonction->getRetourneInfosBordereaux(" WHERE NumeroRdv = '" . $rdv->idrdv . "'");
 
 										if (isset($rdv->etat) && $rdv->etat !== null && in_array($rdv->etat, array_keys(Config::tablo_statut_rdv)))  $etat = $rdv->etat;
 										else $etat = 1;
@@ -203,7 +214,16 @@ if ($liste_rdvs != null) {
 											<td id="lieurdv-<?= $i ?>" hidden><?php echo $rdv->idTblBureau . ";" . $rdv->villes; ?></td>
 											<td>
 												<?php if ($rdv->etat == "2"): ?>
-													<span class="<?= htmlspecialchars($badge_delai) ?>"><?= $lib_delai ?></span>
+													<span class="<?= htmlspecialchars($badge_delai) ?>"><?= $lib_delai ?></span><br>
+													<?php if ($infosBordereaux != null): ?>
+														<p class="mb-0 " style="font-size:0.7em; color: green;">
+															<strong>Bordereau disponible</strong>
+														</p>
+													<?php else: ?>
+														<p class="mb-0 " style="font-size:0.7em; color: red;">
+															<strong>Bordereau non disponible</strong>
+														</p>
+													<?php endif; ?>
 												<?php elseif ($rdv->etat == "3"): ?>
 													<span class="badge badge-secondary text-wrap text-white text-center mt-2"><?php echo $rdv->libelleTraitement; ?> </span>
 												<?php endif; ?>
@@ -226,7 +246,7 @@ if ($liste_rdvs != null) {
 												<?php endif; ?>
 												<?php if ($rdv->etat == "2" && ($rdv->daterdveff >= date('Y-m-d'))): ?>
 
-													<button class="btn btn-success btn-sm traiter" id="traiter-<?= $i ?> " style="background-color:#033f1f; color:white"><i class="fa fa-mouse-pointer"></i> Traiter</button>
+													<button class="btn btn-success btn-sm traiter" id="traiter-<?= $i ?> " style="background-color:#033f1f; color:white" <?php if ($infosBordereaux == null): ?> disabled <?php endif; ?>><i class="fa fa-mouse-pointer"></i> Traiter</button>
 												<?php endif; ?>
 
 												<!-- <?php if ($rdv->etatTraitement == "5"): ?>

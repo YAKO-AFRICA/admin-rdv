@@ -16,5 +16,5 @@ function runCronRDV() {
 }
 
 runCronRDV(); // exécution immédiate
-setInterval(runCronRDV, 30 * 1000); // exécution toutes 1 minutes 
+setInterval(runCronRDV, 60 * 1000); // exécution toutes 1 minutes 
 // setInterval(runCronRDV, );

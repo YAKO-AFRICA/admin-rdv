@@ -190,20 +190,51 @@ class Config
 						WHEN tblrdv.daterdv LIKE '%-%' THEN STR_TO_DATE(tblrdv.daterdv, '%d-%m-%Y')
 						ELSE NULL 	END ) = YEAR(CURDATE()) ) ";
 
-    const clauseSelectAnneeEncours = " YEAR(
+//     const clauseSelectAnneeEncours = " YEAR(
+//     CASE
+//         WHEN tblrdv.daterdv LIKE '%/%' THEN STR_TO_DATE(tblrdv.daterdv, '%d/%m/%Y')
+//         WHEN tblrdv.daterdv LIKE '%-%' THEN STR_TO_DATE(tblrdv.daterdv, '%d-%m-%Y')
+//         WHEN tblrdv.daterdv LIKE '%/%' THEN STR_TO_DATE(tblrdv.daterdv, '%Y/%m/%d')
+//         WHEN tblrdv.daterdv LIKE '%-%' THEN STR_TO_DATE(tblrdv.daterdv, '%Y-%m-%d')
+//         ELSE NULL
+//     END
+// ) IN (YEAR(CURDATE()), YEAR(CURDATE()) - 1)";
+
+
+//     const orderBySelectAnneeEncours = " CASE
+// 				WHEN tblrdv.daterdv LIKE '%/%' THEN STR_TO_DATE(tblrdv.daterdv, '%d/%m/%Y')
+// 				WHEN tblrdv.daterdv LIKE '%-%' THEN STR_TO_DATE(tblrdv.daterdv, '%d-%m-%Y')
+//                 WHEN tblrdv.daterdv LIKE '%/%' THEN STR_TO_DATE(tblrdv.daterdv, '%Y/%m/%d')
+// 				WHEN tblrdv.daterdv LIKE '%-%' THEN STR_TO_DATE(tblrdv.daterdv, '%Y-%m-%d')
+// 				ELSE NULL
+// 			END DESC ";
+
+    const clauseSelectAnneeEncours = "
+    YEAR(
+        CASE
+            WHEN tblrdv.daterdv REGEXP '^[0-9]{4}-'
+                THEN STR_TO_DATE(tblrdv.daterdv, '%Y-%m-%d')
+            WHEN tblrdv.daterdv LIKE '%/%'
+                THEN STR_TO_DATE(tblrdv.daterdv, '%d/%m/%Y')
+            WHEN tblrdv.daterdv LIKE '%-%'
+                THEN STR_TO_DATE(tblrdv.daterdv, '%d-%m-%Y')
+            ELSE NULL
+        END
+    ) IN (YEAR(CURDATE()), YEAR(CURDATE()) - 1)
+    ";
+
+    const orderBySelectAnneeEncours = "
     CASE
-        WHEN tblrdv.daterdv LIKE '%/%' THEN STR_TO_DATE(tblrdv.daterdv, '%d/%m/%Y')
-        WHEN tblrdv.daterdv LIKE '%-%' THEN STR_TO_DATE(tblrdv.daterdv, '%d-%m-%Y')
+        WHEN tblrdv.daterdv REGEXP '^[0-9]{4}-'
+            THEN STR_TO_DATE(tblrdv.daterdv, '%Y-%m-%d')
+        WHEN tblrdv.daterdv LIKE '%/%'
+            THEN STR_TO_DATE(tblrdv.daterdv, '%d/%m/%Y')
+        WHEN tblrdv.daterdv LIKE '%-%'
+            THEN STR_TO_DATE(tblrdv.daterdv, '%d-%m-%Y')
         ELSE NULL
-    END
-) IN (YEAR(CURDATE()), YEAR(CURDATE()) - 1)";
-
-
-    const orderBySelectAnneeEncours = " CASE
-				WHEN tblrdv.daterdv LIKE '%/%' THEN STR_TO_DATE(tblrdv.daterdv, '%d/%m/%Y')
-				WHEN tblrdv.daterdv LIKE '%-%' THEN STR_TO_DATE(tblrdv.daterdv, '%d-%m-%Y')
-				ELSE NULL
-			END DESC ";
-
+    END DESC
+    ";
             
 }
+
+

@@ -49,23 +49,26 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat, $etat2);
 			$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 
 			// Si pas de date effective → on garde
-			$daterdveff = $rdv->daterdveff ?? $daterdv ?? $rdv->traiterLe ?? null;
+			$daterdveff = $rdv->daterdveff ?? $daterdv ?? $rdv->transmisLe ?? null;
 			
 			if ($daterdveff == null) {
 				return true;
 			}
-			// $daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 
 			// Calcul du délai
-			$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->traiterLe ?? null);
+			$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->transmisLe ?? null);
 
 			// On EXCLUT seulement si expiré depuis PLUS de 10 jours
-			if ($delai['etat'] === 'expire') {
-				return false;
-			}
-			// if ($delai['etat'] === 'expire' && $delai['jours'] > 10) {
+			// if ($delai['etat'] === 'expire') {
 			// 	return false;
 			// }
+			if ($delai['etat'] === 'expire' && $delai['jours'] > 10) {
+				return false;
+			}
+
+			if (($rdv->etat == "2" || $rdv->etat == "1") && $delai['etat'] !== 'expire') {
+				return false;
+			}
 
 			return true;
 		});
@@ -118,6 +121,9 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat, $etat2);
 				<!-- <?php
 				$retourStatut = $fonction->afficheuseGlobalStatistiqueRDV();
 				echo $retourStatut;
+				?> -->
+				<!-- <?php
+				print_r($liste_rdvs);
 				?> -->
 
 				<div class="card-box mb-30">
@@ -183,7 +189,7 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat, $etat2);
 
 
 
-										$delai = $fonction->getDelaiRDV($dateRdvRaw ?? $daterdv, $rdv->traiterLe ?? null);
+										$delai = $fonction->getDelaiRDV($dateRdvRaw ?? $daterdv, $rdv->transmisLe ?? null);
 										$libDelai = $delai['libelle'] ?? '';
 										$couleur = $delai['couleur'] ?? 'transparent';
 										$badgeDelai = $delai['badge'] ?? 'badge badge-secondary';

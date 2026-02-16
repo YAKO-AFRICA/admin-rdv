@@ -19,6 +19,11 @@ $VilleRDV = "";
 $nomGest = "";
 $effectue = 0;
 
+$sqlSelect = " SELECT * FROM  tbl_bordereau_rdv WHERE etat = '0'  ORDER BY created_at DESC ";
+$liste_bordereau = $fonction->_getSelectDatabases($sqlSelect);
+
+
+
 
 ?>
 
@@ -59,6 +64,8 @@ $effectue = 0;
 						<i class="fa fa-arrow-left"></i> Retour
 					</button>
 				</div>
+
+				<!-- <?php print_r($liste_bordereau); ?> -->
 
 				<!-- Titre RDV -->
 				<div class="card mb-4 text-white" style="border:1px solid gray;background:#033f1f!important; color:white">
@@ -110,9 +117,23 @@ $effectue = 0;
 							</div>
 
 							<!-- Formulaire de chargement -->
-							<div class="card-body mb-4 p-3" style="border:2px dashed #F9B233; background-color:#fefbf4;">
-								<label for="upload" class="font-weight-bold mb-2">Sélectionnez un fichier :</label>
-								<input type="file" name="upload" id="upload" accept=".xlsx, .csv" class="form-control-file form-control height-auto" required>
+							<div class="card-body mb-4 p-3 row" style="border:2px dashed #F9B233; background-color:#fefbf4;">
+								<div class="col-md-6">
+									<label for="bordereauReference" class="font-weight-bold mb-2">Sélectionnez un la Référence du Bordereau :</label>
+									<select name="bordereauReference" id="bordereauReference" class="form-control height-auto" required>
+										<option value="" selected disabled>Choisir la Référence</option>
+										<?php foreach ($liste_bordereau as $bordereau): ?>
+											<option value="<?= $bordereau->reference; ?>">
+												<?= $bordereau->reference .' ( du ' . date('d/m/Y', strtotime($bordereau->periode_1)). ' au ' . date('d/m/Y', strtotime($bordereau->periode_2) ) . ' ) '; ?>
+											</option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+								<div class="col-md-6">
+									<label for="upload" class="font-weight-bold mb-2">Sélectionnez un fichier :</label>
+									<input type="file" name="upload" id="upload" accept=".xlsx, .csv" class="form-control-file form-control height-auto" required>
+								</div>
+								
 							</div>
 
 							<!-- Aperçu et bouton d'import -->
@@ -302,35 +323,33 @@ $effectue = 0;
 
 
 		document.getElementById('importBtn').addEventListener('click', function() {
+			// if (excelData.length < 1) {
+			// 	alert("Aucune donnée à importer !");
+			// 	return;
+			// }
 			if (excelData.length < 2) {
-				alert("Aucune donnée à importer !");
+				alert("Le fichier ne contient pas de données.");
 				return;
+			}
+			const bordereauReference = document.getElementById("bordereauReference").value;
+			if(!bordereauReference){
+				alert("Veuillez sélectionner la référence du bordereau à importer SVP !!");
+				return false;
 			}
 
 			// Transformer en objets (clé: en-tête)
 			const headers = excelData[0];
 			const rows = [];
 
-			for (let i = 0; i < excelData.length; i++) {
-				const row = {};
-				// headers.forEach((header, index) => {
-				// 	row[i] = excelData[i][index] ?? '';
-				// });
-				rows.push(excelData[i]);
-				//console.log(excelData[i]);
+
+			for (let i = 1; i < excelData.length; i++) {
+				const obj = {};
+				for (let j = 0; j < headers.length; j++) {
+					obj[headers[j].trim()] = excelData[i][j] ?? null;
+				}
+				rows.push(obj);
 			}
 
-			//console.log(rows);
-
-			// Afficher la barre de progression
-			//document.getElementById('progressContainer').style.display = 'block';
-			//document.getElementById('progressBar').value = 0;
-			//document.getElementById('progressText').textContent = 'Envoi en cours...';
-			//const spinner = document.getElementById("spinner");
-			//spinner.style.display = "block"; // Afficher le spinner
-
-			// Envoi AJAX à PHP
-			//console.log(rows);
 			const dataATraiter = JSON.stringify(rows);
 			console.log(dataATraiter);
 
@@ -340,6 +359,7 @@ $effectue = 0;
 				url: "../config/routes.php",
 				data: {
 					params: dataATraiter,
+					bordereauReference : bordereauReference,
 					etat: "importBordereau"
 				},
 				dataType: "json",
@@ -363,7 +383,7 @@ $effectue = 0;
 
 							$(".resultat-operation-zone").html(`
 								<div class="alert alert-success alert-dismissible fade show">
-									<h4> Bravo ! le document ` + reference + ` a ete importé avec ` + inserted + ` lignes sur ` + total + ` lignes ! </h4>
+									<h4> Succès ! le bordereau (` + reference + `) a été importé avec ` + inserted + ` lignes sur ` + total + ` lignes ! </h4>
 									<br>
 									<a href="detail-bordereau.php?reference=` + reference + `" class="btn btn-success">Visualiser le bordereau chargé </a>
 									

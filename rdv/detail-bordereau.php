@@ -96,6 +96,7 @@ $effectue = is_array($liste_bordereau) ? count($liste_bordereau) : 0;
 								<thead>
 									<tr>
 										<th>#Ref</th>
+										<th>Reference</th>
 										<th hidden>Id</th>
 										<th>Date</th>
 										<th>RDV</th>
@@ -158,6 +159,7 @@ $effectue = is_array($liste_bordereau) ? count($liste_bordereau) : 0;
 											?>
 											<tr>
 												<td><?= $i + 1; ?></td>
+												<td><?= $bordereau->reference; ?></td>
 												<td hidden id="id-<?= $i ?>"><?= $bordereau->id; ?></td>
 												<td><?= $bordereau->created_at; ?></td>
 												<td class="text-wrap">
@@ -230,7 +232,8 @@ $effectue = is_array($liste_bordereau) ? count($liste_bordereau) : 0;
 							<table class="data-table table stripe hover nowrap">
 								<thead>
 									<tr>
-										<th>#Ref</th>
+										<th>#</th>
+										<th>Reference</th>
 										<th hidden>Id</th>
 										<th>Date</th>
 										<th>Ville RDV</th>
@@ -262,6 +265,7 @@ $effectue = is_array($liste_bordereau) ? count($liste_bordereau) : 0;
 											?>
 											<tr>
 												<td><?= $i + 1; ?></td>
+												<td><?= $bordereau->reference; ?></td>
 												<td hidden id="id-<?= $i ?>"><?= $bordereau->reference; ?></td>
 												<td><?= $bordereau->created_at; ?></td>
 												<td class="text-wrap">

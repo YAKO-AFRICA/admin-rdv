@@ -164,7 +164,7 @@ if (isset($_COOKIE["idrdv"])) {
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label>Date RDV Effective <span class="text-danger">*</span> :</label>
-                                        <input type="date" class="form-control" id="daterdveff" name="daterdveff" onblur="checkDate('1')" min="<?= date('Y-m-d') ?>" value="<?= $daterdv ?>" required>
+                                        <input type="date" class="form-control" id="daterdveff" name="daterdveff" onblur="checkDate('1')" min="<?= date('Y-m-d') ?>" value="<?= date('Y-m-d', strtotime($rdv->daterdv)) ?? $daterdv ?>" required>
                                         <span id="errorDate" class="text-danger"></span>
                                     </div>
                                     <input type="hidden" value="<?= $rdv->idrdv ?? '' ?>">

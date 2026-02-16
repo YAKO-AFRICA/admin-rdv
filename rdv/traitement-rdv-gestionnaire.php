@@ -298,54 +298,60 @@ if (isset($_COOKIE["idrdv"])) {
                     </div>
                 </div>
 
-                <?php if ($infosBordereaux != null): ?>
-                <?php endif; ?>
+                
                 <!-- Traitement RDV -->
                 <div class="card mb-4">
                     <div class="card-header text-center bg-white">
                         <h4 class="font-weight-bold" style="border:1px solid gray;background:#033f1f!important; color:white;">Traitement du RDV</h4>
                     </div>
-                    <div class="card-body bg-light">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>Traité le : <span id="dateheure" class="font-weight-bold"> <?= date('d/m/Y H:i:s') ?> </span></p>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <p>Traité par : <span class="font-weight-bold"><?= $_SESSION['utilisateur'] ?></span></p>
-                            </div>
-                        </div>
-                        <input type="hidden" id="valideur" value="<?= $_SESSION['utilisateur'] ?>">
-
-                        <div class="row card-body" style="color: #033f1f;">
-                            <div class=" offset-md-6 col-md-6">
-                                <div class="form-group">
-                                    <label for="message" class="col-form-label" style="font-size:18px; font-weight:bold;">Voulez vous autoriser le client à déposer son courrier pour <span style="color:red"> <?= strtoupper($rdv->motifrdv) ?> </span> ? </label>
+                    <?php if ($infosBordereaux != null): ?>
+                        <div class="card-body bg-light">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Traité le : <span id="dateheure" class="font-weight-bold"> <?= date('d/m/Y H:i:s') ?> </span></p>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="custom-control custom-radio mb-5 col">
-                                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="3" style="color:red">
-                                        <label class="custom-control-label" for="customRadio1" style="color:red; font-weight:bold">NON , autres propositions</label>
-                                    </div>
-                                    <div class="custom-control custom-radio mb-5 col">
-                                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="1">
-                                        <label class="custom-control-label" for="customRadio2" style="color:gray!important; font-weight:bold;">En attente</label>
-                                    </div>
-                                    <div class="custom-control custom-radio mb-5 col">
-                                        <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" value="2">
-                                        <label class="custom-control-label" for="customRadio3" style="color: #033f1f; font-weight:bold;">OUI , le client est permit à déposer son courrier pour <?= strtoupper($rdv->motifrdv) ?> </label>
-                                    </div>
+                                <div class="col-md-6 text-right">
+                                    <p>Traité par : <span class="font-weight-bold"><?= $_SESSION['utilisateur'] ?></span></p>
                                 </div>
                             </div>
+                            <input type="hidden" id="valideur" value="<?= $_SESSION['utilisateur'] ?>">
+    
+                            <div class="row card-body" style="color: #033f1f;">
+                                <div class=" offset-md-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="message" class="col-form-label" style="font-size:18px; font-weight:bold;">Voulez vous autoriser le client à déposer son courrier pour <span style="color:red"> <?= strtoupper($rdv->motifrdv) ?> </span> ? </label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="custom-control custom-radio mb-5 col">
+                                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="3" style="color:red">
+                                            <label class="custom-control-label" for="customRadio1" style="color:red; font-weight:bold">NON , autres propositions</label>
+                                        </div>
+                                        <div class="custom-control custom-radio mb-5 col">
+                                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="1">
+                                            <label class="custom-control-label" for="customRadio2" style="color:gray!important; font-weight:bold;">En attente</label>
+                                        </div>
+                                        <div class="custom-control custom-radio mb-5 col">
+                                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" value="2">
+                                            <label class="custom-control-label" for="customRadio3" style="color: #033f1f; font-weight:bold;">OUI , le client est permit à déposer son courrier pour <?= strtoupper($rdv->motifrdv) ?> </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div id="afficheuseusers"></div>
+                            <div id="afficheuse" class="mt-3"></div>
+    
+                            <div class="modal-footer mt-4">
+                                <label id="lib"></label>
+                                <div id="optionTraitement"></div>
+                            </div>
                         </div>
-
-                        <div id="afficheuseusers"></div>
-                        <div id="afficheuse" class="mt-3"></div>
-
-                        <div class="modal-footer mt-4">
-                            <label id="lib"></label>
-                            <div id="optionTraitement"></div>
+                    <?php else: ?>
+                        <div class="card-body text-center">
+                            <h3 class="">Aucun bordereau pour ce RDV</h3><br>
+                            <p>Vous ne pouvez pas traiter ce RDV car il n'a pas encore de bordereau associer</p>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
 
             </div>
@@ -543,7 +549,7 @@ if (isset($_COOKIE["idrdv"])) {
         $(document).on("click", "#valider", function(evt) {
 
             const objetRDV = $('#villesRDV').val();
-            const dateRDV = $('#daterdveff').val();
+            let dateRDV = $('#daterdveff').val();
             const etat = $('input[name="customRadio"]:checked').val();
 
             const resultatOpe = $('#resultatOpe').val();
@@ -566,7 +572,10 @@ if (isset($_COOKIE["idrdv"])) {
                 //alert("action_absent ====> " + action_absent);
                 if (action_absent == "reprogrammer") {
                     date_report_rdv = $('#nouvelle_date_rdv').val();
+
                     // console.log("date rdv ===> " + dateRDV + " <==== nouvelle date rdv " + date_report_rdv);
+                    // dateRDV = date_report_rdv;
+                    // console.log("date rdv ajout ===> " + dateRDV + " <==== nouvelle date rdv " + date_report_rdv);
                     optionadditif += "|" + action_absent + "|" + date_report_rdv;
                 } else {
                     optionadditif += "|" + action_absent;

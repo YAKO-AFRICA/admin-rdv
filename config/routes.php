@@ -229,7 +229,7 @@ if ($request->action != null) {
         case "afficherGestionnaire":
 
             $idVilleEff = GetParameter::FromArray($_REQUEST, 'idVilleEff');
-            $sqlQuery = "SELECT users.id , users.email , users.codeagent ,  TRIM(CONCAT(users.nom ,' ', users.prenom)) as gestionnairenom ,tblvillebureau.libelleVilleBureau as villeEffect FROM users INNER JOIN tblvillebureau ON tblvillebureau.idVilleBureau = users.ville WHERE  users.etat='1' AND tblvillebureau.idVilleBureau='$idVilleEff'  ORDER BY users.id ASC";
+            $sqlQuery = "SELECT users.id , users.email , users.codeagent ,  TRIM(CONCAT(users.nom ,' ', users.prenom)) as gestionnairenom ,tblvillebureau.libelleVilleBureau as villeEffect FROM users INNER JOIN tblvillebureau ON tblvillebureau.idVilleBureau = users.ville WHERE  users.etat='1' AND tblvillebureau.idVilleBureau='$idVilleEff' AND (users.typeCompte='rdv' OR users.typeCompte='gestionnaire') ORDER BY users.id ASC";
             $resultat = $fonction->_getSelectDatabases($sqlQuery);
             if ($resultat != NULL) {
                 echo json_encode($resultat);
@@ -356,52 +356,7 @@ if ($request->action != null) {
                 $idrdv =  $retour["LastInsertId"];
                 notificationRDV_gestionnaireByNissa($daterdveff, $ListeGest, $telephone, $idrdv, $url);
                 echo json_encode($idrdv);
-                /*
-                list($idGestionnaire, $gestionnaire, $idvilleGestionnaire, $villesGestionnaire) = explode("|", $ListeGest, 4);
-                $sqlQuery2 = "SELECT id , email , codeagent , telephone,  TRIM(CONCAT(nom ,' ', prenom)) as gestionnairenom FROM users WHERE  id='" . $idGestionnaire . "' ";
-                $result2 = $fonction->_getSelectDatabases($sqlQuery2);
-                if ($result2 != NULL) {
-                    $retourGestionnaire = $result2[0];
-
-                    $dateeffective = date('d/m/Y', strtotime($daterdveff));
-                    $telGestionnaire = $retourGestionnaire->telephone;
-                    $emailGestionnaire = $retourGestionnaire->email;
-                    $nomGestionnaire = $retourGestionnaire->gestionnairenom;
-                    $codeagent = $retourGestionnaire->codeagent;
-
-                    $retour_agent = $fonction->getRetourneContactInfosGestionnaire($codeagent);
-
-                    if (isset($retour_agent["telephone"]) && !empty($retour_agent["telephone"])) {
-                        $message = "Cher(e) client(e), suite à votre demande de rendez-vous, un conseiller vous recevra le " . $dateeffective . "." . PHP_EOL . "Pour plus d' information , veuillez contacter le " . $retour_agent["telephone"] . ".";
-                    } else {
-                        $message = "Votre RDV est prévu le $dateeffective à $villesGestionnaire. Un conseiller client vous recevra. Pour plus d'informations, Consultez votre espace client: urlr.me/9ZXGSr . ";
-                    }
-
-                    $numero = "225" . substr($telephone, -10);
-                    $ref_sms = "RDV-" . $idrdv;
-
-                    $sms_envoi = new SMSService();
-                    if (strlen($message) > 160) $message = substr($message, 0, 160);
-                    $sms_envoi->sendOtpInfobip($numero, $message, "YAKO AFRICA");
-
-                    $sqlUpdateRdvUpdate = "UPDATE tblrdv SET etatSms =?  WHERE idrdv = ?";
-                    $queryOptions = array(
-                        '1',
-                        intval($idrdv)
-                    );
-                    $result = $fonction->_Database->Update($sqlUpdateRdvUpdate, $queryOptions);
-
-                    if (isset($retour_agent["email_final"]) && !empty($retour_agent["email_final"])) {
-
-                        //envoi mail au gestionnaire 
-                        $lienEnvoiMail = "$url/envoiMail-rdv.php?";
-                        $url_notification = $lienEnvoiMail . "action=transmettreRDV&data=[idrdv:" . trim($idrdv) . "]";
-                        $retour = file_get_contents($url_notification);
-                    }
-
-                    echo json_encode($idrdv);
-                }
-                */
+                
             } else {
                 echo json_encode("-1");
             }
@@ -759,6 +714,8 @@ if ($request->action != null) {
 
             $rdvLe = GetParameter::FromArray($_REQUEST, 'rdvLe');
             $rdvAu = GetParameter::FromArray($_REQUEST, 'rdvAu');
+            $affecteLe = GetParameter::FromArray($_REQUEST, 'affecteLe');
+            $affecteAu = GetParameter::FromArray($_REQUEST, 'affecteAu');
             $ListeGest = GetParameter::FromArray($_REQUEST, 'ListeGest');
             $objetRDV = GetParameter::FromArray($_REQUEST, 'objetRDV');
             $_REQUEST['etat'] = null;
@@ -772,6 +729,17 @@ if ($request->action != null) {
             } elseif (!empty($rdvAu)) {
                 $periode = date('d/m/Y', strtotime($rdvAu));
                 $lib_periode = date('Ymd', strtotime($rdvAu));
+            }
+
+            if (!empty($affecteLe) && !empty($affecteAu)) {
+                $periode = date('d/m/Y', strtotime($affecteLe)) . " - " . date('d/m/Y', strtotime($affecteAu));
+                $lib_periode = date('Ymd', strtotime($affecteLe)) . " - " . date('Ymd', strtotime($affecteAu));
+            } elseif (!empty($affecteLe)) {
+                $periode = date('d/m/Y', strtotime($affecteLe));
+                $lib_periode = date('Ymd', strtotime($affecteLe));
+            } elseif (!empty($affecteAu)) {
+                $periode = date('d/m/Y', strtotime($affecteAu));
+                $lib_periode = date('Ymd', strtotime($affecteAu));
             }
             // Gestionnaire
             if (!empty($ListeGest)) {
@@ -797,6 +765,9 @@ if ($request->action != null) {
             $sqlSelect = " SELECT tblrdv.*, CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire, users.email AS emailgestionnaire, users.codeagent AS codeagentgestionnaire, users.id AS idgestionnaire,
             	    TRIM(tblvillebureau.libelleVilleBureau) AS villes FROM tblrdv LEFT JOIN users ON tblrdv.gestionnaire = users.id
                     LEFT JOIN tblvillebureau ON tblrdv.idTblBureau = tblvillebureau.idVilleBureau $plus  ORDER BY idgestionnaire DESC ";
+
+            // echo $sqlSelect;
+
             $resultat = $fonction->_getSelectDatabases($sqlSelect);
             if ($resultat != null) {
                 echo json_encode($resultat);
@@ -805,51 +776,250 @@ if ($request->action != null) {
             }
 
             break;
-        case "importBordereau":
+        case "saveBordereauRDV":
+            $etat = 0;
 
-            //print_r($_REQUEST);
+            $affecteLe = GetParameter::FromArray($_REQUEST, 'affecteLe');
+            $affecteAu = GetParameter::FromArray($_REQUEST, 'affecteAu');
+            $ListeGest = GetParameter::FromArray($_REQUEST, 'ListeGest');
+            $objetRDV = GetParameter::FromArray($_REQUEST, 'objetRDV');
+            $lib_periode = '';
+            $periode = '';
 
-            $dataATraiter = GetParameter::FromArray($_REQUEST, 'params');
-            $data = json_decode($dataATraiter, true);
-            if (!is_array($data)) {
-                http_response_code(400);
-                //echo json_encode(["error" => "Données JSON invalides"]);
-                $response = ["success" => false, "error" => "Données JSON invalides"];
-                echo json_encode($response);
-            } else {
+            $idGest = '';
+            $nomGest = '';
+            $idVilleGest = '';
+            $VilleGest = '';
+            $periode_1 = null;
+            $periode_2 = null;
 
-                $inserted = 0;
-                $ref = date('Ymd');
-                // generer le numero de bordereau unique
-                $reference = uniqid('BRD-' . $ref . '-', false);
-
-                for ($i = 0; $i <= count($data) - 1; $i++) {
-                    if ($i == 0) continue;
-
-                    $ligneBordereau = new BordereauRDV($data[$i]);
-
-                    //print_r($ligneBordereau);
-
-                    if (isset($ligneBordereau->NumeroRdv) && $ligneBordereau->NumeroRdv != null) {
-
-                        $sqlQuery = "SELECT * FROM tblrdv WHERE idrdv = '" . $ligneBordereau->NumeroRdv . "' ORDER BY idrdv ";
-                        $result_rdv = $fonction->_getSelectDatabases($sqlQuery);
-                        if ($result_rdv != null) {
-
-                            $inserted = $inserted + 1;
-                            $rdv = $result_rdv[0];
-                            $auteur = $_SESSION["utilisateur"];
-                            $id_users = $_SESSION["id"];
-                            _insertBordereauRDV($ligneBordereau, $rdv, $reference, $id_users, $auteur);
-                        }
-                    }
-                }
-
-                $response = ["success" => true, "inserted" => $inserted, "total" => count($data), "reference" => $reference];
-                echo json_encode($response);
+            // Periode
+            if (!empty($affecteLe) && !empty($affecteAu)) {
+                $periode_1 = date('Y-m-d', strtotime($affecteLe));
+                $periode_2 = date('Y-m-d', strtotime($affecteAu));
+                $periode = date('d/m/Y', strtotime($affecteLe)) . " - " . date('d/m/Y', strtotime($affecteAu));
+                $lib_periode = date('Ymd', strtotime($affecteLe)) . " - " . date('Ymd', strtotime($affecteAu));
+            } elseif (!empty($affecteLe)) {
+                $periode_1 = date('Y-m-d', strtotime($affecteLe));
+                $periode = date('d/m/Y', strtotime($affecteLe));
+                $lib_periode = date('Ymd', strtotime($affecteLe));
+            } elseif (!empty($affecteAu)) {
+                $periode_2 = date('Y-m-d', strtotime($affecteAu));
+                $periode = date('d/m/Y', strtotime($affecteAu));
+                $lib_periode = date('Ymd', strtotime($affecteAu));
+            }
+            // Gestionnaire
+            if (!empty($ListeGest)) {
+                [$idGest, $nomGest, $idVilleGest, $VilleGest] = explode('|', $ListeGest, 4);
             }
 
+            // VilleRDV
+            if (!empty($objetRDV)) {
+                [$idVille, $villesRDV] = explode(';', $objetRDV, 2);
+            }
+
+            $sqlSelect = "SELECT * FROM tbl_bordereau_rdv 
+              WHERE periode_1 = '$periode_1' 
+              AND periode_2 = '$periode_2'  
+              ORDER BY created_at DESC";
+
+            $bordereau = $fonction->_getSelectDatabases($sqlSelect);
+
+            if (!empty($bordereau)) {
+
+                $bordereau = $bordereau[0];
+
+                if ($bordereau->etat == 0) {
+
+                    $result = $fonction->_updateInfosBordereauRDV(
+                        $idVilleGest,
+                        $VilleGest,
+                        $idGest,
+                        $nomGest,
+                        $affecteLe,
+                        $affecteAu,
+                        $bordereau->reference,
+                        $etat
+                    );
+
+                    if ($result) {
+                        $response = [
+                            "success" => true,
+                            "action" => "update",
+                            "message" => "Le bordereau de cette periode de " . $periode . " a été mis à jour !",
+                            "inserted" => $bordereau,
+                            "reference" => $bordereau->reference
+                        ];
+                        echo json_encode($response);
+                    } else {
+                        echo json_encode("-1");
+                    }
+
+                } else if ($bordereau->etat == 1) {
+
+                    $response = [
+                        "success" => true,
+                        "action" => "exist",
+                        "message" => "Le bordereau de cette periode de " . $periode . " a déjà été traité",
+                        "inserted" => $bordereau,
+                        "reference" => $bordereau->reference
+                    ];
+
+                    echo json_encode($response);
+
+                } else {
+                    echo json_encode("-1");
+                }
+
+            } else {
+
+                $now = date('YmdHis');
+                $prefixe_ref = strtolower("BordereauRdv-" . $periode . "-" . $now . "-");
+                $reference = uniqid($prefixe_ref);
+
+                $result = $fonction->_insertInfosBordereauRDV(
+                    $idVilleGest,
+                    $VilleGest,
+                    $idGest,
+                    $nomGest,
+                    $affecteLe,
+                    $affecteAu,
+                    $reference,
+                    $etat
+                );
+
+                if ($result) {
+
+                    $response = [
+                        "success" => true,
+                        "action" => "insert",
+                        "message" => "Le bordereau de cette periode de " . $periode . " a été enregistré",
+                        "inserted" => $result,
+                        "reference" => $reference
+                    ];
+
+                    echo json_encode($response);
+
+                } else {
+                    echo json_encode("-1");
+                }
+            }
+
+
             break;
+
+            case "importBordereau":
+            $dataATraiter = GetParameter::FromArray($_REQUEST, 'params');
+            $bordereauReference = GetParameter::FromArray($_REQUEST, 'bordereauReference');
+            $data = json_decode($dataATraiter, true);
+            
+            if (!is_array($data)) {
+                http_response_code(400);
+                $response = ["success" => false, "error" => "Données JSON invalides"];
+                echo json_encode($response);
+                break;
+            }
+
+            $inserted = 0;
+            $reference = $bordereauReference;
+            $errors = [];
+
+            for ($i = 0; $i < count($data); $i++) {
+                $ligneBordereau = new BordereauRDV($data[$i]);
+
+                if (isset($ligneBordereau->NumeroRdv) && $ligneBordereau->NumeroRdv != null) {
+                    
+                    // Nettoyer et sécuriser la valeur
+                    $rdvId = intval($ligneBordereau->NumeroRdv);
+                    
+                    // Requête sans guillemets pour un entier
+                    $sqlQuery = "SELECT * FROM tblrdv WHERE idrdv = " . $rdvId . " ORDER BY idrdv";
+                    $result_rdv = $fonction->_getSelectDatabases($sqlQuery);
+
+                    if ($result_rdv != null && count($result_rdv) > 0) {
+                        $inserted++;
+                        $rdv = $result_rdv[0];
+                        $auteur = $_SESSION["utilisateur"];
+                        $id_users = $_SESSION["id"];
+                        
+                        // Insérer le bordereau
+                        _insertBordereauRDV($ligneBordereau, $rdv, $reference, $id_users, $auteur);
+
+                        $observation = "Le bordereau n° " . $reference . " a été importé par " . $_SESSION["utilisateur"] . " le " . date('d/m/Y H:i:s') . ". Le gestionnaire à qui le RDV a été affecté peut maintenant procéder au traitement.";
+                        
+                        $sqlUpdate = "UPDATE tbl_bordereau_rdv SET etat =?, observation = ? WHERE reference = ?";
+                        $queryOptions = array('1', $observation, $reference);
+                        $tab = $fonction->_Database->Update($sqlUpdate, $queryOptions);
+                    } else {
+                        $errors[] = "RDV #" . $ligneBordereau->NumeroRdv . " non trouvé dans la base";
+                    }
+                } else {
+                    $errors[] = "Ligne " . ($i + 1) . " : Numéro de RDV manquant";
+                }
+            }
+
+            $response = [
+                "success" => true, 
+                "inserted" => $inserted, 
+                "total" => count($data), 
+                "reference" => $reference,
+                "errors" => $errors
+            ];
+            
+            echo json_encode($response);
+            break;
+        // case "importBordereau":
+
+        //     $dataATraiter = GetParameter::FromArray($_REQUEST, 'params');
+        //     $bordereauReference = GetParameter::FromArray($_REQUEST, 'bordereauReference');
+        //     $data = json_decode($dataATraiter, true);
+        //     if (!is_array($data)) {
+        //         http_response_code(400);
+        //         //echo json_encode(["error" => "Données JSON invalides"]);
+        //         $response = ["success" => false, "error" => "Données JSON invalides"];
+        //         echo json_encode($response);
+        //     } else {
+
+        //         $inserted = 0;
+        //         $ref = date('Ymd');
+        //         // generer le numero de bordereau unique
+        //         $reference = $bordereauReference;
+        //         // $reference = uniqid('BRD-' . $ref . '-', false);
+
+        //         for ($i = 0; $i < count($data); $i++) {
+
+        //             $ligneBordereau = new BordereauRDV($data[$i]);
+
+        //             if (isset($ligneBordereau->NumeroRdv) && $ligneBordereau->NumeroRdv != null) {
+
+        //                 $sqlQuery = "SELECT * FROM tblrdv WHERE idrdv = '" . $ligneBordereau->NumeroRdv . "' ORDER BY idrdv ";
+        //                 $result_rdv = $fonction->_getSelectDatabases($sqlQuery);
+        //                 print_r($result_rdv);
+        //                 exit;
+        //                 if ($result_rdv != null) {
+
+        //                     $inserted = $inserted + 1;
+        //                     $rdv = $result_rdv[0];
+        //                     $auteur = $_SESSION["utilisateur"];
+        //                     $id_users = $_SESSION["id"];
+        //                     _insertBordereauRDV($ligneBordereau, $rdv, $reference, $id_users, $auteur);
+
+        //                     $observation = "Le bordereau n° " . $reference . " a été importé par " . $_SESSION["utilisateur"] . " le " . date('d/m/Y H:i:s') . ". Le gestionnaire à qui le RDV a été affecté peut maintenant procéder au traitement.";
+        //                     $sqlUpdate = "UPDATE tbl_bordereau_rdv SET etat =1, observation=? WHERE reference = ?";
+        //                     $queryOptions = array(
+        //                         $observation,
+        //                         $reference
+        //                     );
+        //                     $tab = $this->_Database->Update($sqlUpdate, $queryOptions);
+        //                 }
+        //             }
+        //         }
+
+        //         $response = ["success" => true, "inserted" => $inserted, "total" => count($data), "reference" => $reference];
+        //         echo json_encode($response);
+        //     }
+
+        //     break;
         default:
             echo json_encode("0");
             break;
@@ -898,19 +1068,36 @@ function issueApresReceptionRDV($rdv, $etatTraitement, $libelleTraitement, $obse
 {
     global $fonction, $maintenant, $lienEnvoiMail;
 
-    $sqlUpdatePrestation = "UPDATE tblrdv SET etat = ?, etatTraitement=?, libelleTraitement=?, reponseGest=?, datetraitement=now(), gestionnaire=?,  traiterLe=now() , updatedAt=now(), etatSms =? WHERE idrdv = ?";
-    $queryOptions = array(
-        $etat,
-        $etatTraitement,
-        $libelleTraitement,
-        addslashes(htmlspecialchars(trim(ucfirst(strtolower($observation))))),
-        $traiterpar,
-        '1',
-        intval($rdv->idrdv)
-    );
-
-    $fonction->_Database->Update($sqlUpdatePrestation, $queryOptions);
-    return $rdv->idrdv;
+    if ($resultatOpe == "absent") {
+        $sqlUpdatePrestation = "UPDATE tblrdv SET etat = ?, reponse=?, etatTraitement=?, libelleTraitement=?, reponseGest=?, datetraitement=now(), gestionnaire=?,  traiterLe=now() , updatedAt=now(), etatSms =? WHERE idrdv = ?";
+        $queryOptions = array(
+            $etat,
+            addslashes(htmlspecialchars(trim(ucfirst(strtolower($observation))))),
+            $etatTraitement,
+            $libelleTraitement,
+            addslashes(htmlspecialchars(trim(ucfirst(strtolower($observation))))),
+            $traiterpar,
+            '1',
+            intval($rdv->idrdv)
+        );
+    
+        $fonction->_Database->Update($sqlUpdatePrestation, $queryOptions);
+        return $rdv->idrdv;
+    }else{
+        $sqlUpdatePrestation = "UPDATE tblrdv SET etat = ?, etatTraitement=?, libelleTraitement=?, reponseGest=?, datetraitement=now(), gestionnaire=?,  traiterLe=now() , updatedAt=now(), etatSms =? WHERE idrdv = ?";
+        $queryOptions = array(
+            $etat,
+            $etatTraitement,
+            $libelleTraitement,
+            addslashes(htmlspecialchars(trim(ucfirst(strtolower($observation))))),
+            $traiterpar,
+            '1',
+            intval($rdv->idrdv)
+        );
+    
+        $fonction->_Database->Update($sqlUpdatePrestation, $queryOptions);
+        return $rdv->idrdv;
+    }
 }
 
 
@@ -929,7 +1116,8 @@ function optionAbscenceApresReceptionRDVbyNISSA($optionadditif, $daterdveff, $rd
 
             $sqlUpdate = "UPDATE tblrdv SET daterdveff = ? , etat=? , etatTraitement=? , libelleTraitement=? , gestionnaire=? , estPermit=null , reponseGest=? , datetraitement=now(), traiterLe=now() , updatedAt=now()  WHERE idrdv = ? ";
             $queryOptions = array(
-                $daterdveff,
+                $dateNewRDV,
+                // $daterdveff,
                 "2",
                 $etatTraitement,
                 $libelleTraitement,

@@ -34,58 +34,45 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat);
 // if ($liste_rdvs != null) $effectue = count($liste_rdvs);
 // else $effectue = 0;
 
-	if ($liste_rdvs != null) {
+if ($liste_rdvs != null) {
 
-		$liste_rdvs = array_filter($liste_rdvs, function ($rdv) use ($fonction) {
+	$liste_rdvs = array_filter($liste_rdvs, function ($rdv) use ($fonction) {
 
-			if ($rdv->etat == "" || $rdv->etat == null || $rdv->etat == " ") {
-				return false;
-			}
+		if ($rdv->etat == "" || $rdv->etat == null || $rdv->etat == " ") {
+			return false;
+		}
 
-			// // On ne filtre que les RDV etat = 2 ou 1
-			if ($rdv->etat != "2" && $rdv->etat != "1") {
-				return true;
-			}
-			
-
-			// Si pas de date effective → on garde
-			// $daterdveff = $rdv->daterdveff ?? $daterdv ?? $rdv->traiterLe ?? null;
-			// if ($daterdveff == null) {
-			// 	return true;
-			// }
-			$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
-
-			// Calcul du délai
-			$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->traiterLe ?? null);
-
-			// if ($rdv->etat == "1") {
-				
-			// 	// On EXCLUT seulement si expiré depuis PLUS de 10 jours et si etat = 1
-			// 	if ($delai['etat'] === 'expire' && $delai['jours'] > 10) {
-			// 		return false;
-			// 	}
-			// }elseif ($rdv->etat == "2") {
-
-			// 	// On EXCLUT seulement si expiré
-			// 	if ($delai['etat'] === 'expire') {
-			// 		return false;
-			// 	}
-			// }
-				if ($delai['etat'] === 'expire') {
-					return false;
-				}
-
+		// // On ne filtre que les RDV etat = 2 ou 1
+		if ($rdv->etat != "2" && $rdv->etat != "1") {
 			return true;
-		});
+		}
+		
 
-		// Réindexation du tableau
-		$liste_rdvs = array_values($liste_rdvs);
+		// Si pas de date effective → on garde
+		$daterdveff = $rdv->daterdveff ?? $daterdv ?? $rdv->transmisLe ?? null;
+		if ($daterdveff == null) {
+			return true;
+		}
+		$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 
-		$effectue = count($liste_rdvs);
+		// Calcul du délai
+		$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->transmisLe ?? null);
 
-	} else {
-		$effectue = 0;
-	}
+		if ($delai['etat'] === 'expire') {
+			return false;
+		}
+		
+		return true;
+	});
+
+	// Réindexation du tableau
+	$liste_rdvs = array_values($liste_rdvs);
+
+	$effectue = count($liste_rdvs);
+
+} else {
+	$effectue = 0;
+}
 
 ?>
 
@@ -182,6 +169,8 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat);
 
 										$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 
+										$infosBordereaux = $fonction->getRetourneInfosBordereaux(" WHERE NumeroRdv = '" . $rdv->idrdv . "'");
+
 										// $dateRdvRaw = $rdv->daterdveff ?? null;
 										$dateRdvRaw = $rdv->daterdveff ?? $daterdv ?? null;
 										$dateRdvObj = $dateRdvRaw ? new DateTime($dateRdvRaw) : null;
@@ -191,10 +180,13 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat);
 
 
 
-										$delai = $fonction->getDelaiRDV($dateRdvRaw ?? $daterdv, $rdv->traiterLe ?? null);
+										$delai = $fonction->getDelaiRDV($dateRdvRaw, $rdv->transmisLe ?? null);
 										$libDelai = $delai['libelle'] ?? '';
 										$couleur = $delai['couleur'] ?? 'transparent';
 										$badgeDelai = $delai['badge'] ?? 'badge badge-secondary';
+
+										// print_r($delai);
+										// exit;
 
 									?>
 										<tr id="ligne-<?= $i ?>">
@@ -238,12 +230,20 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat);
 														Date transmission :
 														<strong><?= !empty($rdv->transmisLe) ? date('d/m/Y', strtotime($rdv->transmisLe)) : '' ?></strong>
 													</p>
-
-													<!-- <?php if ($dateRdvObj && $dateRdvObj < $dateToday): ?> -->
-														<p class="mb-0 " style="font-size:0.7em; color: <?= $couleur ?>;">
-															<!-- Date RDV expirée -->
-															 <?= $libDelai ?>
+													<?php if ($infosBordereaux != null): ?>
+														<p class="mb-0 " style="font-size:0.7em; color: green;">
+															<strong>Bordereau disponible</strong>
 														</p>
+													<?php else: ?>
+														<p class="mb-0 " style="font-size:0.7em; color: red;">
+															<strong>Bordereau non disponible</strong>
+														</p>
+													<?php endif; ?>
+													
+													<p class="mb-0 " style="font-size:0.7em; color: <?= $couleur ?>;">
+														Délai restant :	<strong><?= $libDelai ?></strong>
+													</p>
+													<!-- <?php if ($dateRdvObj && $dateRdvObj < $dateToday): ?> -->
 													<!-- <?php endif; ?> -->
 
 												<?php elseif ($rdv->etat === "3"): ?>
@@ -273,8 +273,9 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat);
 													<i class="fa fa-eye"></i> Détail
 												</button>
 
+												
 												<?php if (in_array($rdv->etat, ["1", "2"])): ?>
-													<?php if ($dateRdvObj && $dateRdvObj < $dateToday): ?>
+													<?php if ($delai['etat'] === 'expire'): ?>
 														<button class="btn btn-info btn-sm traiter" id="traiter-<?= $i ?>">
 															<i class="fa fa-edit"></i> Modifier
 														</button>
@@ -290,7 +291,7 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat);
 															<?php endif; ?>
 															
 														</button>
-														<button class="btn btn-success btn-sm reception" id="reception-<?= $i ?>">
+														<button class="btn btn-success btn-sm reception" id="reception-<?= $i ?>" <?php if ($rdv->etat == "2" && $infosBordereaux == null): ?> disabled <?php endif; ?>>
 															<i class="fa fa-check"></i> Traiter
 														</button>
 													<?php endif; ?>

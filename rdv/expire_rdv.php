@@ -16,7 +16,45 @@ try {
         WHERE etat = 1 OR etat = 2
     ";
 
-    $rdvs = $fonction->_getSelectDatabases($sql);
+    $liste_rdvs = $fonction->_getSelectDatabases($sql);
+
+    if ($liste_rdvs != null) {
+
+		$liste_rdvs = array_filter($liste_rdvs, function ($rdv) use ($fonction) {
+
+			if ($rdv->etat == "" || $rdv->etat == null || $rdv->etat == " ") {
+				return false;
+			}
+			// // On ne filtre que les RDV etat = 2 ou 1
+			if ($rdv->etat != "2" && $rdv->etat != "1") {
+				return true;
+			}
+			$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
+
+			// Si pas de date effective → on garde
+			$daterdveff = $rdv->daterdveff ?? $daterdv ?? $rdv->transmisLe ?? null;
+			
+			if ($daterdveff == null) {
+				return true;
+			}
+
+			// Calcul du délai
+			$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->transmisLe ?? null);
+
+			if ($delai['etat'] === 'expire' && $delai['jours'] > 10) {
+				return false;
+			}
+
+			if (($rdv->etat == "2" || $rdv->etat == "1") && $delai['etat'] !== 'expire') {
+				return false;
+			}
+
+			return true;
+		});
+    
+		// Réindexation du tableau
+		$rdvs = array_values($liste_rdvs);
+    }
 
     $ids_a_expirer = [];
 
@@ -24,13 +62,9 @@ try {
     foreach ($rdvs as $rdv) {
         $daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 
-        $delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->traiterLe ?? null);
+        $delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->transmisLe ?? null);
 
-        if (
-            $delai['etat'] === 'expire'
-            && isset($delai['jours'])
-            && $delai['jours'] >= 10
-        ) {
+        if ( $delai['etat'] === 'expire' && isset($delai['jours']) && $delai['jours'] >= 10) {
             $ids_a_expirer[] = (int)$rdv->idrdv;
         }
     }
@@ -51,7 +85,7 @@ try {
         if ($result != null) {
             $retour = $idrdv;
             $message = "Cher client(e), votre demande de rdv n° " . $rdv->codedmd . "  du " . date('d/m/Y', strtotime($rdv->daterdv)) . " a été rejetée." . PHP_EOL . "Consultez les détails du rejet sur votre espace personnel : urlr.me/9ZXGSr";
-            // envoyerSMS_RDV($rdv->tel, $message, $rdv->idrdv);
+            envoyerSMS_RDV($rdv->tel, $message, $rdv->idrdv);
         }
 
         $spreadsheet = new Spreadsheet();

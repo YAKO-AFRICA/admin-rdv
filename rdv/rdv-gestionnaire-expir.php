@@ -35,6 +35,8 @@ if (isset($etat) && $etat !== null && in_array($etat, array_keys(Config::tablo_s
 }
 
 $liste_rdvs = $fonction->getSelectRDVAfficherGestionnaire(trim($_SESSION['id']), $etat);
+
+
 // if ($liste_rdvs != null) $effectue = count($liste_rdvs);
 // else $effectue = 0;
 
@@ -43,23 +45,33 @@ if ($liste_rdvs != null) {
 
     $liste_rdvs = array_filter($liste_rdvs, function ($rdv) use ($fonction) {
 
+		if ($rdv->etat == "" || $rdv->etat == null || $rdv->etat == " ") {
+			return false;
+		}
         // On ne filtre que les RDV etat = 2
         if ($rdv->etat != "2") {
             return true;
         }
+		
 
         // Si pas de date effective → on garde
         if (empty($rdv->daterdveff)) {
             return true;
         }
+		$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 
         // Calcul du délai
-        $delai = $fonction->getDelaiRDV($rdv->daterdveff);
+        $delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->transmisLe ?? null);
+		
+		if ($delai['etat'] !== 'expire') {
+			return false;
+		}
 
-        // On EXCLUT seulement si expiré depuis PLUS de 10 jours
-        if ($delai['etat'] === 'expire' && $delai['jours'] > 10) {
+        // On EXCLUT seulement si expiré de moins de 10 jours
+        if ($delai['etat'] === 'expire' && $delai['jours'] < 10) {
             return false;
         }
+		
 
         return true;
     });
@@ -174,7 +186,16 @@ if ($liste_rdvs != null) {
 										$couleur_fond = null;
 										$badge_delai = null;
 
-										$delai = $fonction->getDelaiRDV($rdv->daterdveff);
+										$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
+
+										// $dateRdvRaw = $rdv->daterdveff ?? null;
+										$dateRdvRaw = $rdv->daterdveff ?? $daterdv ?? null;
+										$dateRdvObj = $dateRdvRaw ? new DateTime($dateRdvRaw) : null;
+										$dateToday = new DateTime();
+
+										$dateRdvAffiche = $dateRdvObj ? $dateRdvObj->format('d/m/Y') : '';
+
+										$delai = $fonction->getDelaiRDV($dateRdvRaw, $rdv->transmisLe ?? null);
 										if ($rdv->etat == "2") {
 											$lib_delai = $delai['libelle'];
 											$couleur_fond = $delai['couleur'] ?? 'transparent';
