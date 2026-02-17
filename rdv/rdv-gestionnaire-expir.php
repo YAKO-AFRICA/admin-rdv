@@ -61,14 +61,14 @@ if ($liste_rdvs != null) {
 		$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 
         // Calcul du délai
-        $delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->transmisLe ?? null);
+        $delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv);
 		
 		if ($delai['etat'] !== 'expire') {
 			return false;
 		}
 
         // On EXCLUT seulement si expiré de moins de 10 jours
-        if ($delai['etat'] === 'expire' && $delai['jours'] < 10) {
+        if ($delai['etat'] === 'expire' && $delai['jours'] > 10) {
             return false;
         }
 		
@@ -137,10 +137,10 @@ if ($liste_rdvs != null) {
 					</div>
 				</div>
 				<hr>
-				<?php
+				<!-- <?php
 				$retourStatut = $fonction->afficheuseGlobalStatistiqueRDV(" and gestionnaire = '" . trim($_SESSION['id']) . "'", "rdv-gestionnaire-expir");
 				echo $retourStatut;
-				?>
+				?> -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
 						<h4 class="text-center text-uppercase" style="color:#033f1f; ">
@@ -195,7 +195,7 @@ if ($liste_rdvs != null) {
 
 										$dateRdvAffiche = $dateRdvObj ? $dateRdvObj->format('d/m/Y') : '';
 
-										$delai = $fonction->getDelaiRDV($dateRdvRaw, $rdv->transmisLe ?? null);
+										$delai = $fonction->getDelaiRDV($dateRdvRaw);
 										if ($rdv->etat == "2") {
 											$lib_delai = $delai['libelle'];
 											$couleur_fond = $delai['couleur'] ?? 'transparent';

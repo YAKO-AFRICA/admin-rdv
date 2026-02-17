@@ -49,14 +49,14 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat, $etat2);
 			$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 
 			// Si pas de date effective → on garde
-			$daterdveff = $rdv->daterdveff ?? $daterdv ?? $rdv->transmisLe ?? null;
+			$daterdveff = $rdv->daterdveff ?? $daterdv;
 			
 			if ($daterdveff == null) {
 				return true;
 			}
 
 			// Calcul du délai
-			$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->transmisLe ?? null);
+			$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv);
 
 			// On EXCLUT seulement si expiré depuis PLUS de 10 jours
 			// if ($delai['etat'] === 'expire') {
@@ -189,7 +189,7 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat, $etat2);
 
 
 
-										$delai = $fonction->getDelaiRDV($dateRdvRaw ?? $daterdv, $rdv->transmisLe ?? null);
+										$delai = $fonction->getDelaiRDV($dateRdvRaw ?? $daterdv);
 										$libDelai = $delai['libelle'] ?? '';
 										$couleur = $delai['couleur'] ?? 'transparent';
 										$badgeDelai = $delai['badge'] ?? 'badge badge-secondary';

@@ -47,16 +47,16 @@ if ($liste_rdvs != null) {
 			return true;
 		}
 		
-
+		$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 		// Si pas de date effective → on garde
-		$daterdveff = $rdv->daterdveff ?? $daterdv ?? $rdv->transmisLe ?? null;
+		$daterdveff = $rdv->daterdveff ?? $daterdv ;
 		if ($daterdveff == null) {
 			return true;
 		}
-		$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
+		
 
 		// Calcul du délai
-		$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->transmisLe ?? null);
+		$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv);
 
 		if ($delai['etat'] === 'expire') {
 			return false;
@@ -180,7 +180,7 @@ if ($liste_rdvs != null) {
 
 
 
-										$delai = $fonction->getDelaiRDV($dateRdvRaw, $rdv->transmisLe ?? null);
+										$delai = $fonction->getDelaiRDV($dateRdvRaw);
 										$libDelai = $delai['libelle'] ?? '';
 										$couleur = $delai['couleur'] ?? 'transparent';
 										$badgeDelai = $delai['badge'] ?? 'badge badge-secondary';

@@ -56,7 +56,7 @@ if ($liste_rdvs != null) {
         }
 
         // Calcul du délai
-        $delai = $fonction->getDelaiRDV($rdv->daterdveff, $rdv->transmisLe ?? null);
+        $delai = $fonction->getDelaiRDV($rdv->daterdveff);
 
         // On EXCLUT seulement si expiré
         if ($delai['etat'] === 'expire') {
@@ -127,10 +127,10 @@ if ($liste_rdvs != null) {
 					</div>
 				</div>
 				<hr>
-				<?php
+				<!-- <?php
 				$retourStatut = $fonction->afficheuseGlobalStatistiqueRDV(" and gestionnaire = '" . trim($_SESSION['id']) . "'", "rdv-gestionnaire");
 				echo $retourStatut;
-				?>
+				?> -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
 						<h4 class="text-center" style="color:#033f1f; ">
@@ -183,7 +183,7 @@ if ($liste_rdvs != null) {
 
 										$dateRdvAffiche = $dateRdvObj ? $dateRdvObj->format('d/m/Y') : '';
 
-										$delai = $fonction->getDelaiRDV($dateRdvRaw, $rdv->transmisLe ?? null);
+										$delai = $fonction->getDelaiRDV($dateRdvRaw);
 										if ($rdv->etat == "2") {
 											$lib_delai = $delai['libelle'];
 											$couleur_fond = $delai['couleur'] ?? 'transparent';
@@ -241,7 +241,7 @@ if ($liste_rdvs != null) {
 											<td class="table-plus text-center">
 
 												<button class="btn btn-warning btn-sm view" id="view-<?= $i ?>" style="background-color:#F9B233;color:white"><i class="fa fa-eye"></i> Détail</button>
-												<?php if ($rdv->etat == "2" && ($rdv->daterdveff < date('Y-m-d'))): ?>
+												<?php if ($rdv->etat == "2" && ($rdv->daterdveff <=  date('Y-m-d'))): ?>
 													<button class="btn btn-danger btn-sm modifierRDV" id="modifier-<?= $i ?> " style="background-color:red; color:white"><i class="fa fa-edit"></i> Modifier rdv</button>
 												<?php endif; ?>
 												<?php if ($rdv->etat == "2" && ($rdv->daterdveff >= date('Y-m-d'))): ?>

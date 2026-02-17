@@ -29,6 +29,7 @@ if ($request->action != null) {
                     $_SESSION["typeCompte"] = $retourUsers->typeCompte;
                     $_SESSION["paramCompte"] = $retourUsers->paramCompte;
                     $_SESSION["utilisateur"] = $retourUsers->userConnect;
+                    $_SESSION['agent_principal'] = $retourUsers->agent_principal;
                     $_SESSION["profil"] = $retourUsers->profil;
                     $_SESSION["cible"] = $retourUsers->cible;
                     $_SESSION["codeagent"] = $retourUsers->codeagent;
@@ -369,12 +370,14 @@ if ($request->action != null) {
             $gestionnaire = GetParameter::FromArray($_REQUEST, 'gestionnaire');
             $objetRDV = GetParameter::FromArray($_REQUEST, 'objetRDV');
             $dateRDVEff = GetParameter::FromArray($_REQUEST, 'daterdveff');
+            $retransmissionMotif = GetParameter::FromArray($_REQUEST, 'retransmissionMotif');
+
 
             if ($idrdv != null  && $gestionnaire != null && $objetRDV != null && $dateRDVEff != null) {
                 $datetraitement = date('d/m/Y à H:i:s');
                 $etat = "2";
                 $traiterpar = $_SESSION["id"];
-                $reponse = "";
+                $reponse = $retransmissionMotif;
 
                 list($idVilleEff, $VilleEff) = explode(';', $objetRDV, 2);
                 list($idgestionnaire, $nomgestionnaire, $idvilleGestionnaire, $villesGestionnaire) = explode('|', $gestionnaire, 4);

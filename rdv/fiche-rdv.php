@@ -169,7 +169,12 @@ if (isset($_COOKIE["idrdv"])) {
                                     </div>
                                     <input type="hidden" value="<?= $rdv->idrdv ?? '' ?>">
                                 </div>
-
+                                <div class="form-group col-md-12 col-sm-12 <?php if ($rdv->etat != 2): ?> d-none <?php endif; ?>">
+                                    <label for="retransmissionMotif" class="col-form-label">
+                                        Veuillez saisir le motif de retransmission du RDV <span style="color:red;">*</span> :
+                                    </label>
+                                    <textarea class="form-control" id="retransmissionMotif" name="retransmissionMotif"><?= ($rdv->etat != 2) ? $rdv->reponse ?? '' : '' ?></textarea>
+                                </div>
                                 <div id="infos-compteurRDV"></div>
                                 <div id="infos-jourReception"></div>
                             </div>
@@ -227,6 +232,7 @@ if (isset($_COOKIE["idrdv"])) {
                             </div>
                         </div>
 
+                        
                         <div id="afficheuseusers"></div>
                         <div id="afficheuse" class="mt-3"></div>
 
@@ -415,6 +421,15 @@ if (isset($_COOKIE["idrdv"])) {
             const dateRDV = $('#daterdveff').val();
             const etat = $('input[name="customRadio"]:checked').val();
             const gestionnaire = $('#ListeGest').val();
+            const retransmissionMotif = $('#retransmissionMotif').val();
+            const etatRdv = <?=$rdv->etat ?>  
+
+            
+                if (!retransmissionMotif &&  etatRdv === 2) {
+                    alert("Veuillez renseigner le motif de la retransmission");
+                    document.getElementById("retransmissionMotif").focus();
+                    return false;
+                };
 
 
             // comparer dateRDV a aujourd'hui , si superieur ok , sinon non
@@ -433,6 +448,7 @@ if (isset($_COOKIE["idrdv"])) {
                     gestionnaire: gestionnaire,
                     objetRDV: objetRDV,
                     daterdveff: dateRDV,
+                    retransmissionMotif: retransmissionMotif,
                     etat: "transmettreRDV",
                 },
                 success: function(response) {

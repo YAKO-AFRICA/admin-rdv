@@ -79,11 +79,13 @@ class Fonction
 		}
 
 		/* --- Création objets Date sans heure --- */
-		if ($dayCompare != null) {
-			$today =  new DateTime(date('Y-m-d', strtotime($dayCompare))); // RDV à 00:00:00
-		} else {
-			$today = new DateTime(date('Y-m-d'));           // Aujourd’hui à 00:00:00
-		}
+		// if ($dayCompare != null) {
+		// 	$today =  new DateTime(date('Y-m-d', strtotime($dayCompare))); // RDV à 00:00:00
+		// } else {
+		// 	$today = new DateTime(date('Y-m-d'));           // Aujourd’hui à 00:00:00
+		// }
+
+		$today = new DateTime(date('Y-m-d'));           // Aujourd’hui à 00:00:00
 
 		$rdv   = new DateTime(date('Y-m-d', strtotime($dateRDV))); // RDV à 00:00:00
 
@@ -91,6 +93,17 @@ class Fonction
 		$diff = $today->diff($rdv);
 		$jours = (int)$diff->days;
 
+		//RDV AUJOURD'HUI
+		if ($today == $rdv) {
+			return [
+				'etat'    => 'ok',
+				'couleur' => '#f39c12', // vert
+				'badge' => 'badge badge-warning',
+				'libelle' => "Aujourd’hui",
+				'jours'   => $jours,
+				'code' => 201,
+			];
+		}
 		//RDV EXPIRÉ (date passée)
 		if ($today > $rdv) {
 			return [
@@ -102,18 +115,17 @@ class Fonction
 				'code' => 400
 			];
 		}
-
 		//RDV AUJOURD'HUI
-		if ($jours === 0) {
-			return [
-				'etat'    => 'ok',
-				'couleur' => '#f39c12', // vert
-				'badge' => 'badge badge-warning',
-				'libelle' => "Aujourd’hui",
-				'jours'   => 0,
-				'code' => 201,
-			];
-		}
+		// if ($jours === 0) {
+		// 	return [
+		// 		'etat'    => 'ok',
+		// 		'couleur' => '#f39c12', // vert
+		// 		'badge' => 'badge badge-warning',
+		// 		'libelle' => "Aujourd’hui",
+		// 		'jours'   => 0,
+		// 		'code' => 201,
+		// 	];
+		// }
 
 		//RDV À VENIR
 		return [
@@ -2054,26 +2066,41 @@ class Fonction
 		$plus = Config::clauseSelectAnneeEncours;
 		$orderBy = Config::orderBySelectAnneeEncours;
 
-		$sqlSelect = "SELECT 		tblrdv.*,	CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire, TRIM(tblvillebureau.libelleVilleBureau) AS villes
+		
+		$agent_principal = $_SESSION['agent_principal'];
+		// echo $agent_principal;exit;
+		if ($_SESSION['profil'] == 'interim') {
+			// $sqlSelect = "SELECT
+			// 		tblrdv.*,
+			// 		CONCAT(u.nom, ' ', u.prenom) AS nomgestionnaire,
+			// 		TRIM(vb.libelleVilleBureau) AS villes
+			// 	FROM tblrdv
+			// 	INNER JOIN users u 
+			// 		ON tblrdv.gestionnaire = '$agent_principal'
+			// 	INNER JOIN tblvillebureau vb 
+			// 		ON tblrdv.idTblBureau = vb.idVilleBureau
+			// 	WHERE $plus $critereEtat AND u.id = $agent_principal ORDER BY 		$orderBy  
+			// ";
+			$sqlSelect = " SELECT
+					tblrdv.*,
+					CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire,
+					TRIM(tblvillebureau.libelleVilleBureau) AS villes
+				FROM tblrdv
+				LEFT JOIN users 
+					ON tblrdv.gestionnaire = users.id
+				LEFT JOIN tblvillebureau  
+					ON tblrdv.idTblBureau = tblvillebureau.idVilleBureau
+				WHERE tblrdv.gestionnaire IN ('$agent_principal', '" . trim($gestionnaireId) . "')
+					AND $plus $critereEtat
+				ORDER BY $orderBy
+			";
+		}else{
+			$sqlSelect = "SELECT 		tblrdv.*,	CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire, TRIM(tblvillebureau.libelleVilleBureau) AS villes
 			FROM tblrdv LEFT JOIN users ON tblrdv.gestionnaire = users.id LEFT JOIN tblvillebureau 	ON tblrdv.idTblBureau = tblvillebureau.idVilleBureau
 			WHERE tblrdv.gestionnaire= '" . trim($gestionnaireId) . "'  AND $plus $critereEtat  ORDER BY 		$orderBy	";
-
-
-		if ($_SESSION['profil'] === 'interim') {
-			$agent_principal = $_SESSION['agent_principal'];
-			$sqlSelect = "SELECT
-					tblrdv.*,
-					CONCAT(u.nom, ' ', u.prenom) AS nomgestionnaire,
-					TRIM(vb.libelleVilleBureau) AS villes
-				FROM tblrdv
-				LEFT JOIN users u 
-					ON tblrdv.gestionnaire = u.id
-					AND u.agent_principal = '$agent_principal'
-				LEFT JOIN tblvillebureau vb 
-					ON tblrdv.idTblBureau = vb.idVilleBureau
-				WHERE $plus $critereEtat ORDER BY 		$orderBy  
-			";
 		}
+
+		// echo $sqlSelect;exit;
 
 
 		// echo $sqlSelect;exit;

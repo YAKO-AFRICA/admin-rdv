@@ -37,6 +37,8 @@ class users
     var $paramSession = null;
     var $userConnect = null;
 
+    var $agent_principal = null;
+
 
     public function __construct($infos)
     {
@@ -58,7 +60,7 @@ class users
             //$this->profil =  $this->typeCompte;
             $this->userConnect = strtoupper($this->nom . " " . $this->prenom);
             $this->paramSession = trim($this->identifiant . "|" . $this->typeCompte . "|" . $this->id . "|" . $this->userConnect);
-            $this->paramCompte = trim($this->id . "|" . $this->service . "|" . $this->typeCompte . "|" . $this->profil . "|" . $this->cible . "|" . $this->codeagent."|" . $this->userConnect);
+            $this->paramCompte = trim($this->id . "|" . $this->service . "|" . $this->typeCompte . "|" . $this->profil . "|" . $this->cible . "|" . $this->codeagent."|" . $this->userConnect ."|" . $this->agent_principal);
             $this->infos = trim($this->paramSession . "|" . $this->telephone . "|" . $this->email . "|" . $this->profil . "|" . $this->cible . "|" . $this->codeagent);
         }
     }

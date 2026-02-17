@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 include("../autoload.php");
 include("../vendor/autoload.php");
+// include("../config/routes.php");
 
 try {
 
@@ -17,78 +18,47 @@ try {
     ";
 
     $liste_rdvs = $fonction->_getSelectDatabases($sql);
+    $rdvs = []; // Initialize $rdvs as empty array
 
     if ($liste_rdvs != null) {
 
-		$liste_rdvs = array_filter($liste_rdvs, function ($rdv) use ($fonction) {
+        $liste_rdvs = array_filter($liste_rdvs, function ($rdv) use ($fonction) {
 
-			if ($rdv->etat == "" || $rdv->etat == null || $rdv->etat == " ") {
-				return false;
-			}
-			// // On ne filtre que les RDV etat = 2 ou 1
-			if ($rdv->etat != "2" && $rdv->etat != "1") {
-				return true;
-			}
-			$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
+            if ($rdv->etat == "" || $rdv->etat == null || $rdv->etat == " ") {
+                return false;
+            }
+            // // On ne filtre que les RDV etat = 2 ou 1
+            if ($rdv->etat != "2" && $rdv->etat != "1") {
+                return true;
+            }
+            $daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 
-			// Si pas de date effective → on garde
-			$daterdveff = $rdv->daterdveff ?? $daterdv ?? $rdv->transmisLe ?? null;
-			
-			if ($daterdveff == null) {
-				return true;
-			}
+            // Si pas de date effective → on garde
+            $daterdveff = $rdv->daterdveff ?? $daterdv;
+            
+            if ($daterdveff == null) {
+                return true;
+            }
 
-			// Calcul du délai
-			$delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->transmisLe ?? null);
+            // Calcul du délai
+            $delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv);
 
-			if ($delai['etat'] === 'expire' && $delai['jours'] > 10) {
-				return false;
-			}
+            if (($rdv->etat == "2" || $rdv->etat == "1") && $delai['etat'] !== 'expire') {
+                return false;
+            }
 
-			if (($rdv->etat == "2" || $rdv->etat == "1") && $delai['etat'] !== 'expire') {
-				return false;
-			}
-
-			return true;
-		});
+            return true;
+        });
     
-		// Réindexation du tableau
-		$rdvs = array_values($liste_rdvs);
+        // Réindexation du tableau
+        $rdvs = array_values($liste_rdvs);
     }
 
     $ids_a_expirer = [];
 
-    // 2️⃣ Calcul métier AVEC getDelaiRDV()
-    foreach ($rdvs as $rdv) {
-        $daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
-
-        $delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv, $rdv->transmisLe ?? null);
-
-        if ( $delai['etat'] === 'expire' && isset($delai['jours']) && $delai['jours'] >= 10) {
-            $ids_a_expirer[] = (int)$rdv->idrdv;
-        }
-    }
-
-    // 3️⃣ Mise à jour si nécessaire
-    if (!empty($ids_a_expirer)) {
-
-        $ids = implode(',', $ids_a_expirer);
-
-        $sqlUpdate = "UPDATE tblrdv SET etat= ?, reponse=?, datetraitement=now(),  traiterLe=now() , updatedAt=now(), etatSms =? WHERE idrdv IN ($ids)";
-        $queryOptions = array(
-            '0',
-            addslashes(htmlspecialchars(trim(ucfirst(strtolower('Annulation automatique du rendez-vous n° ' . $rdv->idrdv . ' du ' . date('d/m/Y', strtotime($rdv->daterdv)) . ' par le système. Date expirée avant la date de traitement du gestionnaire.'))))),
-            '1',
-        );
-
-        $result = $fonction->_Database->Update($sqlUpdate, $queryOptions);
-        if ($result != null) {
-            $retour = $idrdv;
-            $message = "Cher client(e), votre demande de rdv n° " . $rdv->codedmd . "  du " . date('d/m/Y', strtotime($rdv->daterdv)) . " a été rejetée." . PHP_EOL . "Consultez les détails du rejet sur votre espace personnel : urlr.me/9ZXGSr";
-            envoyerSMS_RDV($rdv->tel, $message, $rdv->idrdv);
-        }
-
-        $spreadsheet = new Spreadsheet();
+    // 3️⃣ Créer le fichier Excel si rdvs > 0
+    if (count($rdvs) > 0) {
+        $spreadsheet = new Spreadsheet(); // Move this BEFORE using it
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle('RDV expirés +10j');
 
@@ -112,7 +82,16 @@ try {
 
         // Données
         $row = 2;
+        
+        // 2️⃣ Calcul métier AVEC getDelaiRDV()
         foreach ($rdvs as $rdv) {
+            $daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
+
+            $delai = $fonction->getDelaiRDV($rdv->daterdveff ?? $daterdv);
+
+            if ($delai['etat'] === 'expire' && isset($delai['jours']) && $delai['jours'] >= 10) {
+                $ids_a_expirer[] = (int)$rdv->idrdv;
+            }
 
             if (!in_array((int)$rdv->idrdv, $ids_a_expirer)) {
                 continue;
@@ -147,16 +126,59 @@ try {
         }
 
         $writer = new Xlsx($spreadsheet);
-        $writer->save($path)                                    ;
+        $writer->save($path);
 
+        // 3️⃣ Mise à jour si nécessaire
+        if (!empty($ids_a_expirer)) {
+
+            $ids = implode(',', $ids_a_expirer);
+
+            $sqlUpdate = "UPDATE tblrdv SET etat= ?, reponse=?, datetraitement=now(),  traiterLe=now() , updatedAt=now(), etatSms =? WHERE idrdv IN ($ids)";
+            $queryOptions = array(
+                '0',
+                addslashes(htmlspecialchars(trim(ucfirst(strtolower('Annulation automatique du rendez-vous n° ' . $rdv->idrdv . ' du ' . date('d/m/Y', strtotime($rdv->daterdv)) . ' par le système. Date expirée avant la date de traitement du gestionnaire.'))))),
+                '1',
+            );
+
+            $result = $fonction->_Database->Update($sqlUpdate, $queryOptions);
+            if ($result != null) {
+                $retour = $rdv->idrdv;
+                $message = "Cher client(e), votre demande de rdv n° " . $rdv->codedmd . "  du " . date('d/m/Y', strtotime($rdv->daterdv)) . " a été rejetée." . PHP_EOL . "Consultez les détails du rejet sur votre espace personnel : urlr.me/9ZXGSr";
+                // envoyerSMS_RDV($rdv->tel, $message, $rdv->idrdv);
+                global $fonction;
+                $numero = "225" . substr($rdv->tel, -10);
+                //$ref_sms = "RDV-" . $idrdv;
+
+                $sms_envoi = new SMSService();
+                if (strlen($message) > 160) $message = substr($message, 0, 160);
+                $sms_envoi->sendOtpInfobip($numero, $message, "YAKO AFRICA");
+
+                $sqlUpdateRdvUpdate = "UPDATE tblrdv SET etatSms =?  WHERE idrdv = ?";
+                $queryOptions = array(
+                    '1',
+                    intval($rdv->idrdv)
+                );
+                $fonction->_Database->Update($sqlUpdateRdvUpdate, $queryOptions);
+            }
+        }
+
+        echo json_encode([
+            'success' => true,
+            'rdv' => $rdvs,
+            'total_rdv' => count($rdvs),
+            'expired_updated' => count($ids_a_expirer),
+            'ids' => $ids_a_expirer
+        ]);
+        
+    } else {
+        echo json_encode([
+            'success' => true,
+            'message' => 'No expired RDV found',
+            'total_rdv' => 0,
+            'expired_updated' => 0,
+            'ids' => []
+        ]);
     }
-    echo json_encode([
-        'success' => true,
-        'rdv' => $rdvs,
-        'total_rdv' => count($rdvs),
-        'expired_updated' => count($ids_a_expirer),
-        'ids' => $ids_a_expirer
-    ]);
 
 } catch (Throwable $e) {
 
