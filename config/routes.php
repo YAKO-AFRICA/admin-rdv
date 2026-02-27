@@ -383,7 +383,22 @@ if ($request->action != null) {
                 list($idgestionnaire, $nomgestionnaire, $idvilleGestionnaire, $villesGestionnaire) = explode('|', $gestionnaire, 4);
 
                 $sqlSelect = "SELECT *  FROM tblrdv WHERE idrdv = '" . $idrdv . "' ";
+
                 $retour = $fonction->_getSelectDatabases($sqlSelect);
+                // $sqlSelect2 = " SELECT tblrdv.*, CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire, users.email AS emailgestionnaire, users.codeagent AS codeagentgestionnaire,
+				//   users.typeCompte AS typeCompteGestionnaire,  TRIM(tblvillebureau.libelleVilleBureau) AS villes FROM tblrdv LEFT JOIN users ON tblrdv.gestionnaire = users.id
+			    //     LEFT JOIN tblvillebureau ON tblrdv.idTblBureau = tblvillebureau.idVilleBureau WHERE tblrdv.idrdv = '$idrdv' ";
+
+
+                // $retour_rdv = $fonction->_getSelectDatabases($sqlSelect2);
+                // $rdv2 = $retour_rdv[0];
+                // $telGestionnaire = "2720259082";
+                // if ($rdv2->typeCompteGestionnaire == "gestionnaire") {
+                    // $retourGestionnaire = $fonction->getRetourneContactInfosGestionnaire($rdv2->codeagentgestionnaire);
+                //     $telGestionnaire = $retourGestionnaire["telephone"];
+                //     if ($telGestionnaire == null) $telGestionnaire = "2720259082";
+                // }
+
                 if ($retour != null) {
                     $rdv = $retour[0];
                     $result = $fonction->_TransmettreRDVGestionnaire($etat, $reponse, $dateRDVEff, $datetraitement, $idgestionnaire, $idrdv, $idVilleEff, $traiterpar);
@@ -1226,15 +1241,15 @@ function notificationRDV_gestionnaireByNissa($daterdveff, $ListeGest, $telephone
 
         $retour_agent = $fonction->getRetourneContactInfosGestionnaire($codeagent);
 
-        if (isset($retour_agent["telephone"]) && !empty($retour_agent["telephone"])) {
-            $message = "Cher(e) client(e), suite à votre demande de rendez-vous, un conseiller vous recevra le " . $dateeffective . "." . PHP_EOL . "Pour plus d' information , veuillez contacter le " . $retour_agent["telephone"] . ".";
+        if (isset($retour_agent["telephone"]) && !empty($retour_agent["telephone"]) || isset($telGestionnaire) && !empty($telGestionnaire)) {
+            $message = "Cher(e) client(e), suite à votre demande de rendez-vous, un conseiller vous recevra le " . $dateeffective . "." . PHP_EOL . "Pour plus d' information, veuillez contacter le " . $retour_agent["telephone"] ?? $telGestionnaire . ".";
         } else {
-            $message = "Votre RDV est prévu le $dateeffective à $villesGestionnaire. Un conseiller client vous recevra. Pour plus d'informations, Consultez votre espace client: urlr.me/9ZXGSr . ";
+            $message = "Votre RDV est prévu le $dateeffective à $villesGestionnaire. Un conseiller client vous recevra. Pour plus d'informations, veuillez contacter le 2720259082";
         }
 
         envoyerSMS_RDV($telephone, $message, $idrdv);
 
-        if (isset($retour_agent["email_final"]) && !empty($retour_agent["email_final"])) {
+        if (isset($retour_agent["email_final"]) && !empty($retour_agent["email_final"]) || isset($emailGestionnaire) && !empty($emailGestionnaire)) {
 
             //envoi mail au gestionnaire 
             $lienEnvoiMail = "$url/envoiMail-rdv.php?";

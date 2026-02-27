@@ -47,7 +47,7 @@ if (isset($_COOKIE["idrdv"])) {
     $daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
     $daterdveff = isset($rdv->daterdveff) ? date('Y-m-d', strtotime($rdv->daterdveff)) : $daterdv;
     $minDate = date('Y-m-d', strtotime($daterdveff . ' +1 day'));
-    $maxDate = date('Y-m-d', strtotime($daterdveff . ' +14 days'));
+    $maxDate = date('Y-m-d', strtotime($daterdveff . ' +12 days'));
 
     $infosBordereaux = $fonction->getRetourneInfosBordereaux(" WHERE NumeroRdv = '" . $rdv->idrdv . "'");
     $montantTotal = 0;

@@ -149,9 +149,9 @@ try {
                 $numero = "225" . substr($rdv->tel, -10);
                 //$ref_sms = "RDV-" . $idrdv;
 
-                $sms_envoi = new SMSService();
-                if (strlen($message) > 160) $message = substr($message, 0, 160);
-                $sms_envoi->sendOtpInfobip($numero, $message, "YAKO AFRICA");
+                // $sms_envoi = new SMSService();
+                // if (strlen($message) > 160) $message = substr($message, 0, 160);
+                // $sms_envoi->sendOtpInfobip($numero, $message, "YAKO AFRICA");
 
                 $sqlUpdateRdvUpdate = "UPDATE tblrdv SET etatSms =?  WHERE idrdv = ?";
                 $queryOptions = array(
