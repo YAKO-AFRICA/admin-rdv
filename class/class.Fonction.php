@@ -653,19 +653,19 @@ class Fonction
 			$DateDebut = @date('d/m/Y', strtotime($affecteLe));
 			$DateFin = @date('d/m/Y', strtotime($affecteAu));
 			// $par4 = "AND date(" . Config::TABLE_RDV . ".transmisLe) BETWEEN ('STR_TO_DATE('$DateDebut4', '%d/%m/%Y') AND DATE_ADD(STR_TO_DATE('$DateFin4', '%d/%m/%Y'), INTERVAL 1 DAY))";
-			$par4 = "AND date(" . Config::TABLE_RDV . ".transmisLe) BETWEEN '$DateDebut4' AND '$DateFin4'";
-			$libelle4 = "transmis Le : " . $DateDebut . '-' . $DateFin . '</br>';
+			$par4 = "AND date(" . Config::TABLE_RDV . ".daterdveff) BETWEEN '$DateDebut4' AND '$DateFin4'";
+			$libelle4 = "Date effective RDV Le : " . $DateDebut . '-' . $DateFin . '</br>';
 		} elseif ($affecteLe != NULL and $affecteAu == NULL) {
 			$DateDebut = @date('d/m/Y', strtotime($affecteLe));
 			$DateDebut4 = @date('Y-m-d', strtotime($affecteLe));
-			$par4 = "AND  (  date(" . Config::TABLE_RDV . ".transmisLe) LIKE '%$DateDebut4' )";
+			$par4 = "AND  (  date(" . Config::TABLE_RDV . ".daterdveff) LIKE '%$DateDebut4' )";
 			// $par4 = "AND  (  date(" . Config::TABLE_RDV . ".transmisLe) LIKE '%$DateDebut4' )";
-			$libelle4 = "transmis Le : " . $DateDebut . '</br>';
+			$libelle4 = "Date effective RDV Le : " . $DateDebut . '</br>';
 		} else if ($affecteLe == NULL and $affecteAu != NULL) {
 			$DateFin4 = @date('Y-m-d', strtotime($affecteAu));
 			$DateFin = @date('d/m/Y', strtotime($affecteAu));
-			$par4 = "AND  (  date(" . Config::TABLE_RDV . ".transmisLe) LIKE '%$DateFin4' )";
-			$libelle4 = "transmis Le : " . $DateFin . '</br>';
+			$par4 = "AND  (  date(" . Config::TABLE_RDV . ".daterdveff) LIKE '%$DateFin4' )";
+			$libelle4 = "Date effective RDV Le : " . $DateFin . '</br>';
 		}
 
 		if ($traiterLe != NULL and $traiterAu != NULL) {

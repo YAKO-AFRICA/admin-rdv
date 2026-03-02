@@ -74,7 +74,7 @@ $effectue = 0;
 
 						<div class="row">
 							<div class="col-md-6">
-								<h6>Affecté du <span class="text-danger">*</span></h6>
+								<h6>Date effective du <span class="text-danger">*</span></h6>
 								<input type="date" id="affecteLe" class="form-control">
 							</div>
 							<div class="col-md-6">
@@ -895,7 +895,7 @@ $effectue = 0;
 
 				var dateeff = new Date(e.daterdveff);
 				daterdveff = dateeff.getDate() + "/" + (dateeff.getMonth() + 1) + "/" + dateeff.getFullYear();
-				daterdveff = convertirEnDateFR(e.daterdv);
+				daterdveff = convertirEnDateFR(e.daterdveff);
 
 				var daterdv = new Date(e.daterdv);
 				dateRDV = daterdv.getDate() + "/" + (daterdv.getMonth() + 1) + "/" + daterdv.getFullYear();
@@ -917,7 +917,7 @@ $effectue = 0;
 								</p>
 							</td>
 							<td class="text-wrap">${e.motifrdv}</td>
-							<td class="text-wrap">${dateRDV}</td>
+							<td class="text-wrap">${daterdveff}</td>
 							<td class="text-wrap">${e.villes}</td>
 							<td class="text-wrap">${e.nomgestionnaire}
 								<p class="mb-0 text-dark" style="font-size:0.7em;">

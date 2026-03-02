@@ -45,16 +45,6 @@ $cible = $tablo[4];
                     </a>
                 </li>
 
-                <!-- MENU PRESTATION -->
-                <?php if ($service === 'prestation'): ?>
-                    <li>
-                        <a href="liste-prestations.php" class="dropdown-toggle no-arrow">
-                            <span class="micon dw dw-list"></span>
-                            <span class="mtext">Prestations</span>
-                        </a>
-                    </li>
-                <?php endif; ?>
-
                 <!-- MENU RDV -->
                 <?php if ($service === 'rdv' || $service === 'gestionnaire'): ?>
                     <li>
@@ -103,11 +93,7 @@ $cible = $tablo[4];
                                 <span class="micon fa fa-download"></span><span class="mtext">Extraction BORDEREAU</span>
                             </a>
                         </li>
-                        <li class="dropdown">
-                            <a href="charger-bordereau" class="dropdown-toggle no-arrow" style="font-size:14px">
-                                <span class="micon fa fa-upload"></span><span class="mtext">Charger BORDEREAU</span>
-                            </a>
-                        </li>
+                        
                         <li>
                             <div class="dropdown-divider"></div>
                         </li>
@@ -156,6 +142,12 @@ $cible = $tablo[4];
                             <a href="liste-calendrierJourReceptionVilles" class="dropdown-toggle no-arrow" style="font-size:14px">
                                 <span class="micon fa fa-calendar"></span><span class="mtext">Jour/Villes<br>Reception</span>
 
+                            </a>
+                        </li>
+                    <?php elseif ($profil === 'bordereaurdv'): ?>
+                        <li class="dropdown">
+                            <a href="charger-bordereau" class="dropdown-toggle no-arrow" style="font-size:14px">
+                                <span class="micon fa fa-upload"></span><span class="mtext">Charger BORDEREAU</span>
                             </a>
                         </li>
 

@@ -266,7 +266,7 @@ if ($champ == "idrdv" && $refchamp != null) {
                 $emailgestionnaire = $rdv->emailgestionnaire;
                 if (empty($email_final)) $email_final = $emailgestionnaire;
                 $mailCopie = ", " . $rdv->nomgestionnaire . " <" . $email_final . ">";
-                $mailCopie2 = ", KOUAKOU CARELLE <carelle.kouakou@yakoafricassur.com> , MAMA FOFANA <mama.fofana@yakoafricassur.com> , 'N'Guessan Jean-Baptiste KONAN' <nguessan.konan@yakoafricassur.com>, " . $rdv->nomgestionnaire . " <" . $email_final . ">";
+                $mailCopie2 = ", " . $rdv->nomgestionnaire . " <" . $email_final . ">";
 
                 $content = "
                 <p style='color:green;font-weight:bold;'>

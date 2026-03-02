@@ -50,7 +50,7 @@ include("../autoload.php");
             </div>
 
             <?php
-            if ($_SESSION['typeCompte'] == Config::TYPE_SERVICE_PRESTATION) {
+            if ($_SESSION['typeCompte'] == Config::TYPE_SERVICE_PRESTATION  && $_SESSION['profil'] != "bordereauRDV") {
                 $data = $fonction->_recapGlobalePrestations();
                 echo "<script>let prestationsData = " . json_encode($data) . ";</script>";
             ?>
