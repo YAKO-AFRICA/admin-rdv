@@ -152,7 +152,7 @@ $effectue = 0;
 						</div>
 						<div style="border-top: 4px solid #033f1f;width : 100%;text-align: center;"></div>
 						<div class="pb-20" style="display:none" id="tableAffichageExtraction">
-							<table class="table table-bordered table-striped nowrap" id="liste-extraction-bordereau-affichage">
+							<table class="table stripe hover" id="liste-extraction-bordereau-affichage">
 								<thead>
 									<tr>
 										<th><input type="checkbox" class="select-all checkbox" id="checked-all"></th>
