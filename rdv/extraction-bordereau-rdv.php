@@ -1169,24 +1169,24 @@ $effectue = 0;
         ========================= */
 		function initDataTable() {
 
-			if ($.fn.DataTable.isDataTable('#liste-extraction-bordereau-affichage')) {
-				$('#liste-extraction-bordereau-affichage').DataTable().destroy();
-			}
+			// if ($.fn.DataTable.isDataTable('#liste-extraction-bordereau-affichage')) {
+			// 	$('#liste-extraction-bordereau-affichage').DataTable().destroy();
+			// }
 
-			//en français
-			tableAffichage = $('#liste-extraction-bordereau-affichage').DataTable({
-				responsive: true,
-				pageLength: 25,
-				ordering: true,
-				searching: true,
-				language: {
-					url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
-				},
-				columnDefs: [{
-					targets: "datatable-nosort",
-					orderable: false
-				}]
-			});
+			// //en français
+			// tableAffichage = $('#liste-extraction-bordereau-affichage').DataTable({
+			// 	responsive: true,
+			// 	pageLength: 25,
+			// 	ordering: true,
+			// 	searching: true,
+			// 	language: {
+			// 		url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
+			// 	},
+			// 	columnDefs: [{
+			// 		targets: "datatable-nosort",
+			// 		orderable: false
+			// 	}]
+			// });
 		}
 	</script>
 </body>
