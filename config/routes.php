@@ -1242,9 +1242,9 @@ function notificationRDV_gestionnaireByNissa($daterdveff, $ListeGest, $telephone
         $retour_agent = $fonction->getRetourneContactInfosGestionnaire($codeagent);
 
         if (isset($retour_agent["telephone"]) && !empty($retour_agent["telephone"]) || isset($telGestionnaire) && !empty($telGestionnaire)) {
-            $message = "Suite à votre demande de rendez-vous, un conseiller vous recevra le " . $dateeffective . "." . PHP_EOL . "Pour plus d' information, veuillez contacter le " . $retour_agent["telephone"] ?? $telGestionnaire . ".";
+            $message = "Suite à votre prise de rendez-vous, un conseiller vous recevra le " . $dateeffective . "." . PHP_EOL . "Plus d'infos, contacter le " . $retour_agent["telephone"] ?? $telGestionnaire . ".";
         } else {
-            $message = "Votre RDV est prévu le $dateeffective à $villesGestionnaire. Un conseiller client vous recevra. Pour plus d'informations, veuillez contacter le 2720259082";
+            $message = "Votre RDV est prévu le $dateeffective à $villesGestionnaire. Un conseiller client vous recevra. Plus d'infos, contacter le 2720259082";
         }
 
         envoyerSMS_RDV($telephone, $message, $idrdv);
