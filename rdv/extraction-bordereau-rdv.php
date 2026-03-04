@@ -630,32 +630,32 @@ $effectue = 0;
 
 							let finalTable = document.createElement("table");
 
-							// 🔥 Ligne Référence Bordereau
-							let headerRow = document.createElement("tr");
-							let headerCell = document.createElement("td");
+							// // 🔥 Ligne Référence Bordereau
+							// let headerRow = document.createElement("tr");
+							// let headerCell = document.createElement("td");
 
-							headerCell.colSpan = theadClone.querySelectorAll("th").length;
-							headerCell.style.fontWeight = "bold";
-							headerCell.style.fontSize = "16px";
-							headerCell.style.textAlign = "center";
-							headerCell.style.backgroundColor = "#033f1f";
-							headerCell.style.color = "white";
-							headerCell.style.padding = "10px";
-							headerCell.style.border = "1px solid #033f1f";
+							// headerCell.colSpan = theadClone.querySelectorAll("th").length;
+							// headerCell.style.fontWeight = "bold";
+							// headerCell.style.fontSize = "16px";
+							// headerCell.style.textAlign = "center";
+							// headerCell.style.backgroundColor = "#033f1f";
+							// headerCell.style.color = "white";
+							// headerCell.style.padding = "10px";
+							// headerCell.style.border = "1px solid #033f1f";
 
 							// let nom_fichier = response.reference + "_" + lib_fichier;
 
-							headerCell.innerText =
-								"Référence bordereau : " + response.reference +
-								" | Période : " + periode;
+							// headerCell.innerText =
+							// 	"Référence bordereau : " + response.reference +
+							// 	" | Période : " + periode;
 
-							headerRow.appendChild(headerCell);
-							finalTable.appendChild(headerRow);
+							// headerRow.appendChild(headerCell);
+							// finalTable.appendChild(headerRow);
 
-							// Ligne vide
-							let emptyRow = document.createElement("tr");
-							emptyRow.appendChild(document.createElement("td"));
-							finalTable.appendChild(emptyRow);
+							// // Ligne vide
+							// let emptyRow = document.createElement("tr");
+							// emptyRow.appendChild(document.createElement("td"));
+							// finalTable.appendChild(emptyRow);
 
 							// Ajouter tableau
 							finalTable.appendChild(tableExport);
