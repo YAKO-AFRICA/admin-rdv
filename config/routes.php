@@ -579,7 +579,7 @@ if ($request->action != null) {
 
                         issueApresReceptionRDV($rdv, $etatTraitement, $libelleTraitement, $observation, $resultatOpe, $traiterpar);
 
-                        $message = "Cher client(e), votre demande de " . strtoupper($resultatOpe) . " du " . date('d/m/Y', strtotime($rdv->daterdveff)) . " a bien été autorisée. Plus d’infos sur votre espace client : urlr.me/9ZXGSr";
+                        $message = "Votre demande de " . strtoupper($resultatOpe) . " du " . date('d/m/Y', strtotime($rdv->daterdveff)) . " a bien été autorisée. Plus d’infos sur votre espace client : urlr.me/9ZXGSr";
                         envoyerSMS_RDV($rdv->tel, $message, $rdv->idrdv);
 
                         echo json_encode($rdv->idrdv);
@@ -600,9 +600,9 @@ if ($request->action != null) {
                         issueApresReceptionRDV($rdv, $etatTraitement, $libelleTraitement, $observation, $resultatOpe, $traiterpar);
 
                         if ($resultatOpe == "renonce" || $resultatOpe == "conserver") {
-                            $message = "Cher(e) client(e), votre demande de conservation du contrat n° " . strtoupper($rdv->police) . " a bien été enregistrée. Plus d’infos sur votre espace client : https://urlr.me/9ZXGSr";
+                            $message = "Votre demande de conservation du contrat n° " . strtoupper($rdv->police) . " a bien été enregistrée. Plus d’infos sur votre espace client : https://urlr.me/9ZXGSr";
                         } else {
-                            $message = "Cher client(e), après analyse, votre demande de " . strtoupper($rdv->motifrdv) . " du " . $rdv->daterdv . " n'a pas abouti. Plus d’infos sur votre espace client : urlr.me/9ZXGSr";
+                            $message = "Après analyse, votre demande de " . strtoupper($rdv->motifrdv) . " du " . $rdv->daterdv . " n'a pas abouti. Plus d’infos sur votre espace client : urlr.me/9ZXGSr";
                         }
                         envoyerSMS_RDV($rdv->tel, $message, $rdv->idrdv);
                         echo json_encode($rdv->idrdv);
@@ -701,7 +701,7 @@ if ($request->action != null) {
                 $result = $fonction->_Database->Update($sqlUpdatePrestation, $queryOptions);
                 if ($result != null) {
                     $retour = $idrdv;
-                    $message = "Cher client(e), votre demande de rdv n° " . $rdv->codedmd . "  du " . date('d/m/Y', strtotime($rdv->daterdv)) . " a été rejetée." . PHP_EOL . "Consultez les détails du rejet sur votre espace personnel : urlr.me/9ZXGSr";
+                    $message = "Votre demande de rdv n° " . $rdv->codedmd . "  du " . date('d/m/Y', strtotime($rdv->daterdv)) . " a été rejetée." . PHP_EOL . "Consultez les détails du rejet sur votre espace personnel : urlr.me/9ZXGSr";
                     envoyerSMS_RDV($rdv->tel, $message, $rdv->idrdv);
                 }
                 echo json_encode($idrdv);
@@ -1242,7 +1242,7 @@ function notificationRDV_gestionnaireByNissa($daterdveff, $ListeGest, $telephone
         $retour_agent = $fonction->getRetourneContactInfosGestionnaire($codeagent);
 
         if (isset($retour_agent["telephone"]) && !empty($retour_agent["telephone"]) || isset($telGestionnaire) && !empty($telGestionnaire)) {
-            $message = "Cher(e) client(e), suite à votre demande de rendez-vous, un conseiller vous recevra le " . $dateeffective . "." . PHP_EOL . "Pour plus d' information, veuillez contacter le " . $retour_agent["telephone"] ?? $telGestionnaire . ".";
+            $message = "Suite à votre demande de rendez-vous, un conseiller vous recevra le " . $dateeffective . "." . PHP_EOL . "Pour plus d' information, veuillez contacter le " . $retour_agent["telephone"] ?? $telGestionnaire . ".";
         } else {
             $message = "Votre RDV est prévu le $dateeffective à $villesGestionnaire. Un conseiller client vous recevra. Pour plus d'informations, veuillez contacter le 2720259082";
         }

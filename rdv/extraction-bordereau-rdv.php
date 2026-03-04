@@ -151,7 +151,7 @@ $effectue = 0;
 							</div>
 						</div>
 						<div style="border-top: 4px solid #033f1f;width : 100%;text-align: center;"></div>
-						<div class="pb-20" style="display:none" id="tableAffichageExtraction">
+						<div class="pb-20 table-responsive" style="display:none; width: 100%; height: 400px;" id="tableAffichageExtraction">
 							<table class="table stripe hover" id="liste-extraction-bordereau-affichage">
 								<thead>
 									<tr>
@@ -179,22 +179,18 @@ $effectue = 0;
 						<thead>
 							<tr class="text-wrap">
 								<th class="d-none"><input type="checkbox" class="select-all checkbox" id="checked-hidden-all"></th>
-								<th>N°</th>
-								<th>Date prise RDV</th>
-								<th>code RDV</th>
-								<th>Id RDV</th>
-								<th>Id contrat</th>
-								<th>Demandeur</th>
-								<th>Date naissance</th>
-								<th>Telephone</th>
-								<th>Motif RDV</th>
-								<th>Date RDV Souhaité</th>
-								<th>Date RDV Effectif</th>
-								<th>Ville RDV</th>
-								<th>Gestionnaire</th>
-								<th>ref Gestionnaire</th>
-								<th>Code agent</th>
-								<th>Etat</th>
+								<th></th>
+								<th>Id</th>
+								<th>Nom & prénom(s)</th>
+								<th>Téléphone</th>
+								<th>email</th>
+								<th>Date RDV effective</th>
+								<th>Date du rdv</th>
+								<th>code du rdv</th>
+								<th>Motif</th>
+								<th>police</th>
+								<th>Nom du gestionnaire</th>
+								<th>ville du rdv</th>
 							</tr>
 						</thead>
 						<tbody id="body-extraction-bordereau-rdv" style="width: 100%;">
@@ -533,168 +529,6 @@ $effectue = 0;
 		});
 
 
-
-		// $("#exportButton").click(function () {
-
-		// 	let nom_fichier = document.getElementById("nom_fichier").value;
-
-		// 	let checked = document.querySelectorAll(
-		// 		"#liste-extraction-bordereau-rdv tbody input[type='checkbox']:checked"
-		// 	);
-
-		// 	if (checked.length === 0) {
-		// 		alert("Veuillez sélectionner au moins une ligne à exporter.");
-		// 		return;
-		// 	}
-
-		// 	if (!confirm("Êtes-vous sûr de vouloir exporter les " + checked.length + " lignes selectionnées ?")) {
-		// 		return;
-		// 	}
-
-		// 	var objetRDV = document.getElementById("villesRDV").value;
-		// 	var affecteLe = document.getElementById("affecteLe").value;
-		// 	var affecteAu = document.getElementById("affecteAu").value;
-	
-		// 	// var rdvLe = document.getElementById("rdvLe").value;
-		// 	// var rdvAu = document.getElementById("rdvAu").value;
-		// 	var ListeGest = document.getElementById("ListeGest").value;
-		// 	//var etaperdv = document.getElementById("etaperdv").value;
-
-		// 	// console.log(objetRDV, affecteLe, affecteAu, rdvLe, rdvAu, ListeGest);
-
-		// 	var periode = "";
-		// 	var agent = "";
-		// 	var villes = "";
-		// 	var etatRDV = "";
-		// 	var lib_fichier = "";
-
-		// 	if (affecteLe != "" && affecteAu != "") {
-		// 		//formater en dd/mm/yyyy
-		// 		var date1 = new Date(affecteLe);
-		// 		var date2 = new Date(affecteAu);
-		// 		periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear() + " au " + date2.getDate() + "/" + (date2.getMonth() + 1) + "/" + date2.getFullYear();
-		// 		lib_fichier = date1.getDate() + "_" + (date1.getMonth() + 1) + "_" + date1.getFullYear() + " au " + date2.getDate() + "_" + (date2.getMonth() + 1) + "_" + date2.getFullYear();
-		// 	} else if (affecteLe != "" && affecteAu == "") {
-		// 		var date1 = new Date(affecteLe);
-		// 		periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear();
-		// 		lib_fichier = date1.getDate() + "_" + (date1.getMonth() + 1) + "_" + date1.getFullYear();
-		// 	} else if (affecteLe == "" && affecteAu != "") {
-		// 		var date1 = new Date(affecteAu);
-		// 		periode = date1.getDate() + "/" + (date1.getMonth() + 1) + "/" + date1.getFullYear();
-		// 		lib_fichier = date1.getDate() + "_" + (date1.getMonth() + 1) + "_" + date1.getFullYear();
-		// 	}
-
-
-		// 	if (objetRDV != "") {
-		// 		const [idvillesRDV, villesRDV] = objetRDV.split(";");
-		// 		villes = villesRDV;
-		// 	}
-		// 	if (ListeGest != "") {
-		// 		const [idgestionnaire, nomgestionnaire, idvilleGestionnaire, villesGestionnaire] = ListeGest.split("|");
-		// 		agent = nomgestionnaire + " (" + idgestionnaire + ")";
-		// 	}
-
-		// 	afficherLoader();
-
-		// 	$.ajax({
-		// 		url: "../config/routes.php",
-		// 		data: {
-		// 			objetRDV: objetRDV,
-		// 			affecteLe: affecteLe,
-		// 			affecteAu: affecteAu,
-		// 			ListeGest: ListeGest,
-		// 			etat: "saveBordereauRDV"
-
-		// 		},
-		// 		dataType: "json",
-		// 		method: "post",
-		// 		success: function(response, status) {
-
-		// 			cacherLoader();
-
-		// 			if (response.error != false) {
-		// 				if (response.action == "insert" || response.action == "update") {
-							
-		// 					let tableExport = document.createElement("table");
-	
-		// 					// ===== HEADER =====
-		// 					let theadOriginal = document.querySelector("#liste-extraction-bordereau-rdv thead");
-		// 					let theadClone = theadOriginal.cloneNode(true);
-	
-		// 					// 🔥 Supprimer la colonne checkbox du header
-		// 					theadClone.querySelector("tr").removeChild(
-		// 						theadClone.querySelector("tr").firstElementChild
-		// 					);
-	
-		// 					tableExport.appendChild(theadClone);
-	
-		// 					// ===== BODY =====
-		// 					let tbody = document.createElement("tbody");
-	
-		// 					checked.forEach(cb => {
-	
-		// 						let row = cb.closest("tr").cloneNode(true);
-	
-		// 						// 🔥 Supprimer la colonne checkbox du body
-		// 						row.removeChild(row.firstElementChild);
-	
-		// 						tbody.appendChild(row);
-		// 					});
-	
-		// 					tableExport.appendChild(tbody);
-	
-		// 					// ===== EXPORT =====
-		// 					let wb = XLSX.utils.table_to_book(tableExport, { sheet: "Feuille1" });
-	
-		// 					let filename = "extraction-bordereau-rdv-" + nom_fichier + ".xlsx";
-	
-		// 					XLSX.writeFile(wb, filename);
-
-		// 					if (response.action == "insert") {
-								
-		// 						afficherMessage("Exportation du bordereau du " + periode + " affectuée avec succès ! Reference Bordereau : " + response.reference, "success");
-		
-		// 						a_afficher = `<div class="alert alert-success" role="alert">
-		// 										<h6> Exportation du bordereau du ` + periode + ` affectuée avec succès ! </h6>
-		// 										<h3> Reference Bordereau : ` + response.reference + ` </h3>
-		// 									</div>`
-		
-		// 						$("#a_afficher2").html(a_afficher)
-		// 						$('#notification').modal("show")
-		// 					}else if (response.action == "update") {
-		// 						afficherMessage(response.message, "success");
-		// 						$("#zoneResultats").hide();
-		// 						// $("#tableAffichageExtraction").hide();
-		// 						$("#zoneAffichage").hide();
-		// 					}
-	
-		// 				}else if (response.action == "exist") {
-		// 					afficherMessage(response.message, "warning");
-		// 					$("#zoneResultats").hide();
-		// 					// $("#tableAffichageExtraction").hide();
-		// 					$("#zoneAffichage").hide();
-		// 				}else {
-		// 					$("#zoneResultats").hide();
-		// 					// $("#tableAffichageExtraction").hide();
-		// 					$("#zoneAffichage").hide();
-		// 					afficherMessage("Desolé ! Une erreur est survenue lors de l'exportation du bordereau", "warning");
-		// 				}
-
-		// 				return
-		// 			} else {
-		// 				afficherMessage("Desolé ! Une erreur est survenue lors de l'exportation du bordereau", "warning");
-		// 				$("#zoneResultats").hide();
-		// 				// $("#tableAffichageExtraction").hide();
-		// 				$("#zoneAffichage").hide();
-		// 			}
-
-		// 		},
-		// 		error: function(response, status, etat) {
-		// 			console.log(response, status, etat);
-		// 		}
-		// 	});
-		// });
-
 		$("#exportButton").click(function () {
 
 			let nom_fichier = document.getElementById("nom_fichier").value;
@@ -985,21 +819,17 @@ $effectue = 0;
 						<tr id="ligne-${i}" style="color: #033f1f !important;" >
 							<td class="d-none"><input type="checkbox" class="hidden-check" value="${e.idrdv}"></td>
 							<td>${i + 1}</td>
-							<td id="idrdv-${i}">${e.dateajou}</td>
-							<td id="idrdv-${i}">${e.codedmd}</td>
 							<td id="idrdv-${i}">${e.idrdv}</td>
-							<td id="idcontrat-${i}">${e.police}</td>
                             <td>${e.nomclient}</td>
-							<td>${e.datenaissance}</td>
 							<td>${e.tel}</td>
-							<td>${e.motifrdv}</td>
-							<td>${dateRDV}</td>
+							<td>${e.email}</td>
 							<td>${daterdveff}</td>
-							<td>${e.villes}</td>
+							<td>${dateRDV}</td>
+							<td id="idrdv-${i}">${e.codedmd}</td>
+							<td>${e.motifrdv}</td>
+							<td id="idcontrat-${i}">${e.police}</td>
 							<td>${e.nomgestionnaire}</td>
-							<td>${e.gestionnaire}</td>
-							<td>${e.codeagentgestionnaire}</td>
-							<td>${lib}</td>					
+							<td>${e.villes}</td>				
                         </tr> `;
 			});
 			
