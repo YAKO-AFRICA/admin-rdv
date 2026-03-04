@@ -265,8 +265,8 @@ if ($champ == "idrdv" && $refchamp != null) {
                 $contactGestionnaire = trim($result["contacts_html"]);
                 $emailgestionnaire = $rdv->emailgestionnaire;
                 if (empty($email_final)) $email_final = $emailgestionnaire;
-                $mailCopie = ", " . $rdv->nomgestionnaire . " <" . $email_final . ">";
-                $mailCopie2 = ", " . $rdv->nomgestionnaire . " <" . $email_final . ">";
+                $mailCopie = ($rdv->idTblBureau != '2') ? ", " . $rdv->nomgestionnaire . " <" . $email_final . ">" : "";
+                $mailCopie2 = ($rdv->idTblBureau != '2') ? ", " . $rdv->nomgestionnaire . " <" . $email_final . ">" : "";
 
                 $content = "
                 <p style='color:green;font-weight:bold;'>
@@ -316,15 +316,18 @@ if ($champ == "idrdv" && $refchamp != null) {
                                     </div>
                 ";
 
-                sendMail([
-                    'to'          => $email_final,
-                    'to_name'     => $rdv->nomgestionnaire,
-                    'subject'     => "RDV confirmé – {$rdv->codedmd}",
-                    'title'       => "Confirmation de rendez-vous " . htmlspecialchars($rdv->codedmd) . " - n° " . htmlspecialchars($idrdv),
-                    'content'     => $content2,
-                    'cc'          => $mailCopie2 ?? null,
-                    'attachments' => [] // chemins fichiers si besoin
-                ]);
+                if ($rdv->idTblBureau != '2') {
+                    
+                    sendMail([
+                        'to'          => $email_final,
+                        'to_name'     => $rdv->nomgestionnaire,
+                        'subject'     => "RDV confirmé – {$rdv->codedmd}",
+                        'title'       => "Confirmation de rendez-vous " . htmlspecialchars($rdv->codedmd) . " - n° " . htmlspecialchars($idrdv),
+                        'content'     => $content2,
+                        'cc'          => $mailCopie2 ?? null,
+                        'attachments' => [] // chemins fichiers si besoin
+                    ]);
+                }
 
 
                 sendMail([
