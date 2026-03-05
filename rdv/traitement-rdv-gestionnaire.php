@@ -72,6 +72,11 @@ if (isset($_COOKIE["idrdv"])) {
     header("Location:deconnexion.php");
 }
 
+
+    $sqlQuery = "SELECT * FROM  tbl_type_prestations WHERE etat = 'Actif' AND impact = '1' ";
+
+    $tab = $fonction->_Database->Select($sqlQuery);
+
 ?>
 
 <!DOCTYPE html>
@@ -114,6 +119,8 @@ if (isset($_COOKIE["idrdv"])) {
                     </button>
                 </div>
 
+                 
+
                 <!-- Titre RDV -->
                 <div class="card mb-4 text-white" style="border:1px solid gray;background:#033f1f!important; color:white">
                     <div class="card-body text-center ">
@@ -126,6 +133,8 @@ if (isset($_COOKIE["idrdv"])) {
                 </div>
 
                 <div class="row">
+
+                
                     <!-- Informations RDV -->
                     <div class="col-md-6">
                         <div class="card mb-4 bg-light">
@@ -140,7 +149,25 @@ if (isset($_COOKIE["idrdv"])) {
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Prestation souhaitée :</label>
-                                        <input type="text" class="form-control" id="motifrdv" name="motifrdv" value="<?= $rdv->motifrdv ?? '' ?>" disabled>
+                                        <select name="motifrdv" id="motifrdv" class="form-control" data-msg="Objet" data-rule="required" >
+                                         <?php
+                                                                      
+
+                                                foreach ($tab as $key => $value) {
+                                                    $donnees = $tab[$key];
+                                                    $id = $donnees->id;
+                                                    $libelle = $donnees->libelle;
+                                                    $description = $donnees->description;
+                                                    $values = $id . ";" . $libelle;
+                                                    if ($rdv->motifrdv == $libelle) {
+                                                        $selected = "selected";
+                                                    } else {
+                                                        $selected = "";
+                                                    }
+                                                    echo '<option value="' . $values . '" ' . $selected . '>' . trim($libelle) . '</option>';
+                                                }
+                                                ?>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>ID contrat / N° de police(s) :</label>
