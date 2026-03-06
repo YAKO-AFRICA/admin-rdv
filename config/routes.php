@@ -1285,68 +1285,70 @@ function _insertBordereauRDV(BordereauRDV $ligneBordereau, $rdv, $reference, $id
     if ($id_users == null) $id_users = $_SESSION["id"];
     if ($auteur == null) $auteur = $_SESSION["utilisateur"];
 
-    $idrdv = $rdv->idrdv;
-    //$reference = "";
+    // $idrdv = $rdv->idrdv;
+    // //$reference = "";
 
-    $sqlQuery = "SELECT * FROM tbl_detail_bordereau_rdv WHERE NumeroRdv = '" . $idrdv . "' ORDER BY NumeroRdv ";
-    $result_rdv = $fonction->_getSelectDatabases($sqlQuery);
-    if ($result_rdv != null) {
-        //update le bordereau
+    // $sqlQuery = "SELECT * FROM tbl_detail_bordereau_rdv WHERE NumeroRdv = '" . $idrdv . "' ORDER BY NumeroRdv ";
+    // $result_rdv = $fonction->_getSelectDatabases($sqlQuery);
+    // if ($result_rdv != null) {
+    //     //update le bordereau
 
-        //print_r($result_rdv);
+    //     //print_r($result_rdv);
 
-        //echo "update le bordereau".$idrdv . PHP_EOL;
-        $sqlQuery = "UPDATE `tbl_detail_bordereau_rdv` SET `reference`=?, `dureeContrat`=? , `typeOperation` =?, `cumulRachatsPartiels`=?, `cumulAvances`=?, `provisionNette`=?, `valeurRachat`=?, `valeurMaxRachat`=?, `valeurMaxAvance`=?, `observation`=?, `garantieSurete`=?, `MontantTransformation`=?, `conservationCapital`=?, `id_users`=?, `auteur`=?, `created_at`=?";
-        $parametreInsert = array(
-            $reference,
-            $ligneBordereau->dureeContrat,
-            $ligneBordereau->typeOperation,
-            $ligneBordereau->cumulRachatsPartiels,
-            $ligneBordereau->cumulAvances,
-            $ligneBordereau->provisionNette,
-            $ligneBordereau->valeurRachat,
-            $ligneBordereau->valeurMaxRachat,
-            $ligneBordereau->valeurMaxAvance,
-            $ligneBordereau->observation,
-            $ligneBordereau->garantieSurete,
-            $ligneBordereau->valeurRachat,
-            $ligneBordereau->conservationCapital,
-            $id_users,
-            $auteur,
-            date('Y-m-d H:i:s')
-        );
-    } else {
-        //echo "insert le bordereau".$idrdv . PHP_EOL;
-        //$reference = "RDV-" . $idrdv;
-        $sqlQuery = "INSERT INTO `tbl_detail_bordereau_rdv`(`reference`, `NumeroOrdre`, `NumeroRdv`, `IDProposition`, `telephone`, `produit`, `souscripteur`, `assure`, `dateEffet`, `dateEcheance`, `dureeContrat`, `typeOperation`, `cumulRachatsPartiels`, `cumulAvances`, `provisionNette`, `valeurRachat`, `valeurMaxRachat`, `valeurMaxAvance`, `observation`, `garantieSurete`, `MontantTransformation`, `conservationCapital`, `id_users`, `auteur`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $parametreInsert = array(
-            $reference,
-            $ligneBordereau->NumeroOrdre,
-            $ligneBordereau->NumeroRdv,
-            $ligneBordereau->IDProposition,
-            $ligneBordereau->telephone,
-            $ligneBordereau->produit,
-            addslashes(trim($ligneBordereau->souscripteur)),
-            $ligneBordereau->assure,
-            $ligneBordereau->dateEffet,
-            $ligneBordereau->dateEcheance,
-            $ligneBordereau->dureeContrat,
-            $ligneBordereau->typeOperation,
-            $ligneBordereau->cumulRachatsPartiels,
-            $ligneBordereau->cumulAvances,
-            $ligneBordereau->provisionNette,
-            $ligneBordereau->valeurRachat,
-            $ligneBordereau->valeurMaxRachat,
-            $ligneBordereau->valeurMaxAvance,
-            $ligneBordereau->observation,
-            $ligneBordereau->garantieSurete,
-            $ligneBordereau->valeurRachat,
-            $ligneBordereau->conservationCapital,
-            $id_users,
-            $auteur,
-            date('Y-m-d H:i:s')
-        );
-    }
+    //     //echo "update le bordereau".$idrdv . PHP_EOL;
+    //     $sqlQuery = "UPDATE `tbl_detail_bordereau_rdv` SET `reference`=?, `dureeContrat`=? , `typeOperation` =?, `cumulRachatsPartiels`=?, `cumulAvances`=?, `provisionNette`=?, `valeurRachat`=?, `valeurMaxRachat`=?, `valeurMaxAvance`=?, `observation`=?, `garantieSurete`=?, `MontantTransformation`=?, `conservationCapital`=?, `id_users`=?, `auteur`=?, `created_at`=?";
+    //     $parametreInsert = array(
+    //         $reference,
+    //         $ligneBordereau->dureeContrat,
+    //         $ligneBordereau->typeOperation,
+    //         $ligneBordereau->cumulRachatsPartiels,
+    //         $ligneBordereau->cumulAvances,
+    //         $ligneBordereau->provisionNette,
+    //         $ligneBordereau->valeurRachat,
+    //         $ligneBordereau->valeurMaxRachat,
+    //         $ligneBordereau->valeurMaxAvance,
+    //         $ligneBordereau->observation,
+    //         $ligneBordereau->garantieSurete,
+    //         $ligneBordereau->valeurRachat,
+    //         $ligneBordereau->conservationCapital,
+    //         $id_users,
+    //         $auteur,
+    //         date('Y-m-d H:i:s')
+    //     );
+    // } else {
+    //     //echo "insert le bordereau".$idrdv . PHP_EOL;
+    //     //$reference = "RDV-" . $idrdv;
+        
+    // }
+
+    $sqlQuery = "INSERT INTO `tbl_detail_bordereau_rdv`(`reference`, `NumeroOrdre`, `NumeroRdv`, `IDProposition`, `telephone`, `produit`, `souscripteur`, `assure`, `dateEffet`, `dateEcheance`, `dureeContrat`, `typeOperation`, `cumulRachatsPartiels`, `cumulAvances`, `provisionNette`, `valeurRachat`, `valeurMaxRachat`, `valeurMaxAvance`, `observation`, `garantieSurete`, `MontantTransformation`, `conservationCapital`, `id_users`, `auteur`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $parametreInsert = array(
+        $reference,
+        $ligneBordereau->NumeroOrdre,
+        $ligneBordereau->NumeroRdv,
+        $ligneBordereau->IDProposition,
+        $ligneBordereau->telephone,
+        $ligneBordereau->produit,
+        addslashes(trim($ligneBordereau->souscripteur)),
+        $ligneBordereau->assure,
+        $ligneBordereau->dateEffet,
+        $ligneBordereau->dateEcheance,
+        $ligneBordereau->dureeContrat,
+        $ligneBordereau->typeOperation,
+        $ligneBordereau->cumulRachatsPartiels,
+        $ligneBordereau->cumulAvances,
+        $ligneBordereau->provisionNette,
+        $ligneBordereau->valeurRachat,
+        $ligneBordereau->valeurMaxRachat,
+        $ligneBordereau->valeurMaxAvance,
+        $ligneBordereau->observation,
+        $ligneBordereau->garantieSurete,
+        $ligneBordereau->valeurRachat,
+        $ligneBordereau->conservationCapital,
+        $id_users,
+        $auteur,
+        date('Y-m-d H:i:s')
+    );
 
     $tab = $fonction->_Database->Update($sqlQuery, $parametreInsert);
     return $tab;
