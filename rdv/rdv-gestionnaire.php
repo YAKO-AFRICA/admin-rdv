@@ -152,6 +152,7 @@ if ($liste_rdvs != null) {
 									<th>Id contrat</th>
 									<th>Motif</th>
 									<th>Date RDV</th>
+									<th>Date RDV effective</th>
 									<th>lieu RDV</th>
 									<th hidden></th>
 									<?php if (!empty($liste_rdvs) && ($liste_rdvs[0]->etat == "3")): ?>
@@ -210,6 +211,7 @@ if ($liste_rdvs != null) {
 
 											<td id="motifrdv-<?= $i ?>" class="text-wrap"><?php echo $rdv->motifrdv; ?> </td>
 											<td id="daterdv-<?= $i ?>"><?php echo $rdv->daterdv; ?></td>
+											<td id="daterdv-<?= $i ?>"><?php echo $rdv->daterdveff; ?></td>
 											<td class="text-wrap" style="font-weight:bold; color:#F9B233!important;"><?php echo $rdv->villes; ?></td>
 											<td id="lieurdv-<?= $i ?>" hidden><?php echo $rdv->idTblBureau . ";" . $rdv->villes; ?></td>
 											<td>
