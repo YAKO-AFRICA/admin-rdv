@@ -232,7 +232,15 @@ class Config
         WHEN tblrdv.daterdv LIKE '%-%'
             THEN STR_TO_DATE(tblrdv.daterdv, '%d-%m-%Y')
         ELSE NULL
-    END DESC
+    END ASC
+    ";
+
+    const orderBySelectAnneeEncoursGestionnaire = "
+    CASE
+        WHEN tblrdv.daterdveff IS NOT NULL
+            THEN DATE(tblrdv.daterdveff)
+        ELSE NULL
+    END ASC
     ";
             
 }

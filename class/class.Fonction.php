@@ -2064,7 +2064,7 @@ class Fonction
 		else $critereEtat = " AND tblrdv.etat ='$critereEtat' ";
 
 		$plus = Config::clauseSelectAnneeEncours;
-		$orderBy = Config::orderBySelectAnneeEncours;
+		$orderBy = ($_SESSION['typeCompte'] == 'gestionnaire') ? Config::orderBySelectAnneeEncoursGestionnaire : Config::orderBySelectAnneeEncours;
 
 		
 		$agent_principal = $_SESSION['agent_principal'];

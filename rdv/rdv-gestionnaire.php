@@ -210,8 +210,8 @@ if ($liste_rdvs != null) {
 											<td class="text-wrap" id="idcontrat-<?= $i ?>"><?php echo $rdv->police; ?></td>
 
 											<td id="motifrdv-<?= $i ?>" class="text-wrap"><?php echo $rdv->motifrdv; ?> </td>
-											<td id="daterdv-<?= $i ?>"><?php echo $rdv->daterdv; ?></td>
-											<td id="daterdv-<?= $i ?>"><?php echo $rdv->daterdveff; ?></td>
+											<td id="daterdv-<?= $i ?>"><?php echo date('d/m/Y', strtotime($daterdv)); ?></td>
+											<td id="daterdv-<?= $i ?>"><?php echo date('d/m/Y', strtotime($rdv->daterdveff)); //$rdv->daterdveff; ?></td>
 											<td class="text-wrap" style="font-weight:bold; color:#F9B233!important;"><?php echo $rdv->villes; ?></td>
 											<td id="lieurdv-<?= $i ?>" hidden><?php echo $rdv->idTblBureau . ";" . $rdv->villes; ?></td>
 											<td>
