@@ -805,11 +805,11 @@ if (isset($_COOKIE["idrdv"])) {
 
             const mtTransformation = parseFloat($(this).val()) || 0;
 
-            if (mtTransformation > montantTotal) {
-                alert("Le montant de la transformation ne peut pas depasser le montant total : " + montantTotal);
-                $('#montanttransformation').val(montantTotal);
-                $('#motantclient').val('0');
-            }
+            // if (mtTransformation > montantTotal) {
+            //     // alert("Le montant de la transformation ne peut pas depasser le montant total : " + montantTotal);
+            //     $('#montanttransformation').val(montantTotal);
+            //     $('#motantclient').val('0');
+            // }
             const reste = montantTotal - mtTransformation;
             if (reste >= 0) {
                 $('#motantclient').val(reste);
@@ -822,11 +822,11 @@ if (isset($_COOKIE["idrdv"])) {
             const mtClient = parseFloat($(this).val()) || 0;
             const reste = montantTotal - mtClient;
 
-            if (mtClient > montantTotal) {
-                alert("Le montant du client ne peut pas depasser le montant total : " + mtClient);
-                $('#motantclient').val(montantTotal);
-                $('#montanttransformation').val('0');
-            }
+            // if (mtClient > montantTotal) {
+            //     // alert("Le montant du client ne peut pas depasser le montant total : " + mtClient);
+            //     $('#motantclient').val(montantTotal);
+            //     $('#montanttransformation').val('0');
+            // }
             if (reste >= 0) {
                 $('#montanttransformation').val(reste);
             }
@@ -838,13 +838,13 @@ if (isset($_COOKIE["idrdv"])) {
             const montantsouhaite = parseFloat($(this).val()) || 0;
             const reste = montantMaxAvance - montantsouhaite;
 
-            if (montantsouhaite > montantMaxAvance) {
-                alert("Le montant shouhaite ne peut pas depasser le montant total : " + montantMaxAvance);
-                //$('#montantsouhaite').val(montantMaxAvance);
-                $("#valider").prop("disabled", true);
-            } else {
-                $("#valider").prop("disabled", false);
-            }
+            // if (montantsouhaite > montantMaxAvance) {
+            //     alert("Le montant shouhaite ne peut pas depasser le montant total : " + montantMaxAvance);
+            //     //$('#montantsouhaite').val(montantMaxAvance);
+            //     // $("#valider").prop("disabled", true);
+            // } else {
+            //     $("#valider").prop("disabled", false);
+            // }
         });
 
         // Quand le montant souhaité est modifié "montantsouhaitePartiel"
@@ -853,13 +853,13 @@ if (isset($_COOKIE["idrdv"])) {
             const montantsouhaite = parseFloat($(this).val()) || 0;
             const reste = montantTotal - montantsouhaite;
 
-            if (montantsouhaite > montantTotal) {
-                alert("Le montant shouhaite ne peut pas depasser la valeur de rachat : " + montantTotal);
-                //$('#montantsouhaite').val(montantMaxAvance);
-                $("#valider").prop("disabled", true);
-            } else {
-                $("#valider").prop("disabled", false);
-            }
+            // if (montantsouhaite > montantTotal) {
+            //     alert("Le montant shouhaite ne peut pas depasser la valeur de rachat : " + montantTotal);
+            //     //$('#montantsouhaite').val(montantMaxAvance);
+            //     $("#valider").prop("disabled", true);
+            // } else {
+            //     $("#valider").prop("disabled", false);
+            // }
         });
 
 
@@ -903,7 +903,8 @@ if (isset($_COOKIE["idrdv"])) {
                             <div class="row">
                                 <div class="form-group col-md-12 col-sm-12">
                                     <label for="tel" class="col-form-label">Motant souhaité de ${tabloOperation.operation} :</label>
-                                    <input type="number" class="form-control" id="montantsouhaiteAvance" name="montantsouhaiteAvance" placeholder="Montant souhaité de ${tabloOperation.operation}" value="<?php echo intval($valeurMaxAvance); ?>" max="<?php echo intval($valeurMaxAvance); ?>">
+                                   <!--  <input type="number" class="form-control" id="montantsouhaiteAvance" name="montantsouhaiteAvance" placeholder="Montant souhaité de ${tabloOperation.operation}" value="<?php echo intval($valeurMaxAvance); ?>" max="<?php echo intval($valeurMaxAvance); ?>">-->
+                                    <input type="number" class="form-control" id="montantsouhaiteAvance" name="montantsouhaiteAvance" placeholder="Montant souhaité de ${tabloOperation.operation}" value="<?php echo intval($valeurMaxAvance); ?>">
                                 </div>
                             </div>
                     `
@@ -920,6 +921,7 @@ if (isset($_COOKIE["idrdv"])) {
                             <div class="row">
                                 <div class="form-group col-md-12 col-sm-12">
                                     <label for="tel" class="col-form-label">Motant souhaité de ${tabloOperation.operation} :</label>
+                                    <!-- <input type="number" class="form-control" id="montantsouhaitePartiel" name="montantsouhaitePartiel" placeholder="Montant souhaité de ${tabloOperation.operation}" value="<?php echo intval($valeurMaxRachat); ?>">-->
                                     <input type="number" class="form-control" id="montantsouhaitePartiel" name="montantsouhaitePartiel" placeholder="Montant souhaité de ${tabloOperation.operation}" value="<?php echo intval($valeurMaxRachat); ?>" max="<?php echo intval($valeurMaxRachat); ?>">
                                 </div>
                             </div>
