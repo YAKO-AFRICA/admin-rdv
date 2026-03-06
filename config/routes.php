@@ -1322,7 +1322,7 @@ function _insertBordereauRDV(BordereauRDV $ligneBordereau, $rdv, $reference, $id
         $parametreInsert = array(
             $reference,
             $ligneBordereau->NumeroOrdre,
-            $idrdv,
+            $ligneBordereau->NumeroRdv,
             $ligneBordereau->IDProposition,
             $ligneBordereau->telephone,
             $ligneBordereau->produit,
