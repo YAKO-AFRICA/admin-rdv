@@ -135,6 +135,12 @@ $cible = $tablo[4];
 
                             </a>
                         </li>
+                        <li class="dropdown">
+                            <a href="https://ynovpart.yakoafricassur.com/prestation/reprise-demande" target="_blank" class="dropdown-toggle no-arrow" style="font-size:14px">
+                                <span class="micon fa fa-upload"></span><span class="mtext">Demandé une<br>prestation</span>
+
+                            </a>
+                        </li>
                         <li>
                             <div class="dropdown-divider"></div>
                         </li>
