@@ -299,9 +299,9 @@ $tablo_doc_attendu = array();
 
             $('#getIdContrat').modal("show")
 
-            const etape = "1";
-            const idcontrat = "2259414";
-            const idVilleEff = "2";
+            let etape = null;
+            let idcontrat = document.getElementById("idContrat").value;
+            let idVilleEff = document.getElementById("villesRDV").value;
 
 
             var objetRDV = document.getElementById("villesRDV").value;

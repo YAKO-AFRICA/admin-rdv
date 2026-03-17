@@ -350,9 +350,9 @@ if ($request->action != null) {
             $datenaissance = GetParameter::FromArray($_REQUEST, 'datenaissance');
             $lieuResidence = GetParameter::FromArray($_REQUEST, 'lieuResidence');
 
-            $sqlSelect = "SELECT * FROM tblrdv WHERE police='$idContrat' AND etat !='1' ORDER BY idrdv DESC LIMIT 1 ";
+            $sqlSelect = "SELECT * FROM tblrdv WHERE police='$idContrat' AND etat =='1' ORDER BY idrdv DESC LIMIT 1 ";
             $resultat = $fonction->_getSelectDatabases($sqlSelect);
-            if ($resultat != null) {
+            if ($resultat == null) {
                 $retour = $fonction->priseRdvExceptionnel($idContrat, $telephone, $email, $statutDemandeur, $typePrestation, $daterdveff, $villesRDV, $ListeGest, $nomclient, $datenaissance, $lieuResidence);
                 $idrdv =  $retour["LastInsertId"];
                 notificationRDV_gestionnaireByNissa($daterdveff, $ListeGest, $telephone, $idrdv, $url);
