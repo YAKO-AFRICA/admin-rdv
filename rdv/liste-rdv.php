@@ -206,7 +206,11 @@ if ($liste_rdvs != null) {
 											<td><?= htmlspecialchars($rdv->motifrdv ?? '') ?></td>
 
 											<td id="daterdv-<?= $i ?>" style="font-weight:bold;">
-												<?=  date('d/m/Y', strtotime($rdv->daterdveff)) ??  $dateRdvAffiche ?>
+												<?php if ($rdv->etat === "1"): ?>
+													<?=  $dateRdvAffiche ?>
+												<?php else: ?>
+														<?=  date('d/m/Y', strtotime($rdv->daterdveff)) ??  $dateRdvAffiche ?>
+												 <?php endif; ?>
 											</td>
 											<td id="daterdvEff-<?= $i ?>" style="font-weight:bold;" hidden><?= $daterdv ?></td>
 
