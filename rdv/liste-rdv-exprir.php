@@ -212,7 +212,7 @@ $liste_rdvs = $fonction->getSelectRDVAfficher($etat, $etat2);
 											<td><?= htmlspecialchars($rdv->motifrdv ?? '') ?></td>
 
 											<td id="daterdv-<?= $i ?>" style="font-weight:bold;">
-												<?= $dateRdvAffiche ?>
+												<?= $rdv->daterdveff->format('d/m/Y') ??  $dateRdvAffiche ?>
 											</td>
 											<td id="daterdvEff-<?= $i ?>" style="font-weight:bold;" hidden><?= $daterdv ?></td>
 
