@@ -346,7 +346,7 @@ if (isset($_COOKIE["idrdv"])) {
                             <div class="row card-body" style="color: #033f1f;">
                                 <div class=" offset-md-6 col-md-6">
                                     <div class="form-group">
-                                        <label for="message" class="col-form-label" style="font-size:18px; font-weight:bold;">Voulez vous autoriser le client à déposer son courrier pour <span style="color:red"> <?= strtoupper($rdv->motifrdv) ?> </span> ? </label>
+                                        <label for="message" class="col-form-label" style="font-size:18px; font-weight:bold;">Voulez vous autoriser le client à déposer son courrier pour <span style="color:red" id="motifrdvLabel"> <?= strtoupper($rdv->motifrdv) ?> </span> ? </label>
                                     </div>
                                     <div class="form-group row">
                                         <div class="custom-control custom-radio mb-5 col">
@@ -359,7 +359,7 @@ if (isset($_COOKIE["idrdv"])) {
                                         </div>
                                         <div class="custom-control custom-radio mb-5 col">
                                             <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" value="2">
-                                            <label class="custom-control-label" for="customRadio3" style="color: #033f1f; font-weight:bold;">OUI , le client est permit à déposer son courrier pour <?= strtoupper($rdv->motifrdv) ?> </label>
+                                            <label class="custom-control-label" for="customRadio3" style="color: #033f1f; font-weight:bold;">OUI , le client est permit à déposer son courrier pour <span style="color:red" id="motifrdvPermitLabel"> <?= strtoupper($rdv->motifrdv) ?> </label>
                                         </div>
                                     </div>
                                 </div>
@@ -879,6 +879,7 @@ if (isset($_COOKIE["idrdv"])) {
                                         <option value="" selected disabled >Veuillez selectionnez le produit de transformation</option>
                                         <option value="invest">Invest +</option>
                                         <option value="gagnant">100% GAGNANT</option>
+                                        <option value="soutien fidel">SOUTIEN FIDEL</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
@@ -994,6 +995,16 @@ if (isset($_COOKIE["idrdv"])) {
         // Quand un gestionnaire est sélectionné
         $(document).on('change', '#ListeGest', function() {
             verifierActivationBouton();
+        });
+
+        $(document).on('change', '#motifrdv', function() {
+            const motifrdvObjet = $(this).val();
+            const [idMotifRDV, motifrdv] = motifrdvObjet.split(";");
+            $("#motifrdvLabel").html(motifrdv);
+            $("#motifrdvPermitLabel").html(motifrdv);
+            $("#motifrdvAutorisationLabel").html(motifrdv);
+            $("#resultatOpe").val(motifrdv);
+
         });
 
         function retour() {
@@ -1185,15 +1196,16 @@ if (isset($_COOKIE["idrdv"])) {
         function getMenuRejeter() {
             const objetRDV = $("#villesRDV").val();
             const dateRDVEffective = $("#daterdveff").val();
-            const motifrdv = $("#motifrdv").val();
+            const motifrdvObjet = $("#motifrdv").val();
             const gestionnaire = $("#gestionnaire").val();
 
             const [idvillesRDV, villesRDV] = objetRDV.split(";");
+            const [idMotifRDV, motifrdv] = motifrdvObjet.split(";");
 
             const [idgestionnaire, nomgestionnaire, idvilleGestionnaire, villesRDVGestionnaire] = gestionnaire.split("|");
 
             let notif = `
-                <h4 class="text-center p-2" style="color:#033f1f; font-weight:bold;">Vous autorisez le client a faire son depot de courrier : <br>Libelle du courrier : <span style="color:red"> ${motifrdv} </span>  </h4>
+                <h4 class="text-center p-2" style="color:#033f1f; font-weight:bold;">Vous autorisez le client a faire son depot de courrier : <br>Libelle du courrier : <span style="color:red" id="motifrdvAutorisationLabel"> ${motifrdv} </span> <br> <br> Montant total : <span style="color:green" id="montantTotalLabel">${montantTotal.toLocaleString('fr-FR')} FCFA </span> </h4>
                 
                 <div class="row">
                     <input type="hidden" class="form-control" id="actionType" name="actionType" value="rejeter">
@@ -1204,7 +1216,7 @@ if (isset($_COOKIE["idrdv"])) {
                         </label>
                         <textarea class="form-control" id="obervation" name="obervation"></textarea>
                         
-                        <input type="number" class="form-control" id="motantOperationTotal" name="motantOperationTotal" value="<?php echo intval($montantTotal); ?>">
+                        <input type="number" class="form-control" id="motantOperationTotal" name="motantOperationTotal" value="<?php echo intval($montantTotal); ?>" hidden>
                     </div>
                     <span id="libMotif"></span> </div>`;
 
