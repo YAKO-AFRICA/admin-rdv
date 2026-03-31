@@ -83,9 +83,6 @@ if ($liste_rdvs != null) {
 <!DOCTYPE html>
 <html>
 
-
-motifrdvLabel
-motifrdvPermitLabel
 <head>
 	<?php include "../include/entete.php"; ?>
 </head>
