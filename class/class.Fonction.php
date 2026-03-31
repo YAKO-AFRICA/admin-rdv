@@ -2045,14 +2045,18 @@ class Fonction
 		// if ($etape == NULL) $etape = "";
 		// elseif ($etape2 == NULL) $etape2 = $etape;
 		// else 
-		$etats = array_filter([$etape, $etape2]);
+		// $etats = array_filter([$etape, $etape2]);
 
-		if (!empty($etats)) {
-			$liste = "'" . implode("','", $etats) . "'";
-			$etape = " AND tblrdv.etat IN ($liste) ";
-		} else {
-			$etape = "";
-		}
+		// if (!empty($etats)) {
+		// 	$liste = "'" . implode("','", $etats) . "'";
+		// 	$etape = " AND tblrdv.etat IN ($liste) ";
+		// } else {
+		// 	$etape = "";
+		// }
+		$etape = ($etape == NULL && $etape2 == NULL) ? "" :
+		(($etape != NULL && $etape2 == NULL) ? " AND tblrdv.etat = '$etape' " :
+		(($etape == NULL && $etape2 != NULL) ? " AND tblrdv.etat = '$etape2' " :
+		" AND (tblrdv.etat = '$etape' OR tblrdv.etat = '$etape2') "));
 		$plus = Config::clauseSelectAnneeEncours;
 		$orderBy = Config::orderBySelectAnneeEncours;
 
