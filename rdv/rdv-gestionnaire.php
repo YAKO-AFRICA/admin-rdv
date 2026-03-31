@@ -247,7 +247,6 @@ if ($liste_rdvs != null) {
 													<button class="btn btn-danger btn-sm modifierRDV" id="modifier-<?= $i ?> " style="background-color:red; color:white"><i class="fa fa-edit"></i> Modifier rdv</button>
 												<?php endif; ?>
 												<?php if ($rdv->etat == "2" && ($rdv->daterdveff >= date('Y-m-d'))): ?>
-
 													<button class="btn btn-success btn-sm traiter" id="traiter-<?= $i ?> " style="background-color:#033f1f; color:white" <?php if ($infosBordereaux == null): ?> disabled <?php endif; ?>><i class="fa fa-mouse-pointer"></i> Traiter</button>
 												<?php endif; ?>
 

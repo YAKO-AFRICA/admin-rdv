@@ -78,13 +78,6 @@ class Fonction
 			];
 		}
 
-		/* --- Création objets Date sans heure --- */
-		// if ($dayCompare != null) {
-		// 	$today =  new DateTime(date('Y-m-d', strtotime($dayCompare))); // RDV à 00:00:00
-		// } else {
-		// 	$today = new DateTime(date('Y-m-d'));           // Aujourd’hui à 00:00:00
-		// }
-
 		$today = new DateTime(date('Y-m-d'));           // Aujourd’hui à 00:00:00
 
 		$rdv   = new DateTime(date('Y-m-d', strtotime($dateRDV))); // RDV à 00:00:00
@@ -115,17 +108,6 @@ class Fonction
 				'code' => 400
 			];
 		}
-		//RDV AUJOURD'HUI
-		// if ($jours === 0) {
-		// 	return [
-		// 		'etat'    => 'ok',
-		// 		'couleur' => '#f39c12', // vert
-		// 		'badge' => 'badge badge-warning',
-		// 		'libelle' => "Aujourd’hui",
-		// 		'jours'   => 0,
-		// 		'code' => 201,
-		// 	];
-		// }
 
 		//RDV À VENIR
 		return [
@@ -2042,17 +2024,6 @@ class Fonction
 	public function getSelectRDVAfficher($etape = NULL, $etape2 = NULL)
 	{
 
-		// if ($etape == NULL) $etape = "";
-		// elseif ($etape2 == NULL) $etape2 = $etape;
-		// else 
-		// $etats = array_filter([$etape, $etape2]);
-
-		// if (!empty($etats)) {
-		// 	$liste = "'" . implode("','", $etats) . "'";
-		// 	$etape = " AND tblrdv.etat IN ($liste) ";
-		// } else {
-		// 	$etape = "";
-		// }
 		$etape = ($etape == NULL && $etape2 == NULL) ? "" :
 		(($etape != NULL && $etape2 == NULL) ? " AND tblrdv.etat = '$etape' " :
 		(($etape == NULL && $etape2 != NULL) ? " AND tblrdv.etat = '$etape2' " :

@@ -120,6 +120,11 @@ $cible = $tablo[4];
                         </li>
 
                         <li class="dropdown">
+                            <a href="bordereau-gestionnaire" class="dropdown-toggle no-arrow" style="font-size:14px">
+                                <span class="micon dw dw-edit"></span><span class="mtext"> Mon<br>bordereau</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
                             <a href="rdv-gestionnaire?i=2" class="dropdown-toggle no-arrow" style="font-size:14px">
                                 <span class="micon dw dw-edit"></span><span class="mtext"> Mes rdvs<br>transmis</span>
                             </a>
