@@ -78,6 +78,10 @@ class tbl_prestations
     var $libellemotif  = null;
     var  $keywordmotif = null;
 
+    var $libellemotifrejet  = null;
+    var $prestationlibelle = null;
+    var $partenaire = null;
+
     public $codeBanque;
     public $codeGuichet;
     public $numCompte;
@@ -119,8 +123,14 @@ class tbl_prestations
 
             if ($this->montantSouhaite != null) $this->montantSouhaite = number_format($this->montantSouhaite, 0, ',', ' ');
 
-            $this->created_at = date_format(date_create($this->created_at), "d/m/Y H:i:s");
-            $this->updated_at = date_format(date_create($this->updated_at), "d/m/Y H:i:s");
+           
+            if($this->created_at != null){
+                $this->created_at = date_format(date_create($this->created_at), "d/m/Y H:i:s");
+            }
+            if($this->updated_at != null){
+                $this->updated_at = date_format(date_create($this->updated_at), "d/m/Y H:i:s");
+            }
+            
 
             $this->lib_datedemande = $this->created_at;
             if ($this->created_at != null) {
@@ -185,6 +195,7 @@ class tbl_prestations
         $array[2] = array("lib_statut" => Config::VALIDER, "statut_traitement" => "2", "color_statut" => Config::color_SUCCESS, "color" => "green");
         $array[3] = array("lib_statut" => Config::REJETE, "statut_traitement" => "3", "color_statut" => Config::color_REJETE, "color" => "red");
         $array[0] = array("lib_statut" => Config::EN_SAISIE, "statut_traitement" => "0", "color_statut" => Config::color_EN_SAISIE, "color" => "blue");
+        $array[-1] = array("lib_statut" => Config::SAISIE_INACHEVEE, "statut_traitement" => "0", "color_statut" => Config::color_SAISIE_INACHEVEE, "color" => "warning");
 
         return $array[$etat];
     }

@@ -143,7 +143,11 @@ if ($liste_rdvs != null) {
 									<th hidden>LieuEff RDV</th>
 
 									<?php if (!empty($etat) && in_array($etat, ["2", "3"])): ?>
-										<th>Détail</th>
+										<th>Détail RDV</th>
+
+									<?php if ($etat === "3"): ?>
+										<th>Details Prestation</th>
+									<?php endif; ?>
 									<?php elseif ($etat === "0"): ?>
 										<th>Motif rejet</th>
 									<?php else: ?>
@@ -169,10 +173,21 @@ if ($liste_rdvs != null) {
 
 										$daterdv = isset($rdv->daterdv) ? date('Y-m-d', strtotime(str_replace('/', '-', $rdv->daterdv))) : '';
 
+										// print_r($daterdv);
+										// print_r($rdv);
+										
+										// exit;
+
 										$infosBordereaux = $fonction->getRetourneInfosBordereaux(" WHERE NumeroRdv = '" . $rdv->idrdv . "'");
+										$infosPrestations = $fonction->getSelectPrestationByRDVAfficher($rdv->idCourrier);
+
+										if (!empty($infosPrestations)) {
+											$prestation = $infosPrestations[0]; // première ligne
+										}
+
 
 										// $dateRdvRaw = $rdv->daterdveff ?? null;
-										$dateRdvRaw = $rdv->daterdveff ?? $daterdv ?? null;
+										$dateRdvRaw = $rdv->daterdveff ?? $daterdv;
 										$dateRdvObj = $dateRdvRaw ? new DateTime($dateRdvRaw) : null;
 										$dateToday = new DateTime();
 
@@ -209,7 +224,7 @@ if ($liste_rdvs != null) {
 												<?php if ($rdv->etat === "1"): ?>
 													<?=  $dateRdvAffiche ?>
 												<?php else: ?>
-														<?=  date('d/m/Y', strtotime($rdv->daterdveff)) ??  $dateRdvAffiche ?>
+														<?=  date('d/m/Y', strtotime($dateRdvRaw)) ??  $dateRdvAffiche ?>
 												 <?php endif; ?>
 											</td>
 											<td id="daterdvEff-<?= $i ?>" style="font-weight:bold;" hidden><?= $daterdv ?></td>
@@ -265,6 +280,29 @@ if ($liste_rdvs != null) {
 													</p>
 												<?php endif; ?>
 											</td>
+											<?php if ($rdv->etat === "3"): ?>
+												<td class="text-wrap">
+													<?php if (!empty($prestation) && !empty($prestation->id)): ?>
+														<?php if ($prestation->etape != "-1"): ?>
+															<p class="mb-0" style="font-size:1.1em;">
+																<strong><?= $prestation->code ?? '' ?></strong>
+															</p>
+															<p class="mb-0" style="font-size:0.7em;">
+																Date enregistrement : <strong><?= date('d/m/Y H:i', strtotime($prestation->created_at)) ?? '' ?></strong>
+															</p>
+															<p class="mb-0" style="font-size:0.9em;">
+																<span class="badge badge-secondary text-wrap text-white text-center">Prestation enregistrée</span>
+															</p>
+														<?php else: ?>
+															<span class="badge badge-secondary text-wrap text-white text-center">Prestation incomplète</span>
+														<?php endif; ?>
+													<?php else: ?>
+														<p class="mb-0" style="font-size:0.7em;">
+															<strong>Aucune prestation trouver</strong>
+														</p>
+													<?php endif; ?>
+												</td>
+											<?php endif; ?>
 
 											<td>
 												<span class="<?= htmlspecialchars($retourEtat['color_statut']) ?>">

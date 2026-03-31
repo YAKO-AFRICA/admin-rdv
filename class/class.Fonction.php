@@ -1406,20 +1406,39 @@ class Fonction
 			detailVille.libelleVilleBureau AS villeEffective,
 			detailVilleChoisie.libelleVilleBureau AS villeChoisie,
 			infoTransmis.nom AS nomAdmin,
-			infoTransmis.prenom AS prenomAdmin,
-			infoCourrier.etat AS etatCourrier,
-			infoCourrier.reponse AS reponseCourrier,
-			infoCourrier.createdAt AS createdCourrier,
-			infoCourrier.deposerLe AS deposeCourrier,
-			infoCourrier.traiteLe AS traiteCourrier
+			infoTransmis.prenom AS prenomAdmin
 		FROM tblrdv
 		LEFT JOIN users ON tblrdv.gestionnaire = users.id
 		LEFT JOIN tblvillebureau ON tblrdv.idTblBureau = tblvillebureau.idVilleBureau
 		LEFT JOIN tblvillebureau detailVille ON detailVille.idVilleBureau = tblrdv.villeEffective
 		LEFT JOIN tblvillebureau detailVilleChoisie ON detailVilleChoisie.idVilleBureau = tblrdv.idTblBureau
 		LEFT JOIN users infoTransmis ON infoTransmis.id = tblrdv.transmisPar
-		LEFT JOIN tblcourrier infoCourrier ON infoCourrier.idcourrier = tblrdv.idCourrier
 		WHERE tblrdv.idrdv = '" . $idrdv . "'";
+		// $sqlSelect = "SELECT 
+		// 	tblrdv.*,
+		// 	concat (users.nom,' ',users.prenom) as nomgestionnaire ,
+		// 	users.email as emailgestionnaire, users.telephone as telgestionnaire,users.adresse as adressegestionnaire,users.codeagent as codeagentgestionnaire,
+		// 	tblvillebureau.libelleVilleBureau AS bureauLibelle,
+		// 	detailVille.libelleVilleBureau AS villeEffective,
+		// 	detailVilleChoisie.libelleVilleBureau AS villeChoisie,
+		// 	infoTransmis.nom AS nomAdmin,
+		// 	infoTransmis.prenom AS prenomAdmin,
+		// 	infoCourrier.etat AS etatCourrier,
+		// 	infoCourrier.reponse AS reponseCourrier,
+		// 	infoCourrier.createdAt AS createdCourrier,
+		// 	infoCourrier.deposerLe AS deposeCourrier,
+		// 	infoCourrier.traiteLe AS traiteCourrier
+		// FROM tblrdv
+		// LEFT JOIN users ON tblrdv.gestionnaire = users.id
+		// LEFT JOIN tblvillebureau ON tblrdv.idTblBureau = tblvillebureau.idVilleBureau
+		// LEFT JOIN tblvillebureau detailVille ON detailVille.idVilleBureau = tblrdv.villeEffective
+		// LEFT JOIN tblvillebureau detailVilleChoisie ON detailVilleChoisie.idVilleBureau = tblrdv.idTblBureau
+		// LEFT JOIN users infoTransmis ON infoTransmis.id = tblrdv.transmisPar
+		// LEFT JOIN tblcourrier infoCourrier ON infoCourrier.idcourrier = tblrdv.idCourrier
+		// WHERE tblrdv.idrdv = '" . $idrdv . "'";
+
+		// echo $sqlSelect;
+		// exit;
 		return $this->_getSelectDatabases($sqlSelect);
 	}
 
@@ -2023,22 +2042,40 @@ class Fonction
 	public function getSelectRDVAfficher($etape = NULL, $etape2 = NULL)
 	{
 
-		if ($etape == NULL) $etape = "";
-		else $etape = " AND tblrdv.etat ='$etape'  OR tblrdv.etat = '$etape2' ";
+		// if ($etape == NULL) $etape = "";
+		// elseif ($etape2 == NULL) $etape2 = $etape;
+		// else 
+		$etats = array_filter([$etape, $etape2]);
 
+		if (!empty($etats)) {
+			$liste = "'" . implode("','", $etats) . "'";
+			$etape = " AND tblrdv.etat IN ($liste) ";
+		} else {
+			$etape = "";
+		}
 		$plus = Config::clauseSelectAnneeEncours;
 		$orderBy = Config::orderBySelectAnneeEncours;
 
-
-		// $sqlSelect = " SELECT 	tblrdv.*, CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire, TRIM(tblvillebureau.libelleVilleBureau) AS villes
-		// 	FROM tblrdv LEFT JOIN users ON tblrdv.gestionnaire = users.id 	LEFT JOIN tblvillebureau ON tblrdv.idTblBureau = tblvillebureau.idVilleBureau
-		// 	WHERE   $plus  $etape 	ORDER BY STR_TO_DATE(tblrdv.daterdv, '%d/%m/%Y') DESC ";
-
 		$sqlSelect = "SELECT 
-			tblrdv.*,	CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire, TRIM(tblvillebureau.libelleVilleBureau) AS villes
-			FROM tblrdv LEFT JOIN users ON tblrdv.gestionnaire = users.id LEFT JOIN tblvillebureau 	ON tblrdv.idTblBureau = tblvillebureau.idVilleBureau
-			WHERE  $plus $etape  ORDER BY 		$orderBy	";
-		//echo $sqlSelect;exit;
+			tblrdv.*,	
+			CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire, 
+			TRIM(tblvillebureau.libelleVilleBureau) AS villes
+			FROM tblrdv 
+			LEFT JOIN users ON tblrdv.gestionnaire = users.id 
+			LEFT JOIN tblvillebureau ON tblrdv.idTblBureau = tblvillebureau.idVilleBureau
+			WHERE  $plus $etape ORDER BY $orderBy";
+		// echo $sqlSelect;exit;
+		return  $this->_getSelectDatabases($sqlSelect);
+	}
+
+	public function getSelectPrestationByRDVAfficher($idCourrier = NULL)
+	{
+
+		
+		$sqlSelect = "SELECT *
+			FROM tbl_prestations
+			WHERE id = '$idCourrier'";
+		// echo $sqlSelect;exit;
 		return  $this->_getSelectDatabases($sqlSelect);
 	}
 	public function getSelectRDVAfficherGestionnaireOld($gestionnaireId, $critereEtat = NULL)
