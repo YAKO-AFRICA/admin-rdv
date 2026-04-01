@@ -754,8 +754,7 @@ if (isset($_COOKIE["idrdv"])) {
                 }
             })
         }
-
-
+                                  
         function checkDate(parms) {
 
 
@@ -765,7 +764,7 @@ if (isset($_COOKIE["idrdv"])) {
             const optionAffectationGestionnaire = document.getElementById("customRadio3");
             const customRadio2Checked = document.getElementById("customRadio2");
             customRadio2Checked.checked = true;
-            optionAffectationGestionnaire.disabled = true;
+            optionAffectationGestionnaire.disabled = (etape == '2') ? false : true;
 
             let tablo = objetVillesRDV.split(";");
             var idVilleEff = tablo[0];
@@ -807,26 +806,12 @@ if (isset($_COOKIE["idrdv"])) {
                     $("#afficheuse").html('');
                     $("#errorDate").html("");
                     alert("Les rendez-vous ne peuvent pas être pris le week-end ou les jours fériés. Veuillez sélectionner un jour en semaine.");
-                    //$('input[name="daterdveff"]').val('');
                     $("#infos-compteurRDV").text("Les rendez-vous ne peuvent pas être pris le week-end ou les jours fériés. Veuillez sélectionner un jour en semaine.").show();
                     return; // Arrête l'exécution
                 } else {
-                    //$("#infos-compteurRDV").text("").hide();
-
-                    //getRetourneReceptionJour(idVilleEff, dayNumber, function(existe) {
                     getRetourneReceptionJour2(idVilleEff, dayNumber, function(result) {
 
-                        // if (result.existe) {
-                        //     console.log("✅ Le jour existe :", result.day);
-                        // } else {
-                        //     console.log("❌ Le jour n'existe pas :", result.day);
-                        // }
-                        // console.log("Données complètes :", result.data);
-
-
                         if (result.existe) {
-                            //alert("✅ Le jour " + dayNumber + " est autorisé pour la réception !");
-                            //$("#errorDate").html("✅ Le jour <span style='color: red; font-weight: bold;'>" + jourNom + "</span> est autorisé pour la reception </span>");
 
                             let a_afficher = ""
 
@@ -876,7 +861,7 @@ if (isset($_COOKIE["idrdv"])) {
                                         } else {
                                             customRadio2Checked.checked = true;
                                             $("#afficheuse").html('');
-                                            optionAffectationGestionnaire.disabled = true;
+                                            optionAffectationGestionnaire.disabled = (etape == '2') ? false : true;
                                             a_afficher = "Plus de place disponible à cette date <span style='color:#033f1f ; font-weight: bold;'>" + daterdvR + "</span> pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>"
                                         }
                                     } else {
