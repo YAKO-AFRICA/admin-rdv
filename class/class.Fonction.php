@@ -2082,17 +2082,6 @@ class Fonction
 		$agent_principal = $_SESSION['agent_principal'];
 		// echo $agent_principal;exit;
 		if ($_SESSION['profil'] == 'interim') {
-			// $sqlSelect = "SELECT
-			// 		tblrdv.*,
-			// 		CONCAT(u.nom, ' ', u.prenom) AS nomgestionnaire,
-			// 		TRIM(vb.libelleVilleBureau) AS villes
-			// 	FROM tblrdv
-			// 	INNER JOIN users u 
-			// 		ON tblrdv.gestionnaire = '$agent_principal'
-			// 	INNER JOIN tblvillebureau vb 
-			// 		ON tblrdv.idTblBureau = vb.idVilleBureau
-			// 	WHERE $plus $critereEtat AND u.id = $agent_principal ORDER BY 		$orderBy  
-			// ";
 			$sqlSelect = " SELECT
 					tblrdv.*,
 					CONCAT(users.nom, ' ', users.prenom) AS nomgestionnaire,

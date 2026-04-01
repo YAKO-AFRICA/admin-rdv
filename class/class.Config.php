@@ -240,7 +240,7 @@ class Config
         WHEN tblrdv.daterdveff IS NOT NULL
             THEN DATE(tblrdv.daterdveff)
         ELSE NULL
-    END DESC
+    END ASC
     ";
             
 }

@@ -755,9 +755,172 @@ if (isset($_COOKIE["idrdv"])) {
             })
         }
                                   
+        // function checkDate(parms) {
+
+
+        //     var objetVillesRDV = document.getElementById("villesRDV").value;
+        //     var daterdv = document.getElementById("daterdv").value;
+        //     var daterdveff = document.getElementById("daterdveff").value;
+        //     const optionAffectationGestionnaire = document.getElementById("customRadio3");
+        //     const customRadio2Checked = document.getElementById("customRadio2");
+        //     const etape = <?= $rdv->etat ?>;
+        //     customRadio2Checked.checked = true;
+        //     optionAffectationGestionnaire.disabled = (etape == '2') ? false : true;
+
+        //     let tablo = objetVillesRDV.split(";");
+        //     var idVilleEff = tablo[0];
+        //     var villesRDV = tablo[1];
+
+        //     //console.log("checkDate : " + daterdveff + " : " + idVilleEff + " - " + villesRDV)
+        //     const dateStr = daterdveff; // format YYYY-MM-DD
+        //     const parts = dateStr.split("-"); // ["2025", "11", "18"]
+
+        //     // Création de l'objet Date
+        //     const dateObj = new Date(parts[0], parts[1] - 1, parts[2]); // Année, mois (0-indexé), jour
+
+        //     // Récupération du numéro du jour
+        //     const dayNumber = dateObj.getDay(); // 0 = Dimanche, 6 = Samedi
+
+        //     // Récupération du nom du jour
+        //     const jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+        //     const jourNom = jours[dayNumber];
+
+
+
+        //     const today = new Date();
+        //     today.setHours(0, 0, 0, 0);
+
+        //     const rdvDate = new Date(daterdveff);
+        //     rdvDate.setHours(0, 0, 0, 0);
+
+        //     if (rdvDate >= today) {
+        //         console.log("✅ Date RDV valide");
+
+        //         // Vérification si la date est un samedi (6) ou un dimanche (0)
+        //         if (dayNumber === 0 || dayNumber === 6) {
+
+        //             optionAffectationGestionnaire.disabled = true;
+        //             customRadio2Checked.checked = true;
+        //             $("#afficheuse").html('');
+        //             $("#errorDate").html("");
+        //             alert("Les rendez-vous ne peuvent pas être pris le week-end ou les jours fériés. Veuillez sélectionner un jour en semaine.");
+        //             $("#infos-compteurRDV").text("Les rendez-vous ne peuvent pas être pris le week-end ou les jours fériés. Veuillez sélectionner un jour en semaine.").show();
+        //             return; // Arrête l'exécution
+        //         } else {
+        //             getRetourneReceptionJour2(idVilleEff, dayNumber, function(result) {
+
+        //                 if (result.existe) {
+
+        //                     let a_afficher = ""
+
+        //                     $.ajax({
+        //                         url: "../config/routes.php",
+        //                         data: {
+        //                             parms: parms,
+        //                             idVilleEff: idVilleEff,
+        //                             daterdveff: daterdveff,
+        //                             daterdv: daterdv,
+        //                             etat: "compteurRdv"
+        //                         },
+        //                         dataType: "json",
+        //                         method: "post",
+
+        //                         success: function(response, status) {
+
+        //                             //console.log(response)
+        //                             let daterdvR = response.daterdv;
+        //                             let idVilleEffR = response.idVilleEff;
+        //                             let total = response.total;
+        //                             let dataR = response.data;
+        //                             let retourJourReception = response.retourJourReception;
+
+
+
+        //                             let a_afficher_jour_reception = ' LES JOURS DE RECEPTION POUR LA VILLE : <span style="color:#033f1f ; font-weight: bold;">' + villesRDV + '</span> <br>';
+        //                             let optionR = "";
+        //                             let maxRDV = 0;
+        //                             if (retourJourReception.length > 0) {
+        //                                 $.each(retourJourReception, function(key, value) {
+        //                                     optionR = optionR + value.jour + " - "
+
+        //                                     maxRDV = value.nbmax
+        //                                 })
+        //                                 optionR = optionR.substring(0, optionR.length - 2);
+
+        //                             }
+        //                             let rdvRestant = 0
+        //                             if (total != "0") {
+        //                                 total = parseInt(dataR["totalrdv"]);
+        //                                 rdvRestant = maxRDV - total
+        //                                 if (rdvRestant > 0) {
+        //                                     optionAffectationGestionnaire.disabled = false;
+        //                                     a_afficher = "Il y a <span style='color: red; font-weight: bold;'>" + number_format(total) + "</span> RDV(s) programmé(s) a cette date <span style='color:#033f1f ; font-weight: bold;'>" + daterdvR + "</span> pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>"
+
+        //                                 } else {
+        //                                     customRadio2Checked.checked = true;
+        //                                     $("#afficheuse").html('');
+        //                                     optionAffectationGestionnaire.disabled = (etape == '2') ? false : true;
+        //                                     a_afficher = "Plus de place disponible à cette date <span style='color:#033f1f ; font-weight: bold;'>" + daterdvR + "</span> pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>"
+        //                                 }
+        //                             } else {
+        //                                 optionAffectationGestionnaire.disabled = false;
+        //                                 rdvRestant = maxRDV
+        //                                 a_afficher = "Pas de RDV programmé a cette date <span style='color:#033f1f ; font-weight: bold;'>" + daterdvR + "</span> pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>"
+        //                             }
+
+        //                             $("#errorDate").html("Il reste <span style='color: red; font-weight: bold;'>" + rdvRestant + "</span> RDV(s) pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>");
+        //                             $("#infos-jourReception").html(`<div class="alert alert-warning" role="alert"> <h4>` + a_afficher_jour_reception + `<br> </h4>
+        //                 <span style="color:#033f1f ; font-weight: bold;">` + optionR + `</span></div>`);
+        //                             $("#infos-compteurRDV").html(`<div class="alert alert-info" role="alert"> ` + a_afficher + `</div>`);
+
+        //                         },
+        //                         error: function(response, status, etat) {
+        //                             console.log(response, status, etat)
+        //                         }
+        //                     })
+
+        //                 } else {
+        //                     let retourJourReception = result.data
+
+        //                     let a_afficher_jour_reception = ' LES JOURS DE RECEPTION POUR LA VILLE : <span style="color:#033f1f ; font-weight: bold;">' + villesRDV + '</span> <br>';
+        //                     let optionR = "";
+        //                     customRadio2Checked.checked = true;
+        //                     $("#afficheuse").html('');
+        //                     optionAffectationGestionnaire.disabled = true;
+
+        //                     if (retourJourReception.length > 0) {
+        //                         $.each(retourJourReception, function(key, value) {
+        //                             optionR = optionR + jours[value] + " - "
+        //                             maxRDV = value.nbmax
+        //                         })
+        //                         optionR = optionR.substring(0, optionR.length - 2);
+
+        //                     }
+        //                     alert("❌ Le jour " + jourNom + " n'est pas autorisé pour cette ville.");
+        //                     $("#errorDate").html("❌ Le jour <span style='color: red; font-weight: bold;'>" + jourNom + "</span> n'est pas autorisé pour la reception  </span>");
+        //                     $("#infos-jourReception").html(`<div class="alert alert-warning" role="alert"> <h4>` + a_afficher_jour_reception + `<br> </h4>
+        //                 <span style="color:#033f1f ; font-weight: bold;">` + optionR + `</span></div>`);
+        //                     $("#infos-compteurRDV").html(``);
+        //                 }
+
+        //             });
+        //         }
+
+        //     } else {
+        //         //console.log("❌ Date RDV invalide (date passée)");
+        //         optionAffectationGestionnaire.disabled = true;
+        //         customRadio2Checked.checked = true;
+        //         $("#afficheuse").html('');
+        //         $("#errorDate").html("");
+        //         $("#infos-compteurRDV").text("❌ La date du rendez-vous ne peut pas être antérieure à aujourd’hui.").show();
+        //         // alert("La date du rendez-vous ne peut pas être antérieure à aujourd’hui.");
+        //         //document.getElementById("daterdveff").focus();
+        //         return;
+        //     }
+
+        // }
+
         function checkDate(parms) {
-
-
             var objetVillesRDV = document.getElementById("villesRDV").value;
             var daterdv = document.getElementById("daterdv").value;
             var daterdveff = document.getElementById("daterdveff").value;
@@ -771,51 +934,125 @@ if (isset($_COOKIE["idrdv"])) {
             var idVilleEff = tablo[0];
             var villesRDV = tablo[1];
 
-            //console.log("checkDate : " + daterdveff + " : " + idVilleEff + " - " + villesRDV)
-            const dateStr = daterdveff; // format YYYY-MM-DD
-            const parts = dateStr.split("-"); // ["2025", "11", "18"]
-
-            // Création de l'objet Date
-            const dateObj = new Date(parts[0], parts[1] - 1, parts[2]); // Année, mois (0-indexé), jour
-
-            // Récupération du numéro du jour
-            const dayNumber = dateObj.getDay(); // 0 = Dimanche, 6 = Samedi
-
-            // Récupération du nom du jour
+            const dateStr = daterdveff;
+            const parts = dateStr.split("-");
+            const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+            const dayNumber = dateObj.getDay();
             const jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
             const jourNom = jours[dayNumber];
 
-            console.log("Date :", dateStr);
-            console.log("Numéro du jour :", dayNumber);
-            console.log("Jour de la semaine :", jourNom);
-
-
             const today = new Date();
             today.setHours(0, 0, 0, 0);
-
             const rdvDate = new Date(daterdveff);
             rdvDate.setHours(0, 0, 0, 0);
 
+            // Fonction pour obtenir les jours fériés de Côte d'Ivoire pour une année donnée
+            function getJoursFeriesCI(annee) {
+                const joursFeries = [];
+                
+                // 1er janvier - Nouvel an
+                joursFeries.push(new Date(annee, 0, 1));
+                
+                // Lundi de Pâques (calcul dynamique)
+                function calculPaques(annee) {
+                    const a = annee % 19;
+                    const b = Math.floor(annee / 100);
+                    const c = annee % 100;
+                    const d = Math.floor(b / 4);
+                    const e = b % 4;
+                    const f = Math.floor((b + 8) / 25);
+                    const g = Math.floor((b - f + 1) / 3);
+                    const h = (19 * a + b - d - g + 15) % 30;
+                    const i = Math.floor(c / 4);
+                    const k = c % 4;
+                    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+                    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+                    const mois = Math.floor((h + l - 7 * m + 114) / 31);
+                    const jour = ((h + l - 7 * m + 114) % 31) + 1;
+                    return new Date(annee, mois - 1, jour);
+                }
+                
+                const paques = calculPaques(annee);
+                // Lundi de Pâques
+                joursFeries.push(new Date(annee, paques.getMonth(), paques.getDate() + 1));
+                
+                // 1er mai - Fête du Travail
+                joursFeries.push(new Date(annee, 4, 1));
+                
+                // Ascension (jeudi, 40 jours après Pâques)
+                joursFeries.push(new Date(annee, paques.getMonth(), paques.getDate() + 39));
+                
+                // Lundi de Pentecôte (50 jours après Pâques)
+                joursFeries.push(new Date(annee, paques.getMonth(), paques.getDate() + 50));
+                
+                // 7 août - Fête de l'Indépendance
+                joursFeries.push(new Date(annee, 7, 7));
+                
+                // 15 août - Assomption
+                joursFeries.push(new Date(annee, 7, 15));
+                
+                // 1er novembre - Toussaint
+                joursFeries.push(new Date(annee, 10, 1));
+                
+                // 15 novembre - Fête Nationale de la Paix
+                joursFeries.push(new Date(annee, 10, 15));
+                
+                // 25 décembre - Noël
+                joursFeries.push(new Date(annee, 11, 25));
+                
+                // Aïd el-Fitr et Aïd el-Kebir (dates variables selon le calendrier lunaire)
+                // Ces dates doivent être mises à jour annuellement selon le calendrier islamique
+                // Pour l'exemple, je mets des dates fictives, à adapter selon l'année
+                if (annee === 2025) {
+                    joursFeries.push(new Date(annee, 2, 31));  // Aïd el-Fitr (approximatif)
+                    joursFeries.push(new Date(annee, 6, 7));   // Aïd el-Kebir (approximatif)
+                } else if (annee === 2024) {
+                    joursFeries.push(new Date(annee, 3, 10));  // Aïd el-Fitr
+                    joursFeries.push(new Date(annee, 5, 17));  // Aïd el-Kebir
+                }
+                
+                return joursFeries;
+            }
+            
+            // Fonction pour vérifier si une date est un jour férié
+            function estJourFerie(date, annee) {
+                const joursFeries = getJoursFeriesCI(annee);
+                return joursFeries.some(jourFerie => 
+                    jourFerie.getDate() === date.getDate() && 
+                    jourFerie.getMonth() === date.getMonth() && 
+                    jourFerie.getFullYear() === date.getFullYear()
+                );
+            }
+            
+            // Vérifier si la date est un jour férié
+            const estFerie = estJourFerie(rdvDate, parseInt(parts[0]));
+            
             if (rdvDate >= today) {
                 console.log("✅ Date RDV valide");
-
-                // Vérification si la date est un samedi (6) ou un dimanche (0)
-                if (dayNumber === 0 || dayNumber === 6) {
-
+                
+                // Vérification si la date est un samedi (6), dimanche (0) ou un jour férié
+                if (dayNumber === 0 || dayNumber === 6 || estFerie) {
                     optionAffectationGestionnaire.disabled = true;
                     customRadio2Checked.checked = true;
                     $("#afficheuse").html('');
                     $("#errorDate").html("");
-                    alert("Les rendez-vous ne peuvent pas être pris le week-end ou les jours fériés. Veuillez sélectionner un jour en semaine.");
-                    $("#infos-compteurRDV").text("Les rendez-vous ne peuvent pas être pris le week-end ou les jours fériés. Veuillez sélectionner un jour en semaine.").show();
-                    return; // Arrête l'exécution
+                    
+                    let messageErreur = "Les rendez-vous ne peuvent pas être pris le week-end";
+                    if (estFerie) {
+                        messageErreur = "Les rendez-vous ne peuvent pas être pris les jours fériés. Le " + jourNom + " " + 
+                                        formatDateFrancais(rdvDate) + " est un jour férié en Côte d'Ivoire.";
+                    } else {
+                        messageErreur += " ou les jours fériés. Veuillez sélectionner un jour en semaine.";
+                    }
+                    
+                    alert(messageErreur);
+                    $("#infos-compteurRDV").text(messageErreur).show();
+                    return;
                 } else {
                     getRetourneReceptionJour2(idVilleEff, dayNumber, function(result) {
-
                         if (result.existe) {
-
-                            let a_afficher = ""
-
+                            let a_afficher = "";
+                            
                             $.ajax({
                                 url: "../config/routes.php",
                                 data: {
@@ -827,100 +1064,92 @@ if (isset($_COOKIE["idrdv"])) {
                                 },
                                 dataType: "json",
                                 method: "post",
-
                                 success: function(response, status) {
-
-                                    //console.log(response)
                                     let daterdvR = response.daterdv;
                                     let idVilleEffR = response.idVilleEff;
                                     let total = response.total;
                                     let dataR = response.data;
                                     let retourJourReception = response.retourJourReception;
-
-
-
+                                    
                                     let a_afficher_jour_reception = ' LES JOURS DE RECEPTION POUR LA VILLE : <span style="color:#033f1f ; font-weight: bold;">' + villesRDV + '</span> <br>';
                                     let optionR = "";
                                     let maxRDV = 0;
+                                    
                                     if (retourJourReception.length > 0) {
                                         $.each(retourJourReception, function(key, value) {
                                             optionR = optionR + value.jour + " - "
-
                                             maxRDV = value.nbmax
                                         })
                                         optionR = optionR.substring(0, optionR.length - 2);
-
                                     }
-                                    let rdvRestant = 0
+                                    
+                                    let rdvRestant = 0;
                                     if (total != "0") {
                                         total = parseInt(dataR["totalrdv"]);
-                                        rdvRestant = maxRDV - total
+                                        rdvRestant = maxRDV - total;
                                         if (rdvRestant > 0) {
                                             optionAffectationGestionnaire.disabled = false;
-                                            a_afficher = "Il y a <span style='color: red; font-weight: bold;'>" + number_format(total) + "</span> RDV(s) programmé(s) a cette date <span style='color:#033f1f ; font-weight: bold;'>" + daterdvR + "</span> pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>"
-
+                                            a_afficher = "Il y a <span style='color: red; font-weight: bold;'>" + number_format(total) + "</span> RDV(s) programmé(s) a cette date <span style='color:#033f1f ; font-weight: bold;'>" + daterdvR + "</span> pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>";
                                         } else {
                                             customRadio2Checked.checked = true;
                                             $("#afficheuse").html('');
                                             optionAffectationGestionnaire.disabled = (etape == '2') ? false : true;
-                                            a_afficher = "Plus de place disponible à cette date <span style='color:#033f1f ; font-weight: bold;'>" + daterdvR + "</span> pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>"
+                                            a_afficher = "Plus de place disponible à cette date <span style='color:#033f1f ; font-weight: bold;'>" + daterdvR + "</span> pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>";
                                         }
                                     } else {
                                         optionAffectationGestionnaire.disabled = false;
-                                        rdvRestant = maxRDV
-                                        a_afficher = "Pas de RDV programmé a cette date <span style='color:#033f1f ; font-weight: bold;'>" + daterdvR + "</span> pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>"
+                                        rdvRestant = maxRDV;
+                                        a_afficher = "Pas de RDV programmé a cette date <span style='color:#033f1f ; font-weight: bold;'>" + daterdvR + "</span> pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>";
                                     }
-
+                                    
                                     $("#errorDate").html("Il reste <span style='color: red; font-weight: bold;'>" + rdvRestant + "</span> RDV(s) pour la ville <span style='color:#033f1f ; font-weight: bold;'>" + villesRDV + "</span>");
                                     $("#infos-jourReception").html(`<div class="alert alert-warning" role="alert"> <h4>` + a_afficher_jour_reception + `<br> </h4>
-                        <span style="color:#033f1f ; font-weight: bold;">` + optionR + `</span></div>`);
+                                    <span style="color:#033f1f ; font-weight: bold;">` + optionR + `</span></div>`);
                                     $("#infos-compteurRDV").html(`<div class="alert alert-info" role="alert"> ` + a_afficher + `</div>`);
-
                                 },
                                 error: function(response, status, etat) {
-                                    console.log(response, status, etat)
+                                    console.log(response, status, etat);
                                 }
-                            })
-
+                            });
                         } else {
-                            let retourJourReception = result.data
-
+                            let retourJourReception = result.data;
                             let a_afficher_jour_reception = ' LES JOURS DE RECEPTION POUR LA VILLE : <span style="color:#033f1f ; font-weight: bold;">' + villesRDV + '</span> <br>';
                             let optionR = "";
                             customRadio2Checked.checked = true;
                             $("#afficheuse").html('');
                             optionAffectationGestionnaire.disabled = true;
-
+                            
                             if (retourJourReception.length > 0) {
                                 $.each(retourJourReception, function(key, value) {
-                                    optionR = optionR + jours[value] + " - "
-                                    maxRDV = value.nbmax
-                                })
+                                    optionR = optionR + jours[value] + " - ";
+                                    maxRDV = value.nbmax;
+                                });
                                 optionR = optionR.substring(0, optionR.length - 2);
-
                             }
+                            
                             alert("❌ Le jour " + jourNom + " n'est pas autorisé pour cette ville.");
                             $("#errorDate").html("❌ Le jour <span style='color: red; font-weight: bold;'>" + jourNom + "</span> n'est pas autorisé pour la reception  </span>");
                             $("#infos-jourReception").html(`<div class="alert alert-warning" role="alert"> <h4>` + a_afficher_jour_reception + `<br> </h4>
-                        <span style="color:#033f1f ; font-weight: bold;">` + optionR + `</span></div>`);
+                            <span style="color:#033f1f ; font-weight: bold;">` + optionR + `</span></div>`);
                             $("#infos-compteurRDV").html(``);
                         }
-
                     });
                 }
-
             } else {
-                //console.log("❌ Date RDV invalide (date passée)");
                 optionAffectationGestionnaire.disabled = true;
                 customRadio2Checked.checked = true;
                 $("#afficheuse").html('');
                 $("#errorDate").html("");
                 $("#infos-compteurRDV").text("❌ La date du rendez-vous ne peut pas être antérieure à aujourd’hui.").show();
-                // alert("La date du rendez-vous ne peut pas être antérieure à aujourd’hui.");
-                //document.getElementById("daterdveff").focus();
                 return;
             }
-
+            
+            // Fonction utilitaire pour formater la date en français
+            function formatDateFrancais(date) {
+                const joursSemaine = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+                const mois = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+                return joursSemaine[date.getDay()] + " " + date.getDate() + " " + mois[date.getMonth()] + " " + date.getFullYear();
+            }
         }
 
 
