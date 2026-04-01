@@ -256,32 +256,7 @@ if ($request->action != null) {
             $daterdv = GetParameter::FromArray($_REQUEST, 'daterdv');
             $parms = GetParameter::FromArray($_REQUEST, 'parms');
             $retourJourReception = $fonction->getRetourJourReception($idVilleEff);
-
-
-            // if ($parms == '1') {
-            //     $daterdv = $daterdveff;
-            //     list($annee, $mois, $jour) = explode('-', $daterdveff, 3);
-            //     $daterdv = trim($jour . '/' . $mois . '/' . $annee);/**/
-            // } else {
-            //     /**/
-            //     list($jour, $mois, $annee) = explode('/', $daterdv, 3);
-            //     $daterdv = date_create($annee . '-' . $mois . '-' . $jour);
-            //     $daterdv_affiche = date_format($daterdv, "d/m/Y");
-            //     $daterdv = date_format($daterdv, "Y-m-d");
-            // }
-            // list($jour, $mois, $annee) = explode('-', $daterdveff, 3);
-            // $daterdv = date_create($annee . '-' . $mois . '-' . $jour);
-            // $daterdv_affiche = date_format($daterdv, "d/m/Y");
-            // $daterdv = date_format($daterdv, "Y-m-d");
             $daterdv = $daterdveff;
-
-            // // ✅ Récupération du jour de la semaine en français
-            // setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
-            // $timestamp = strtotime($daterdv);
-
-
-            // // Affichage (pour test)
-            // echo "Date : $daterdv<br>";
 
             $dateAfficher = date('d/m/Y', strtotime($daterdv));
             $sqlQuery = "SELECT  COUNT(*) AS totalrdv, tblrdv.villeEffective,  tblrdv.daterdveff,  MIN(tblrdv.daterdv) AS daterdv_min FROM tblrdv WHERE tblrdv.villeEffective = '$idVilleEff'   AND DATE(tblrdv.daterdveff) = '" . $daterdv . "' GROUP BY tblrdv.villeEffective, tblrdv.daterdveff ORDER BY totalrdv DESC";
