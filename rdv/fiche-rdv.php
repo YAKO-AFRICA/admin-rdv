@@ -763,6 +763,7 @@ if (isset($_COOKIE["idrdv"])) {
             var daterdveff = document.getElementById("daterdveff").value;
             const optionAffectationGestionnaire = document.getElementById("customRadio3");
             const customRadio2Checked = document.getElementById("customRadio2");
+            const etape = <?= $rdv->etat ?>;
             customRadio2Checked.checked = true;
             optionAffectationGestionnaire.disabled = (etape == '2') ? false : true;
 
