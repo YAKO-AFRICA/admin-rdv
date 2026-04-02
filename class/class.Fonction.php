@@ -2043,7 +2043,7 @@ class Fonction
 		return  $this->_getSelectDatabases($sqlSelect);
 	}
 
-	public function getSelectPrestationByRDVAfficher($idCourrier = NULL)
+	public function getSelectPrestationByRDVAfficher($idCourrier)
 	{
 
 		

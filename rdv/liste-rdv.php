@@ -180,7 +180,7 @@ if ($liste_rdvs != null) {
 
 										$infosBordereaux = $fonction->getRetourneInfosBordereaux(" WHERE NumeroRdv = '" . $rdv->idrdv . "'");
 										$infosPrestations = $fonction->getSelectPrestationByRDVAfficher($rdv->idCourrier);
-
+										$prestation = [];
 										if (!empty($infosPrestations)) {
 											$prestation = $infosPrestations[0]; // première ligne
 										}

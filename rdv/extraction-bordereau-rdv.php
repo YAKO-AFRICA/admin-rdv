@@ -673,7 +673,6 @@ $effectue = 0;
 		// 	});
 
 		// });
-
 		$("#exportButton").click(function () {
 			let nom_fichier = document.getElementById("nom_fichier").value;
 
@@ -686,7 +685,7 @@ $effectue = 0;
 				return;
 			}
 
-			if (!confirm("Êtes-vous sûr de vouloir exporter les " + checked.length + " lignes selectionnées ?")) {
+			if (!confirm("Êtes-vous sûr de vouloir exporter les " + checked.length + " lignes sélectionnées ?")) {
 				return;
 			}
 
@@ -738,43 +737,50 @@ $effectue = 0;
 
 					if (response.success === true) {
 						if (response.action == "insert" || response.action == "update") {
-							// ===== CRÉATION TABLEAU POUR EXPORT =====
+							
+							// ===== CRÉATION DU TABLEAU DE DONNÉES POUR EXPORT =====
+							let dataForExport = [];
 							
 							// Récupérer l'en-tête original
 							let theadOriginal = document.querySelector("#liste-extraction-bordereau-rdv thead");
-							let theadClone = theadOriginal.cloneNode(true);
-							
-							// Supprimer la colonne checkbox dans l'en-tête
-							theadClone.querySelector("tr").removeChild(
-								theadClone.querySelector("tr").firstElementChild
-							);
-							
-							// Créer un tableau pour les données
-							let dataForExport = [];
-							
-							// Ajouter l'en-tête
 							let headers = [];
-							theadClone.querySelectorAll("th").forEach(th => {
-								headers.push(th.innerText);
+							
+							// Parcourir les en-têtes (sauter la première colonne qui est la checkbox)
+							theadOriginal.querySelectorAll("th").forEach((th, index) => {
+								if (index !== 0) { // Ignorer la colonne checkbox
+									headers.push(th.innerText);
+								}
 							});
 							dataForExport.push(headers);
 							
-							// Ajouter les données
+							// Ajouter les données des lignes sélectionnées
 							checked.forEach(cb => {
 								let row = cb.closest("tr");
 								let rowData = [];
 								
-								// Parcourir toutes les cellules sauf la première (checkbox)
+								// Parcourir toutes les cellules (sauter la checkbox à l'index 0)
 								for (let i = 1; i < row.cells.length; i++) {
-									let cellValue = row.cells[i].innerText;
+									let cellValue = row.cells[i].innerText.trim();
+									let colIndex = i;
 									
-									// Si la cellule contient une date au format DD/MM/YYYY, forcer le format texte
-									if (/^\d{2}\/\d{2}\/\d{4}$/.test(cellValue)) {
-										// Ajouter un apostrophe pour forcer le format texte dans Excel
-										cellValue = "'" + cellValue;
+									// Id (colonne 2) et police (colonne 10) → NOMBRE
+									if (colIndex === 2 || colIndex === 10) {
+										let numValue = parseInt(cellValue);
+										rowData.push(isNaN(numValue) ? cellValue : numValue);
 									}
-									
-									rowData.push(cellValue);
+									// // Téléphone (colonne 4) → TEXTE (pour garder le 0 initial)
+									else if (colIndex === 4) {
+										// Forcer le format texte avec un apostrophe
+										rowData.push("" + cellValue);
+									}
+									// Dates (colonne 7 et 8) → TEXTE (éviter inversion jour/mois)
+									else if ((colIndex === 7 || colIndex === 8) && /^\d{2}\/\d{2}\/\d{4}$/.test(cellValue)) {
+										rowData.push("" + cellValue);
+									}
+									// Autres colonnes → TEXTE normal
+									else {
+										rowData.push(cellValue);
+									}
 								}
 								dataForExport.push(rowData);
 							});
@@ -811,6 +817,7 @@ $effectue = 0;
 							);
 							$("#zoneResultats").hide();
 							$("#zoneAffichage").hide();
+							
 						} else if (response.action == "exist") {
 							afficherMessage(response.message, "warning");
 							$("#zoneResultats").hide();
@@ -820,6 +827,7 @@ $effectue = 0;
 							$("#zoneAffichage").hide();
 							afficherMessage("Désolé ! Une erreur est survenue lors de l'exportation du bordereau", "warning");
 						}
+
 					} else {
 						afficherMessage("Erreur lors de l'exportation", "warning");
 						$("#zoneResultats").hide();
@@ -834,6 +842,7 @@ $effectue = 0;
 				}
 			});
 		});
+
 
 
 		$("#closeNotif").click(function() {
@@ -909,9 +918,7 @@ $effectue = 0;
 			afficherMessage("Recherche terminée avec succès", "success");
 		}
 
-
 		// function remplirTableExtraction(data, periode, agent, villes, etatRDV, lib_fichier) {
-
 		// 	let html = "";
 		// 	let html_affiche = "";
 		// 	let retourApi = "";
@@ -926,7 +933,6 @@ $effectue = 0;
 		// 	let assure = "";
 
 		// 	data.forEach((e, i) => {
-
 		// 		const etats = {
 		// 			1: ["En attente", "badge badge-secondary"],
 		// 			2: ["Transmis", "badge badge-success"],
@@ -935,97 +941,85 @@ $effectue = 0;
 
 		// 		const [lib, col] = etats[e.etat] || ["Non défini", "dark"];
 
-		// 		var dateeff = new Date(e.daterdveff);
-		// 		// console.log('new dateeff :',dateeff);
+		// 		// Conversion des dates avec la fonction corrigée
 
-		// 		daterdveff = dateeff.getDate() + "/" + (dateeff.getMonth() + 1) + "/" + dateeff.getFullYear();
-		// 		daterdveff = convertirEnDateFR(e.daterdveff);
-		// 		console.log('daterdveff :', daterdveff, '--------> dateEffffff :', daterdveff, '--------> e.daterdveff :', e.daterdveff);
+		// 		console.log('e.daterdveff :',e.daterdveff);
+		// 		console.log('e.daterdv :',e.daterdv);
 
-		// 		var daterdv = new Date(e.daterdv);
-		// 		// console.log('new daterdv :',daterdv);
-		// 		dateRDV = daterdv.getDate() + "/" + (daterdv.getMonth() + 1) + "/" + daterdv.getFullYear();
-		// 		dateRDV = convertirEnDateFR(e.daterdv);
-
-		// 		console.log('daterdv :',e.daterdv, '--------> dateRDV :', dateRDV);
+		// 		let daterdveff = convertirEnDateFR(e.daterdveff);
+		// 		let dateRDV = convertirEnDateFR(e.daterdv);
 
 		// 		html += `
-		// 				<tr id="ligne-${i}" style="color: #033f1f !important;" >
-		// 					<td class="d-none"><input type="checkbox" class="hidden-check" value="${e.idrdv}"></td>
-		// 					<td>${i + 1}</td>
-		// 					<td id="idrdv-${i}">${e.idrdv}</td>
-        //                     <td>${e.nomclient}</td>
-		// 					<td>${e.tel}</td>
-		// 					<td>${e.email}</td>
-		// 					<td>${e.daterdveff}</td>
-		// 					<td>${e.daterdv}</td>
-		// 					<td id="idrdv-${i}">${e.codedmd}</td>
-		// 					<td>${e.motifrdv}</td>
-		// 					<td id="idcontrat-${i}">${e.police}</td>
-		// 					<td>${e.nomgestionnaire}</td>
-		// 					<td>${e.villes}</td>				
-        //                 </tr> `;
+		// 			<tr id="ligne-${i}" style="color: #033f1f !important;">
+		// 				<td class="d-none"><input type="checkbox" class="hidden-check" value="${e.idrdv}"></td>
+		// 				<td>${i + 1}</td>
+		// 				<td id="idrdv-${i}">${e.idrdv}</td>
+		// 				<td>${e.nomclient}</td>
+		// 				<td>${e.tel}</td>
+		// 				<td>${e.email}</td>
+		// 				<td>${daterdveff}</td>
+		// 				<td>${dateRDV}</td>
+		// 				<td id="idrdv-${i}">${e.codedmd}</td>
+		// 				<td>${e.motifrdv}</td>
+		// 				<td id="idcontrat-${i}">${e.police}</td>
+		// 				<td>${e.nomgestionnaire}</td>
+		// 				<td>${e.villes}</td>                
+		// 			</tr>`;
 		// 	});
-			
 
 		// 	$("#body-extraction-bordereau-rdv").html(html);
 		// 	$("#zoneAffichageExtraction").fadeIn();
 		// 	//$("#tableAffichageExtraction").fadeIn(300);
 		// }
-
 		function remplirTableExtraction(data, periode, agent, villes, etatRDV, lib_fichier) {
-    let html = "";
-    let html_affiche = "";
-    let retourApi = "";
-    let total = data.length;
+			let html = "";
+			let html_affiche = "";
+			let retourApi = "";
+			let total = data.length;
 
-    let produit = "";
-    let code_produit = "";
-    let prime = "";
-    let capital = "";
-    let dateEffet = "";
-    let dateEcheance = "";
-    let assure = "";
+			let produit = "";
+			let code_produit = "";
+			let prime = "";
+			let capital = "";
+			let dateEffet = "";
+			let dateEcheance = "";
+			let assure = "";
 
-    data.forEach((e, i) => {
-        const etats = {
-            1: ["En attente", "badge badge-secondary"],
-            2: ["Transmis", "badge badge-success"],
-            3: ["Traité", "badge badge-warning"]
-        };
+			data.forEach((e, i) => {
+				const etats = {
+					1: ["En attente", "badge badge-secondary"],
+					2: ["Transmis", "badge badge-success"],
+					3: ["Traité", "badge badge-warning"]
+				};
 
-        const [lib, col] = etats[e.etat] || ["Non défini", "dark"];
+				const [lib, col] = etats[e.etat] || ["Non défini", "dark"];
 
-        // Conversion des dates avec la fonction corrigée
+				// Conversion des dates avec la fonction corrigée
+				let daterdveff = convertirEnDateFR(e.daterdveff);
+				let dateRDV = convertirEnDateFR(e.daterdv);
 
-		console.log('e.daterdveff :',e.daterdveff);
-		console.log('e.daterdv :',e.daterdv);
+				html += `
+					<tr id="ligne-${i}" style="color: #033f1f !important;">
+						<td><input type="checkbox" class="hidden-check" value="${e.idrdv}"></td>
+						<td>${i + 1}</td>
+						<td id="idrdv-${i}">${e.idrdv}</td>
+						<td>${e.nomclient}</td>
+						<td class="tel-cell">${e.tel}</td>
+						<td>${e.email}</td>
+						<td class="date-cell">${daterdveff}</td>
+						<td class="date-cell">${dateRDV}</td>
+						<td id="idrdv-${i}">${e.codedmd}</td>
+						<td>${e.motifrdv}</td>
+						<td class="police-cell">${e.police}</td>
+						<td>${e.nomgestionnaire}</td>
+						<td>${e.villes}</td>                
+					</tr>`;
+			});
 
-        let daterdveff = convertirEnDateFR(e.daterdveff);
-        let dateRDV = convertirEnDateFR(e.daterdv);
+			$("#body-extraction-bordereau-rdv").html(html);
+			$("#zoneAffichageExtraction").fadeIn();
+		}
 
-        html += `
-            <tr id="ligne-${i}" style="color: #033f1f !important;">
-                <td class="d-none"><input type="checkbox" class="hidden-check" value="${e.idrdv}"></td>
-                <td>${i + 1}</td>
-                <td id="idrdv-${i}">${e.idrdv}</td>
-                <td>${e.nomclient}</td>
-                <td>${e.tel}</td>
-                <td>${e.email}</td>
-                <td>${daterdveff}</td>
-                <td>${dateRDV}</td>
-                <td id="idrdv-${i}">${e.codedmd}</td>
-                <td>${e.motifrdv}</td>
-                <td id="idcontrat-${i}">${e.police}</td>
-                <td>${e.nomgestionnaire}</td>
-                <td>${e.villes}</td>                
-            </tr>`;
-    });
-
-    $("#body-extraction-bordereau-rdv").html(html);
-    $("#zoneAffichageExtraction").fadeIn();
-    //$("#tableAffichageExtraction").fadeIn(300);
-}
 
 
 		function getListeSelectAgentTransformations(idVilleEff, villesRDV) {
