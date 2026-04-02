@@ -420,7 +420,7 @@ if (isset($_COOKIE["idrdv"])) {
                     <span style='color:seagreen'>le client sera notifier du resultat de la demande de rdv</span>
                     </hr>
                     <input type="text" id="idprestation" name="idprestation" hidden>
-                    <input type="text" id="motif" name="motif" hidden>
+                    <input type="text" id="motif" name="motif" value="<?= $rdv->motifrdv ?? '' ?>" hidden>
                     <input type="text" id="traiterpar" name="traiterpar" hidden>
                     <input type="text" id="observations" name="observations" hidden>
 
@@ -1004,6 +1004,7 @@ if (isset($_COOKIE["idrdv"])) {
             $("#motifrdvPermitLabel").html(motifrdv);
             $("#motifrdvAutorisationLabel").html(motifrdv);
             $("#resultatOpe").val(motifrdv);
+            $("#motif").val(motifrdv);
 
         });
 

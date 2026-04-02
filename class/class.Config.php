@@ -220,7 +220,7 @@ class Config
                 THEN STR_TO_DATE(tblrdv.daterdv, '%d-%m-%Y')
             ELSE NULL
         END
-    ) IN (YEAR(CURDATE()), YEAR(CURDATE()) - 1)
+    ) IN (YEAR(CURDATE()), YEAR(CURDATE()))
     ";
 
     const orderBySelectAnneeEncours = "

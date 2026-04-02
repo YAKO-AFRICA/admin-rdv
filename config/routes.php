@@ -590,7 +590,7 @@ if ($request->action != null) {
         case "confirmerPermissionDepotRDV":
 
             $idrdv = GetParameter::FromArray($_REQUEST, 'idrdv');
-            $motif = GetParameter::FromArray($_REQUEST, 'motif');
+            $motifrdv = GetParameter::FromArray($_REQUEST, 'motif');
             $gestionnaire = GetParameter::FromArray($_REQUEST, 'traiterpar');
             $observation = GetParameter::FromArray($_REQUEST, 'observation');
             $motantOperation = GetParameter::FromArray($_REQUEST, 'motantOperation');
@@ -605,13 +605,14 @@ if ($request->action != null) {
 
                 $idmotif = "";
                 $etatTraitement = "1";
-                $libelleTraitement = "Le client a la permission de faire une demande de " . $rdv->motifrdv;
+                $libelleTraitement = "Le client a la permission de faire une demande de " . $motifrdv;
+                // $libelleTraitement = "Le client a la permission de faire une demande de " . $rdv->motifrdv;
 
-                $result_typeprestation = $fonction->getRetourneTypePrestation(" AND LOWER(libelle) like '%" . strtolower($rdv->motifrdv) . "%' ");
+                $result_typeprestation = $fonction->getRetourneTypePrestation(" AND LOWER(libelle) like '%" . strtolower($motifrdv) . "%' ");
                 if ($result_typeprestation != null) {
                     $typeprestation = $result_typeprestation[0]->libelle;
                 } else {
-                    $typeprestation = $rdv->motifrdv;
+                    $typeprestation = $motifrdv;
                 }
 
                 $sqlInsertPrestation = "INSERT INTO tbl_prestations(idcontrat,typeprestation,prestationlibelle,montantSouhaite,etape,estMigree,created_at) VALUES (?,?,?,?,?,?, NOW() )";
